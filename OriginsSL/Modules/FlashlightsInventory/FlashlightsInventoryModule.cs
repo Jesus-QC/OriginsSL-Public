@@ -11,11 +11,6 @@ public class FlashlightsInventoryModule : OriginsModule
     {
         CursedPlayerEventsHandler.Spawning += OnPlayerSpawning;
     }
-
-    public override void OnUnloaded()
-    {
-        CursedPlayerEventsHandler.Spawning -= OnPlayerSpawning;
-    }
     
     private static void OnPlayerSpawning(PlayerSpawningEventArgs args)
     {

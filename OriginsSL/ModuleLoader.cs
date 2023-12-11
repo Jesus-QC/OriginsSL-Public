@@ -25,16 +25,6 @@ public static class ModuleLoader
             module.OnLoaded();
         }
     }
-    
-    public static void UnloadModules()
-    {
-        foreach (OriginsModule module in Modules)
-        {
-            module.OnUnloaded();
-        }
-        
-        Modules.Clear();
-    }
 }
 
 public class DisabledModuleAttribute : Attribute

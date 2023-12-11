@@ -18,8 +18,7 @@ public class EntryPoint : CursedModule
     
     public override void OnLoaded()
     {
-        CursedRoundEventsHandler.WaitingForPlayers += ModuleLoader.LoadModules;
-        CursedRoundEventsHandler.RestartingRound += ModuleLoader.UnloadModules;
+        ModuleLoader.LoadModules();
         
         _harmony = new Harmony("cursed.jesusqc.com");
         _harmony.PatchAll();

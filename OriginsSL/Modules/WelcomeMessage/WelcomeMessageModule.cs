@@ -10,14 +10,9 @@ public class WelcomeMessageModule : OriginsModule
         CursedPlayerEventsHandler.Connected += OnPlayerConnected;
     }
 
-    public override void OnUnloaded()
-    {
-        CursedPlayerEventsHandler.Connected -= OnPlayerConnected;
-    }
-
     private static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
         args.Player.ShowBroadcast("Welcome to Origins SL! ");
-        // TODO: Enhance
+        // TODO: Enhance message
     }
 }
