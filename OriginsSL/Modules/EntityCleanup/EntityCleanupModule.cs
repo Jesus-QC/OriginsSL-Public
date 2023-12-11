@@ -27,9 +27,9 @@ public class EntityCleanupModule : OriginsModule
         // ReSharper disable once IteratorNeverReturns
         while (true)
         {
-            yield return Timing.WaitForSeconds(180); // 3 Minutes Placeholder (Sujeto a cambios)
+            yield return Timing.WaitForSeconds(180);
 
-            HashSet<BasicRagdoll> stolenRagdolls = new();
+            HashSet<BasicRagdoll> stolenRagDolls = [];
             
             foreach (CursedPlayer player in CursedPlayer.Collection)
             {
@@ -39,12 +39,12 @@ public class EntityCleanupModule : OriginsModule
                 if (!scp3114.Disguised || scp3114.CurIdentity.Ragdoll == null)
                     continue;
 
-                stolenRagdolls.Add(scp3114.CurIdentity.Ragdoll);
+                stolenRagDolls.Add(scp3114.CurIdentity.Ragdoll);
             }
 
             foreach (CursedRagdoll ragdoll in CursedRagdoll.List)
             {
-                if (stolenRagdolls.Contains(ragdoll.Base))
+                if (stolenRagDolls.Contains(ragdoll.Base))
                     continue;
                 
                 ragdoll.Destroy();

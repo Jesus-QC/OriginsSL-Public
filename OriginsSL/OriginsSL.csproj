@@ -65,6 +65,9 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Features\OriginsPlayerReplacer.cs" />
+        <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
+        <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />

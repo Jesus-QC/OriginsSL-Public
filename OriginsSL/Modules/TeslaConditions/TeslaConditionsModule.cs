@@ -13,7 +13,7 @@ public class TeslaConditionsModule : OriginsModule
         CursedTeslaEventHandler.PlayerTriggerTesla += OnTriggerTesla;
     }
 
-    private static readonly HashSet<ItemType> KeyCards = new() // Sujeto a Cambios
+    private static readonly HashSet<ItemType> KeyCards = new()
     {
         ItemType.KeycardO5,
         ItemType.KeycardMTFCaptain,
