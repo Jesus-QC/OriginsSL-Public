@@ -47,7 +47,7 @@ public class AbsenceComponent : MonoBehaviour
             if (_afkTime < AfkTime - 10) 
                 return;
             
-            _player.ShowBroadcast($"<b><color=#ff4940>You were detected as afk.</color>\nMove in less than {AfkTime - _afkTime} seconds or you will be kicked.</b>", 1);
+            _player.ShowBroadcast($"<size=150%><b><u><color=#fc0345>AFK CHECKER</color></u></b></size>\n<b>Move in less than <color=#fc0345>{AfkTime - _afkTime}</color> seconds or you will be kicked", 1);
 
             if (_afkTime < AfkTime)
                 return;

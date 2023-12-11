@@ -13,7 +13,7 @@ public static class OriginsPlayerReplacer
     public static void ReplacePlayer(CursedPlayer target, CursedPlayer other)
     {
         List<CursedItem> items = other.ClearItemsWithoutDestroying().ToList();
-        List<ItemType> firearms = new ();
+        List<ItemType> firearms = [];
 
         foreach (CursedItem item in items.ToArray())
         {
