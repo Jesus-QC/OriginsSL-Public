@@ -28,6 +28,8 @@ public class CursedRagdoll
     }
 
     public static IReadOnlyCollection<CursedRagdoll> Collection => Dictionary.Values;
+    
+    public static List<CursedRagdoll> List => Collection.ToList();
 
     public BasicRagdoll Base { get; }
 
