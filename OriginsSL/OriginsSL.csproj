@@ -38,29 +38,29 @@
           <HintPath>..\packages\Lib.Harmony.2.2.2\lib\net48\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\Assembly-CSharp-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="Mirror">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\Mirror-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="NorthwoodLib">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\NorthwoodLib.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
         </Reference>
         <Reference Include="PluginAPI">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\PluginAPI-Publicized.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Pooling">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\Pooling.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\Pooling.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>D:\_Coding\SCPSL\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
