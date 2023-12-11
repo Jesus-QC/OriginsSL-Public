@@ -65,7 +65,9 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
+        <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\WelcomeMessage\WelcomeMessageModule.cs" />
         <Compile Include="OriginsModule.cs" />
         <Compile Include="ModuleLoader.cs" />
