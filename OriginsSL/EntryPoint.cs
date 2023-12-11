@@ -7,7 +7,7 @@ namespace OriginsSL;
 
 public class EntryPoint : CursedModule
 {
-    public const string Version = "2.0.1.2";
+    public const string Version = "1.0.0.0";
 
     public override string ModuleName => "Origins SL";
     public override string ModuleAuthor => "Jesus-QC & xNexusACS";
