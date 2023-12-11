@@ -33,16 +33,10 @@ public class EntityCleanupModule : OriginsModule
             
             foreach (CursedPlayer player in CursedPlayer.Collection)
             {
-                if (player.Role != RoleTypeId.Scp3114)
-                    continue;
-                
                 if (player.CurrentRole.RoleBase is not Scp3114Role scp3114)
                     continue;
                 
-                if (!scp3114.Disguised)
-                    continue;
-                
-                if (scp3114.CurIdentity.Ragdoll == null)
+                if (!scp3114.Disguised || scp3114.CurIdentity.Ragdoll == null)
                     continue;
 
                 stolenRagdolls.Add(scp3114.CurIdentity.Ragdoll);
