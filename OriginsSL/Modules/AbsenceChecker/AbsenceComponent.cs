@@ -62,7 +62,11 @@ public class AbsenceComponent : MonoBehaviour
             }
 
             if (CursedPlayer.Count > 25)
+            {
+                Destroy(this);
                 _player.Disconnect("Kicked for being AFK.\n[KICKED BY A SERVER MODIFICATION]");
+                return;
+            }
 
             _player.SetRole(RoleTypeId.Spectator);
             _lastPos = pos;

@@ -1,6 +1,5 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
-using PluginAPI.Core;
 
 namespace OriginsSL.Modules.AbsenceChecker;
 
@@ -11,10 +10,8 @@ public class AbsenceCheckerModule : OriginsModule
         CursedPlayerEventsHandler.Connected += OnPlayerConnected;
     }
 
-    private void OnPlayerConnected(PlayerConnectedEventArgs args)
+    private static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
-        args.Player.AddComponent<AbsenceComponent>();
+        AbsenceComponent.AddController(args.Player);
     }
-
-    
 }
