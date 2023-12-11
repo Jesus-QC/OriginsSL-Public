@@ -65,14 +65,20 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Features\Display\CursedDisplayBuilder.cs" />
+        <Compile Include="Features\Display\CursedPollManager.cs" />
+        <Compile Include="Features\Display\HudNotification.cs" />
+        <Compile Include="Features\Display\ScreenZone.cs" />
         <Compile Include="Features\OriginsPlayerReplacer.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
+        <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
+        <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
         <Compile Include="Modules\WelcomeMessage\WelcomeMessageModule.cs" />
         <Compile Include="OriginsModule.cs" />

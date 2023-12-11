@@ -1,6 +1,7 @@
 ﻿using CursedMod.Loader;
 using CursedMod.Loader.Modules;
 using HarmonyLib;
+using PluginAPI.Core;
 
 namespace OriginsSL;
 
@@ -18,6 +19,7 @@ public class EntryPoint : CursedModule
     public override void OnLoaded()
     {
         ModuleLoader.LoadModules();
+        Log.Info("Loaded all modules");
         
         _harmony = new Harmony("cursed.jesusqc.com");
         _harmony.PatchAll();
