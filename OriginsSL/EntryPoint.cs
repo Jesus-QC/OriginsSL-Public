@@ -1,5 +1,4 @@
-﻿using CursedMod.Events.Handlers;
-using CursedMod.Loader;
+﻿using CursedMod.Loader;
 using CursedMod.Loader.Modules;
 using HarmonyLib;
 
