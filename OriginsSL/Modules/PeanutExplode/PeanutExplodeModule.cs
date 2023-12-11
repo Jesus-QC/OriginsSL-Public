@@ -14,7 +14,8 @@ public class PeanutExplodeModule : OriginsModule
     
     private static void OnDying(PlayerDyingEventArgs args)
     {
-        if (args.Player.Role is not RoleTypeId.Scp173) return;
+        if (args.Player.Role is not RoleTypeId.Scp173) 
+            return;
         
         ExplosionUtils.ServerExplode(args.Player.ReferenceHub);
     }

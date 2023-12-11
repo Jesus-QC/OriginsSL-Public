@@ -3,8 +3,7 @@ using CursedMod.Features.Wrappers.Server;
 
 namespace OriginsSL.Modules.EndRoundFF;
 
-// ReSharper disable InconsistentNaming
-
+// ReSharper disable once InconsistentNaming
 public class EndRoundFFModule : OriginsModule
 {
     public override void OnLoaded()
