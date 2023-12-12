@@ -128,7 +128,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         for (int i = 0; i < 6; i++)
             _stringBuilder.AppendLine(GetNotification(i));
         
-        _stringBuilder.AppendLine("SCP LIST");
+        _stringBuilder.AppendLine("<color=#EC2121><b><u>SCP LIST</u></b>");
         _stringBuilder.AppendLine(ScpListModule.GetContent(0));
         _stringBuilder.AppendLine(ScpListModule.GetContent(1));
         _stringBuilder.AppendLine(ScpListModule.GetContent(2));
@@ -136,9 +136,8 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine(ScpListModule.GetContent(4));
         _stringBuilder.AppendLine(ScpListModule.GetContent(5));
         _stringBuilder.AppendLine(ScpListModule.GetContent(6));
-        _stringBuilder.AppendLine(ScpListModule.GetContent(7));
-        _stringBuilder.Append(ScpListModule.GetContent(8));
-        _stringBuilder.AppendLine("</align></size>");
+        _stringBuilder.Append(ScpListModule.GetContent(7));
+        _stringBuilder.AppendLine("</align></size></color>");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         _stringBuilder.Append("\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));
@@ -221,13 +220,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Clear();
         _stringBuilder.AppendLine(Header);
         _stringBuilder.AppendLine(Discord);
-        _stringBuilder.AppendLine("\n<b>MVP<size=80><color=red>\n\n");
-        _stringBuilder.Append("JESUS-QC");
-        _stringBuilder.AppendLine("</color></size>");
-
-        _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-        _stringBuilder.Append("<size=35><b>");
+        _stringBuilder.Append("<size=35><b>\n");
         _stringBuilder.AppendLine(EndScreenModule.GetContent(0));
         _stringBuilder.AppendLine();
         _stringBuilder.AppendLine(EndScreenModule.GetContent(1));
@@ -235,7 +228,8 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine(EndScreenModule.GetContent(2));
         _stringBuilder.AppendLine();
         _stringBuilder.AppendLine(EndScreenModule.GetContent(3));
-        _stringBuilder.Append("\n\n\n\n");
+
+        _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
         _stringBuilder.AppendLine(Footer);
         

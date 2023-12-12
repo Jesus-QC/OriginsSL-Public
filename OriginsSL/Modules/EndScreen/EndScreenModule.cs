@@ -41,11 +41,13 @@ public class EndScreenModule : OriginsModule
     private static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
         Kills.Add(args.Player, 0);
+        Damage.Add(args.Player, 0);
     }
 
     private static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)
     {
         Kills.Remove(args.Player);
+        Damage.Remove(args.Player);
     }
     
     private static void OnPlayerEscaping(PlayerEscapingEventArgs args)

@@ -43,11 +43,11 @@ public class ScpProximityChatController : OriginsModule
         if (!ToggledPlayers.Add(args.Player))
         {
             ToggledPlayers.Remove(args.Player);
-            args.Player.SendOriginsHint("<i><b>P<lowercase>roximity chat <color=red>disabled</color></lowercase></b></i>", ScreenZone.Important, 3f);
+            args.Player.SendOriginsHint("<b>P<lowercase>roximity chat <color=red>disabled</color></lowercase></b>", ScreenZone.Important, 3f);
             return;
         }
 
-        args.Player.SendOriginsHint("<i><b>P<lowercase>roximity chat <color=#42f57b>enabled</color></lowercase></b></i>", ScreenZone.Important, 3f);
+        args.Player.SendOriginsHint("<b>P<lowercase>roximity chat <color=#42f57b>enabled</color></lowercase></b>", ScreenZone.Important, 3f);
     }
 
     private static void OnPlayerUsingVoiceChat(PlayerUsingVoiceChatEventArgs args)

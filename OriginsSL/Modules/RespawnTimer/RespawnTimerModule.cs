@@ -111,7 +111,7 @@ public class RespawnTimerModule : OriginsModule
         "I<lowercase>f you're an SCP, coordinate with fellow SCPs to increase your chances of containment.</lowercase>",
         "P<lowercase>ay attention to discord announcements for important updates and events.</lowercase>",
         "S<lowercase>tay calm under pressure; panicking can lead to poor decision-making.</lowercase>",
-        "W<lowercase>hen in doubt, communicatte with your eam for guidance and support.</lowercase>",
+        "W<lowercase>hen in doubt, communicate with your team for guidance and support.</lowercase>",
         "B<lowercase>e good with your teammates!</lowercase>",
         "E",
         "<color=#FFFF7C>SCP<lowercase>-914</color> is your best ally!</lowercase>",

@@ -18,7 +18,7 @@ public class LastOneLeftModule : OriginsModule
     {
         Team team = args.Player.CurrentRole.Team;
         
-        if (team == Team.Dead)
+        if (team == Team.Dead || args.NewRole.GetTeam() == team)
             return;
 
         bool foundOne = false;
