@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using CursedMod.Features.Wrappers.Player;
 using NorthwoodLib.Pools;
+using OriginsSL.Modules.EndScreen;
+using OriginsSL.Modules.RespawnTimer;
 using OriginsSL.Modules.ScpList;
 using OriginsSL.Modules.SpectatorFeed;
 
@@ -176,17 +178,17 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Clear();
         _stringBuilder.AppendLine(Header);
         _stringBuilder.Append("<size=50%>Spectators: ");
-        _stringBuilder.AppendLine("80");
+        _stringBuilder.AppendLine(RespawnTimerModule.SpectatorCount);
         _stringBuilder.Append("<align=right>MTF Domination: ");
-        _stringBuilder.AppendLine("80%");
+        _stringBuilder.AppendLine(RespawnTimerModule.MtfChance);
         _stringBuilder.Append("Chaos Domination: ");
-        _stringBuilder.Append("20%");
+        _stringBuilder.Append(RespawnTimerModule.ChaosChance);
         _stringBuilder.AppendLine("</align>");
         
         _stringBuilder.Append("<b><size=70>");
-        _stringBuilder.Append("00:00");
+        _stringBuilder.Append(RespawnTimerModule.Timer);
         _stringBuilder.AppendLine("</size></b>");
-        _stringBuilder.Append("Did you know that in the SCP-173 Containment Chamber, there is a button that can be pressed to open the door?");
+        _stringBuilder.Append(RespawnTimerModule.Info);
         _stringBuilder.AppendLine("</size>");
 
         _stringBuilder.Append("\n\n\n\n\n");
@@ -226,13 +228,13 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         _stringBuilder.Append("<size=35><b>");
-        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
+        _stringBuilder.AppendLine(EndScreenModule.GetContent(0));
         _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
+        _stringBuilder.AppendLine(EndScreenModule.GetContent(1));
         _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
+        _stringBuilder.AppendLine(EndScreenModule.GetContent(2));
         _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
+        _stringBuilder.AppendLine(EndScreenModule.GetContent(3));
         _stringBuilder.Append("\n\n\n\n");
         
         _stringBuilder.AppendLine(Footer);

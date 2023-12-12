@@ -18,12 +18,11 @@ public class Scp1162Module : OriginsModule
         CursedMapGenerationEventsHandler.MapGenerated += OnMapGenerated;
     }
     
-    
     private static Vector3 _lastPosition;
 
     private static void OnMapGenerated()
     {
-        _lastPosition = CursedRoom.Get(RoomName.LczGlassroom).GetLocalPoint(new Vector3(4.647f, 1, 2.253f));
+        _lastPosition = CursedRoom.Get(RoomName.Lcz173).GetLocalPoint(new Vector3(17.25f, 11, 8f));
     }
 
     private static void OnDroppingItem(PlayerDroppingItemEventArgs args)
@@ -31,7 +30,7 @@ public class Scp1162Module : OriginsModule
         if (CursedDecontamination.IsDecontaminating)
             return;
         
-        if (Vector3.Distance(args.Player.Position, _lastPosition) > 2.75f || args.Item.ItemType is ItemType.SCP330)
+        if (Vector3.Distance(args.Player.Position, _lastPosition) > 6f || args.Item.ItemType is ItemType.SCP330)
             return;
         
         args.IsAllowed = false;

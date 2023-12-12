@@ -43,6 +43,9 @@
         <Reference Include="Assembly-CSharp-firstpass">
           <HintPath>$(SL_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
+        <Reference Include="CommandSystem.Core">
+          <HintPath>$(SL_REFERENCES)\CommandSystem.Core.dll</HintPath>
+        </Reference>
         <Reference Include="Mirror">
           <HintPath>$(SL_REFERENCES)\Mirror-Publicized.dll</HintPath>
         </Reference>
@@ -85,8 +88,10 @@
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
+        <Compile Include="Modules\RespawnTimer\RespawnTimerModule.cs" />
         <Compile Include="Modules\Scp1162\Scp1162Module.cs" />
         <Compile Include="Modules\ScpList\ScpListModule.cs" />
+        <Compile Include="Modules\ScpSwap\ScpSwapCommand.cs" />
         <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
