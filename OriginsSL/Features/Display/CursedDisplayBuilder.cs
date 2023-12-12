@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using CursedMod.Features.Wrappers.Player;
 using NorthwoodLib.Pools;
+using OriginsSL.Modules.SpectatorFeed;
 
 namespace OriginsSL.Features.Display;
 
@@ -10,6 +11,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
 {
     private const string Header = "<size=65%><line-height=87%><voffset=12.9em>";
     private const string Footer = "<size=55%><b><color=#E2E0A6>o</color><color=#D8D4AC>r</color><color=#CEC8B2>i</color><color=#C4BCB8>g</color><color=#BAB0BE>i</color><color=#B0A4C4>n</color><color=#A698CA>s</color>";
+    private const string Discord = "<lowercase><b><color=#D9D68C>o</color><color=#D4CD8F>r</color><color=#CFC492>i</color><color=#CABB95>g</color><color=#C5B298>i</color><color=#C0A99B>n</color><color=#BBA09E>s</color><color=#B697A1>.</color><color=#B18EA4>s</color><color=#AC85A7>c</color><color=#A77CAA>p</color><color=#A273AD>s</color><color=#9D6AB0>l</color><color=#9861B3>.</color><color=#9358B6>x</color><color=#8E4FB9>y</color><color=#8946BC>z</color></b></lowercase>";
 
     private readonly Dictionary<ScreenZone, HudNotification> _savedZones = new()
     {
@@ -92,25 +94,11 @@ public class CursedDisplayBuilder(CursedPlayer player)
             _stringBuilder.AppendLine(GetNotification(i));
 
         _stringBuilder.AppendLine("</align></size>");
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.Append("<size=40>");
         _stringBuilder.Append(GetZone(ScreenZone.Important));
         _stringBuilder.AppendLine("</size>\n");
@@ -118,10 +106,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append("S<lowercase>ubclass</lowercase>");
         _stringBuilder.AppendLine("</size>");
         _stringBuilder.AppendLine("Subclass Description");
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
         
         return _stringBuilder.ToString();
@@ -150,16 +135,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine("7");
         _stringBuilder.AppendLine("8</align></size>");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.Append("<size=40>");
         _stringBuilder.Append(GetZone(ScreenZone.Important));
         _stringBuilder.AppendLine("</size>\n");
@@ -167,10 +145,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append("Subclass");
         _stringBuilder.AppendLine("</size>");
         _stringBuilder.AppendLine("Subclass Description");
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
         
         return _stringBuilder.ToString();
@@ -180,6 +155,14 @@ public class CursedDisplayBuilder(CursedPlayer player)
     {
         UpdateZones();
         _stringBuilder.Clear();
+        _stringBuilder.AppendLine(Header);
+        _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        _stringBuilder.AppendLine("SELECTED");
+        _stringBuilder.Append("\n\n");
+        _stringBuilder.AppendLine("<size=70>S<lowercase>cientists</lowercase>");
+        _stringBuilder.Append("\n\n\n\n\n\n\n");
+        _stringBuilder.AppendLine("<size=20>join our discord");
+        _stringBuilder.AppendLine(Footer);
         
         return _stringBuilder.ToString();
     }
@@ -189,35 +172,64 @@ public class CursedDisplayBuilder(CursedPlayer player)
         UpdateZones();
         _stringBuilder.Clear();
         _stringBuilder.AppendLine(Header);
-
-        _stringBuilder.Append("<size=50%>spectators - ");
-        _stringBuilder.Append(10);
-        _stringBuilder.AppendLine("</size>");
-        _stringBuilder.AppendLine();
+        _stringBuilder.Append("<size=50%>Spectators: ");
+        _stringBuilder.AppendLine("80");
+        _stringBuilder.Append("<align=right>MTF Domination: ");
+        _stringBuilder.AppendLine("80%");
+        _stringBuilder.Append("Chaos Domination: ");
+        _stringBuilder.Append("20%");
+        _stringBuilder.AppendLine("</align>");
         
-        _stringBuilder.Append("<size=50><b>");
+        _stringBuilder.Append("<b><size=70>");
         _stringBuilder.Append("00:00");
-        _stringBuilder.AppendLine("</b></size>");
-        
-        _stringBuilder.AppendLine("tip");
+        _stringBuilder.AppendLine("</size></b>");
+        _stringBuilder.Append("Did you know that in the SCP-173 Containment Chamber, there is a button that can be pressed to open the door?");
+        _stringBuilder.AppendLine("</size>");
 
-        for (byte i = 0; i < 29; i++)
-            _stringBuilder.AppendLine();
-        
-        _stringBuilder.AppendLine("jonh killed wadaw");
-        _stringBuilder.AppendLine("<alpha=#a0>jonh killed wadaw");
-        _stringBuilder.AppendLine("<alpha=#80>jonh killed wadaw");
-        _stringBuilder.AppendLine("<alpha=#50>jonh killed wadaw");
-        _stringBuilder.AppendLine("<alpha=#10>jonh killed wadaw");
+        _stringBuilder.Append("\n\n\n\n\n");
+        _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
+        _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));
+
+        _stringBuilder.Append("<size=40>");
+        _stringBuilder.Append(GetZone(ScreenZone.Important));
+        _stringBuilder.AppendLine("</size>\n");
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(0));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(1));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(2));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(3));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(4));
         _stringBuilder.AppendLine("<alpha=#ff>");
         _stringBuilder.Append("<size=40>");
         _stringBuilder.Append("S<lowercase>ubclass</lowercase>");
         _stringBuilder.AppendLine("</size>");
         _stringBuilder.AppendLine("Subclass Description");
+        _stringBuilder.Append("\n\n\n\n");
+        _stringBuilder.AppendLine(Footer);
+        
+        return _stringBuilder.ToString();
+    }
+
+    public string BuildEndScreen()
+    {
+        UpdateZones();
+        _stringBuilder.Clear();
+        _stringBuilder.AppendLine(Header);
+        _stringBuilder.AppendLine(Discord);
+        _stringBuilder.AppendLine("\n<b>MVP<size=80><color=red>\n\n");
+        _stringBuilder.Append("JESUS-QC");
+        _stringBuilder.AppendLine("</color></size>");
+
+        _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
         _stringBuilder.AppendLine();
+        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
         _stringBuilder.AppendLine();
+        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
         _stringBuilder.AppendLine();
-        _stringBuilder.AppendLine();
+        _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
+        _stringBuilder.Append("\n\n\n\n");
+        
         _stringBuilder.AppendLine(Footer);
         
         return _stringBuilder.ToString();
