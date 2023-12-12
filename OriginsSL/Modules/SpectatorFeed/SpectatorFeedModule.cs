@@ -28,8 +28,8 @@ public class SpectatorFeedModule : OriginsModule
         CursedPlayerEventsHandler.Dying += OnPlayerDying;
         // TODO: Add generator engaged
         // TODO: Add warhead started
-        // TODO: Add escaped
-        // TODO: Add detained (handcuffed)
+        // TODO: Add escaped (ply has escaped the facility!)
+        // TODO: Add detained (ply has detained other)
     }
 
     private static void OnPlayerDying(PlayerDyingEventArgs args)
