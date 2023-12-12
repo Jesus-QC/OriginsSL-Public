@@ -162,7 +162,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine("<size=70>S<lowercase>cientists</lowercase>");
         _stringBuilder.Append("\n\n\n\n\n\n\n");
         _stringBuilder.AppendLine("<size=20>join our discord");
-        _stringBuilder.AppendLine(Footer);
+        _stringBuilder.AppendLine(Discord);
         
         return _stringBuilder.ToString();
     }
@@ -189,10 +189,10 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append("\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));
-
-        _stringBuilder.Append("<size=40>");
+        _stringBuilder.Append("\n\n\n\n\n\n\n\n\n<size=40>");
         _stringBuilder.Append(GetZone(ScreenZone.Important));
         _stringBuilder.AppendLine("</size>\n");
+        
         _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(0));
         _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(1));
         _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(2));

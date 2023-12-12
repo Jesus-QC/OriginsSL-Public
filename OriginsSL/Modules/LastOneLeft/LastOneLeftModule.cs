@@ -32,7 +32,7 @@ public class LastOneLeftModule : OriginsModule
             foundOne = true;
             lastTeammate = player;
         }
-        
-        lastTeammate.SendOriginsHint("Y<lowercase>ou are the last one left on your team!</lowercase>", ScreenZone.Important, 5);
+
+        lastTeammate?.SendOriginsHint("Y<lowercase>ou are the last one left on your team!</lowercase>", ScreenZone.Important, 5);
     }
 }
