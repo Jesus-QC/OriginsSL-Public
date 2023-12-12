@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using CursedMod.Features.Wrappers.Player;
 using NorthwoodLib.Pools;
+using OriginsSL.Modules.ScpList;
 using OriginsSL.Modules.SpectatorFeed;
 
 namespace OriginsSL.Features.Display;
@@ -126,14 +127,16 @@ public class CursedDisplayBuilder(CursedPlayer player)
             _stringBuilder.AppendLine(GetNotification(i));
         
         _stringBuilder.AppendLine("SCP LIST");
-        _stringBuilder.AppendLine("1");
-        _stringBuilder.AppendLine("2");
-        _stringBuilder.AppendLine("3");
-        _stringBuilder.AppendLine("4");
-        _stringBuilder.AppendLine("5");
-        _stringBuilder.AppendLine("6");
-        _stringBuilder.AppendLine("7");
-        _stringBuilder.AppendLine("8</align></size>");
+        _stringBuilder.AppendLine(ScpListModule.GetContent(0));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(1));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(2));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(3));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(4));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(5));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(6));
+        _stringBuilder.AppendLine(ScpListModule.GetContent(7));
+        _stringBuilder.Append(ScpListModule.GetContent(8));
+        _stringBuilder.AppendLine("</align></size>");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         _stringBuilder.Append("\n\n\n\n\n");
         _stringBuilder.AppendLine(RenderZone(ScreenZone.Center));

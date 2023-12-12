@@ -82,6 +82,9 @@
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
+        <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
+        <Compile Include="Modules\ScpList\ScpListModule.cs" />
+        <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
