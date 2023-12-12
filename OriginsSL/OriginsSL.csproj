@@ -78,12 +78,14 @@
         <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
         <Compile Include="Modules\DoorRestartSystem\DoorRestartSystemModule.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
+        <Compile Include="Modules\EndScreen\EndScreenModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />
         <Compile Include="Modules\FacilityScan\FacilityScanModule.cs" />
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
+        <Compile Include="Modules\Scp1162\Scp1162Module.cs" />
         <Compile Include="Modules\ScpList\ScpListModule.cs" />
         <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />

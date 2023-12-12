@@ -21,7 +21,7 @@ public class DoorRestartSystemModule : OriginsModule
         if (args.Door.IsOpened || !args.Door.IsGate)
             return;
      
-        if (Random.value > 0.01f)
+        if (Random.value > 0.05f)
             return;
         
         args.Player.SendOriginsHint("T<lowercase>his door has been restarted by a system error</lowercase>", ScreenZone.Center, 5f);

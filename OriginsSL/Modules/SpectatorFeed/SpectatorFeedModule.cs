@@ -2,6 +2,7 @@ using CursedMod.Events.Arguments.Facility.Warhead;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using PlayerStatsSystem;
 using UnityEngine;
 
 namespace OriginsSL.Modules.SpectatorFeed;
@@ -33,7 +34,7 @@ public class SpectatorFeedModule : OriginsModule
     public override void OnLoaded()
     {
         StaticUnityMethods.OnUpdate += OnUpdate;
-        CursedPlayerEventsHandler.Dying += OnPlayerDying;
+        CursedPlayerEventsHandler.Died += OnPlayerDied;
         CursedWarheadEventsHandler.PlayerStartingDetonation += OnPlayerStartingDetonation;
         CursedWarheadEventsHandler.PlayerCancelingDetonation += OnPlayerCancelingDetonation;
         CursedPlayerEventsHandler.Escaping += OnPlayerEscaping;
@@ -61,11 +62,11 @@ public class SpectatorFeedModule : OriginsModule
         AddNotification("<color=" + args.Player.CurrentRole.RoleColor.ToHex() + "><a>" + args.Player.DisplayNickname + "</color><a><lowercase> stopped the warhead</lowercase>");
     }
     
-    private static void OnPlayerDying(PlayerDyingEventArgs args)
+    private static void OnPlayerDied(PlayerDiedEventArgs args)
     {
-        CursedPlayer attacker = args.Attacker;
-        
-        if (attacker == null || attacker == args.Player)
+        if (args.DamageHandlerBase is not AttackerDamageHandler attackerDamageHandler 
+            || !CursedPlayer.TryGet(attackerDamageHandler.Attacker.Hub, out CursedPlayer attacker) 
+            || attacker == args.Player)
             return;
         
         AddNotification("<color=" + args.Player.CurrentRole.RoleColor.ToHex() + "><a>" + args.Player.DisplayNickname + "</color><a> <lowercase>was killed by</lowercase> <color=" + attacker.CurrentRole.RoleColor.ToHex() + "><a>" + attacker.DisplayNickname + "</color>");

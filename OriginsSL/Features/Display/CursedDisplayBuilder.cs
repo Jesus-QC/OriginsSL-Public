@@ -225,6 +225,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
 
         _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
+        _stringBuilder.Append("<size=35><b>");
         _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
         _stringBuilder.AppendLine();
         _stringBuilder.AppendLine("<size=35><b><color=red>Jesus-QC</color> has survived for <color=yellow>20 MINUTES</color></b>");
