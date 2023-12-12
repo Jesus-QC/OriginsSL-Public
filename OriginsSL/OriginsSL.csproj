@@ -77,6 +77,7 @@
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
+        <Compile Include="Modules\BulletHoleCap\BulletHoleCapModule.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
         <Compile Include="Modules\DisconnectReplace\DisconnectReplaceModule.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererExtensions.cs" />
