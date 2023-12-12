@@ -111,6 +111,10 @@ public class CursedDoor
         set => Tag.UpdateName(value);
     }
 
+    public DoorLockMode LockMode => (DoorLockMode)Base.ActiveLocks;
+
+    public bool IsLocked => LockMode != 0;
+
     public bool IsGate => Base is PryableDoor;
     
     public bool IsCheckpointDoor => Base is CheckpointDoor;

@@ -76,6 +76,7 @@
         <Compile Include="Modules\DisconnectReplace\DisconnectReplaceModule.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererExtensions.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
+        <Compile Include="Modules\DoorRestartSystem\DoorRestartSystemModule.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
