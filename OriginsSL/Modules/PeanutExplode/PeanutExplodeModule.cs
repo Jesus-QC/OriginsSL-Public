@@ -10,11 +10,11 @@ public class PeanutExplodeModule : OriginsModule
 {
     public override void OnLoaded()
     {
-        CursedPlayerEventsHandler.Died += OnDied;
+        CursedPlayerEventsHandler.Dying += OnDying;
         CursedPlayerEventsHandler.ReceivingDamage += OnReceivingDamage;
     }
     
-    private static void OnDied(PlayerDiedEventArgs args)
+    private static void OnDying(PlayerDyingEventArgs args)
     {
         if (args.Player.Role is not RoleTypeId.Scp173) 
             return;
