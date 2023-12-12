@@ -1,6 +1,8 @@
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Round;
 using OriginsSL.Features;
+using OriginsSL.Features.Display;
+using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
 using PluginAPI.Core;
 using UnityEngine;
@@ -57,8 +59,7 @@ public class AbsenceComponent : MonoBehaviour
             if (_player.Role != RoleTypeId.Tutorial && OriginsPlayerReplacer.TryGetRandomSpectator(out CursedPlayer target))
             {
                 OriginsPlayerReplacer.ReplacePlayer(target, _player);
-                // TODO: HUD.SEND HINT
-                // target.SendHint(ScreenZone.Environment, "<color=red><i>Replaced afk player</i></color>", 5f);
+                target.SendOriginsHint("R<lowercase>eplaced a player that was afk for too long</lowercase>", ScreenZone.Important, 5f);
             }
 
             if (CursedPlayer.Count > 25)

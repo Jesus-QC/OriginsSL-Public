@@ -73,10 +73,12 @@
         <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
+        <Compile Include="Modules\DisplayRenderer\DisplayRendererExtensions.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
+        <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
