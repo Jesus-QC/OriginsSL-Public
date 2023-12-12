@@ -22,9 +22,9 @@ public class EntityCleanupModule : OriginsModule
     
     private static void OnRoundEnded() => Timing.KillCoroutines(nameof(EntityCleanupModule));
 
+    // ReSharper disable once IteratorNeverReturns
     private static IEnumerator<float> AutoCleanup()
     {
-        // ReSharper disable once IteratorNeverReturns
         while (true)
         {
             yield return Timing.WaitForSeconds(180);
