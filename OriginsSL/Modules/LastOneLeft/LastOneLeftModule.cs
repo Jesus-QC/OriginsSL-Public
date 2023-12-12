@@ -17,6 +17,9 @@ public class LastOneLeftModule : OriginsModule
     private static void OnChangingRole(PlayerChangingRoleEventArgs args)
     {
         Team team = args.Player.CurrentRole.Team;
+        
+        if (team == Team.Dead)
+            return;
 
         bool foundOne = false;
         CursedPlayer lastTeammate = null;

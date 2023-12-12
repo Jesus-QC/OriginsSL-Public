@@ -1,3 +1,4 @@
+using CursedMod.Events.Arguments.Facility.Warhead;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
@@ -26,12 +27,27 @@ public class SpectatorFeedModule : OriginsModule
     {
         StaticUnityMethods.OnUpdate += OnUpdate;
         CursedPlayerEventsHandler.Dying += OnPlayerDying;
-        // TODO: Add generator engaged
-        // TODO: Add warhead started
-        // TODO: Add escaped (ply has escaped the facility!)
+        CursedWarheadEventsHandler.PlayerStartingDetonation += OnPlayerStartingDetonation;
+        CursedWarheadEventsHandler.PlayerCancelingDetonation += OnPlayerCancelingDetonation;
+        CursedPlayerEventsHandler.Escaping += OnPlayerEscaping;
         // TODO: Add detained (ply has detained other)
     }
+    
+    private static void OnPlayerEscaping(PlayerEscapingEventArgs args)
+    {
+        AddNotification("<color=" + args.Player.CurrentRole.RoleColor.ToHex() + ">" + args.Player.DisplayNickname + "</color> has escaped the facility");
+    }
 
+    private static void OnPlayerStartingDetonation(PlayerStartingDetonationEventArgs args)
+    {
+        AddNotification("<color=" + args.Player.CurrentRole.RoleColor.ToHex() + ">" + args.Player.DisplayNickname + "</color> started the warhead");
+    }
+    
+    private static void OnPlayerCancelingDetonation(PlayerCancelingDetonationEventArgs args)
+    {
+        AddNotification("<color=" + args.Player.CurrentRole.RoleColor.ToHex() + ">" + args.Player.DisplayNickname + "</color> stopped the warhead");
+    }
+    
     private static void OnPlayerDying(PlayerDyingEventArgs args)
     {
         CursedPlayer attacker = args.Attacker;
