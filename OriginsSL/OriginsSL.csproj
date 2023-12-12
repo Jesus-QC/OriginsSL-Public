@@ -92,6 +92,7 @@
         <Compile Include="Modules\Scp1162\Scp1162Module.cs" />
         <Compile Include="Modules\ScpList\ScpListModule.cs" />
         <Compile Include="Modules\ScpSwap\ScpSwapCommand.cs" />
+        <Compile Include="Modules\ScpSwap\ScpSwapModule.cs" />
         <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />

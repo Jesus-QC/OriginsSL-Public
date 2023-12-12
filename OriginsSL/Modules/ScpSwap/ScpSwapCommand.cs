@@ -107,7 +107,7 @@ public class ScpSwapCommand : ICommand
             }
             
             Requests[desiredRole].Add(player);
-            ply.ShowBroadcast($"<b>You have received a Swap Request by <color=red>{player.Role}</color></b>\nType <u><color=orange>.scpswap accept {ScpAliases.First(x => x.Value == player.Role).Key}</color></u> to accept it!", 10);
+            ply.ShowBroadcast($"<size=60><b>Scp Swap</size>\nYou have received a Swap Request by <color=red>{player.Role}</color></b>\nType <u><color=orange>.scpswap accept {ScpAliases.First(x => x.Value == player.Role).Key}</color></u> to accept it!", 10);
             response = "Request sent";
             return true;
         }
@@ -128,11 +128,6 @@ public class ScpSwapCommand : ICommand
 
         response = "Couldn't find any player with that role.";
         return false;
-    }
-
-    public static void ClearCache()
-    {
-        Requests.Clear();
     }
     
     private static readonly Dictionary<RoleTypeId, List<CursedPlayer>> Requests = new();
@@ -157,6 +152,11 @@ public class ScpSwapCommand : ICommand
     public string[] Aliases { get; } = Array.Empty<string>();
     public string Description { get; } = "Lets you swap roles with other teammates";
 
+    public static void ClearCache()
+    {
+        Requests.Clear();
+    }
+    
     public static void HandleMessage(PlayerChangingRoleEventArgs args)
     {
         if (args.ChangeReason is not RoleChangeReason.RoundStart)
@@ -165,6 +165,6 @@ public class ScpSwapCommand : ICommand
         if (args.NewRole.GetTeam() is not Team.SCPs)
             return;
         
-        args.Player.ShowBroadcast("<b><i>Don't you like your SCP?</i>\nUse <u><color=red>.scpswap</color></u> to swap it!</b>", 10);
+        args.Player.ShowBroadcast("<size=60><b>Scp Swap</b></size>\n<b>You can <color=red>swap</color> your scp if you don't like it</b>\nType <u><color=red>.scpswap</color></u> for more information!</b>", 10);
     }
 }
