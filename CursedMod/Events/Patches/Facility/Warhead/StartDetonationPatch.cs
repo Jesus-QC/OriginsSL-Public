@@ -44,10 +44,10 @@ public class StartDetonationPatch
             new (OpCodes.Brfalse_S, ret),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.IsAutomatic))),
-            new (OpCodes.Starg_S, 0),
+            new (OpCodes.Starg_S, 1),
             new (OpCodes.Ldloc_S, args.LocalIndex),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerStartingDetonationEventArgs), nameof(PlayerStartingDetonationEventArgs.SuppressSubtitles))),
-            new (OpCodes.Starg_S, 1),
+            new (OpCodes.Starg_S, 2),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

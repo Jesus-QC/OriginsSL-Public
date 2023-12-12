@@ -194,10 +194,11 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine("</size>\n");
         
         _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(0));
-        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(1));
-        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(2));
-        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(3));
-        _stringBuilder.AppendLine(SpectatorFeedModule.GetContent(4));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContentWithAlpha(1, "<alpha=#80>"));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContentWithAlpha(2, "<alpha=#50>"));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContentWithAlpha(3, "<alpha=#30>"));
+        _stringBuilder.AppendLine(SpectatorFeedModule.GetContentWithAlpha(4, "<alpha=#10>"));
+
         _stringBuilder.AppendLine("<alpha=#ff>");
         _stringBuilder.Append("<size=40>");
         _stringBuilder.Append("S<lowercase>ubclass</lowercase>");
