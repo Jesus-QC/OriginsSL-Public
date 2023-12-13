@@ -8,7 +8,7 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
-using OriginsSL.Modules.Subclasses.ClassD;
+using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using PlayerRoles;
 using PluginAPI.Core;
 using UnityEngine;
@@ -19,7 +19,7 @@ public class SubclassManager : OriginsModule
 {
     public static readonly Dictionary<CursedPlayer, ISubclass> Subclasses = new ();
 
-    private static readonly Dictionary<RoleTypeId, ISubclass[]> AvailableSubclasses = new()
+    public static readonly Dictionary<RoleTypeId, ISubclass[]> AvailableSubclasses = new()
     {
         [RoleTypeId.ClassD] = [new JanitorSubclass()]
     };

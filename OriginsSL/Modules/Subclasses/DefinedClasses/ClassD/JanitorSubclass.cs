@@ -5,7 +5,7 @@ using CursedMod.Features.Enums;
 using Mirror;
 using UnityEngine;
 
-namespace OriginsSL.Modules.Subclasses.ClassD;
+namespace OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 
 public class JanitorSubclass : SubclassBase
 {
