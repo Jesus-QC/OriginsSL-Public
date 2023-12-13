@@ -10,6 +10,8 @@ public class LevelingImageBuilder
 {
     private static class FontRetriever
     {
+        public static readonly string DataDirectory = Path.Combine(Environment.CurrentDirectory, "Data");
+        
         public static Font UsernameFont { get; }
         public static Font LevelFont { get; }
         public static Font ExpFont { get; }
@@ -27,7 +29,7 @@ public class LevelingImageBuilder
         static FontRetriever()
         {
             FontCollection collection = new();
-            FontFamily family = collection.Add(@"C:\Users\jesus\Downloads\Data\Starborn.ttf");
+            FontFamily family = collection.Add(Path.Combine(DataDirectory, "Starborn.ttf"));
             UsernameFont = family.CreateFont(49.7f, FontStyle.Regular);
             LevelFont = family.CreateFont(40.97f, FontStyle.Regular);
             ExpFont = family.CreateFont(24.54f, FontStyle.Regular);
@@ -52,13 +54,13 @@ public class LevelingImageBuilder
 
     public void Build()
     {
-        Image image = Image.Load(@"C:\Users\jesus\Downloads\Data\Blank_75.png");
+        Image image = Image.Load(Path.Combine(FontRetriever.DataDirectory, "Blank_75.png"));
         
         image.Mutate(x => x.DrawText(Username, FontRetriever.UsernameFont, new SolidBrush(FontRetriever.MainColor), new SolidPen(Color.Black, 4), new PointF(36, 26)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.LevelFont, new PointF(175, 89)), Level.ToString().PadLeft(4, '0'), new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 4)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.ExpFont, new PointF(286, 161)),Xp.ToString().PadLeft(4, '0') + "/" + XpToNextLevel.ToString().PadLeft(4, '0'), new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 2)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.RankFont, new PointF(702, 90)),"#" + Rank, new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 4)));
         
-        image.Save(@"C:\Users\jesus\Downloads\Data\Output.png");
+        image.Save(Path.Combine(FontRetriever.DataDirectory, "output.png"));
     }
 }
