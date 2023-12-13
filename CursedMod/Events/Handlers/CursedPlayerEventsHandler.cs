@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events.Arguments.Player;
-using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
 
 namespace CursedMod.Events.Handlers;
@@ -41,6 +40,10 @@ public static class CursedPlayerEventsHandler
     public static event CursedEventManager.CursedEventHandler<PlayerPlacingBulletHoleEventArgs> PlacingBulletHole;
     
     public static event CursedEventManager.CursedEventHandler<PlayerPlacingBloodDecalEventArgs> PlacingBloodDecal;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerDisarmingEventArgs> Disarming;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerRemovingHandcuffEventArgs> RemovingHandcuff; 
 
     internal static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
@@ -154,5 +157,21 @@ public static class CursedPlayerEventsHandler
             return;
         
         PlacingBloodDecal.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerDisarming(PlayerDisarmingEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        Disarming.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerRemovingHandcuff(PlayerRemovingHandcuffEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        RemovingHandcuff.InvokeEvent(args);
     }
 }

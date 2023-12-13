@@ -135,6 +135,7 @@
         <Compile Include="Events\Arguments\MapGeneration\GeneratingSeedEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDiedEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerDisarmingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerDisconnectedEventArgs.cs" />
@@ -144,6 +145,7 @@
         <Compile Include="Events\Arguments\Player\PlayerPlacingBloodDecalEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerPlacingBulletHoleEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerReceivingDamageEventArgs.cs" />
+        <Compile Include="Events\Arguments\Player\PlayerRemovingHandcuffEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerTogglingNoClipEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\PlayerUsingVoiceChatEventArgs.cs" />
         <Compile Include="Events\Arguments\Player\RagdollSpawnedEventArgs.cs" />
@@ -267,6 +269,7 @@
         <Compile Include="Events\Patches\Items\Usables\UsableItemReceivedStatusPatch.cs" />
         <Compile Include="Events\Patches\Items\Usables\UsableItemUpdatePatch.cs" />
         <Compile Include="Events\Patches\MapGeneration\GeneratingSeedPatch.cs" />
+        <Compile Include="Events\Patches\Player\Disarming\DisarmingPatch.cs" />
         <Compile Include="Events\Patches\Player\EscapeSystem\PlayerEscapePatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectedPatch.cs" />
         <Compile Include="Events\Patches\Player\PlayerDisconnectPatch.cs" />
