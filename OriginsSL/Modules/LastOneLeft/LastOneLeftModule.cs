@@ -16,6 +16,9 @@ public class LastOneLeftModule : OriginsModule
     
     private static void OnChangingRole(PlayerChangingRoleEventArgs args)
     {
+        if (args.ChangeReason is not RoleChangeReason.Died)
+            return;
+        
         Team team = args.Player.CurrentRole.Team;
         
         if (team == Team.Dead || args.NewRole.GetTeam() == team)

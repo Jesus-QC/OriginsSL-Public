@@ -161,9 +161,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Clear();
         _stringBuilder.AppendLine(Header);
         _stringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        _stringBuilder.AppendLine("SELECTED");
+        _stringBuilder.AppendLine(GetZone(ScreenZone.Important));
         _stringBuilder.Append("\n\n");
-        _stringBuilder.AppendLine("<size=70>S<lowercase>cientists</lowercase>");
+        _stringBuilder.AppendLine(GetZone(ScreenZone.Environment));
         _stringBuilder.Append("\n\n\n\n\n\n\n");
         _stringBuilder.AppendLine("<size=20>join our discord");
         _stringBuilder.AppendLine(Discord);

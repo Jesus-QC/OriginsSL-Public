@@ -12,4 +12,12 @@ public static class DisplayRendererExtensions
         
         displayBuilder.WithContent(zone, content, duration);
     }
+    
+    public static void ClearOriginsHintZone(this CursedPlayer player, ScreenZone zone = ScreenZone.Center)
+    {
+        if (!DisplayRendererModule.TryGetDisplayBuilder(player, out CursedDisplayBuilder displayBuilder))
+            return;
+        
+        displayBuilder.ClearZone(zone);
+    }
 }

@@ -54,7 +54,7 @@ public class EndScreenModule : OriginsModule
     {
         if (string.IsNullOrEmpty(_escapeMessage))
         {
-            _escapeMessage = $"<color=red>Jesus-QC</color> <lowercase>was the first to escape the facility in </lowercase> <color=red>{FormatTimer(CursedRound.RoundTime)}</color>";
+            _escapeMessage = $"<color=red>{args.Player.DisplayNickname}</color> <lowercase>was the first to escape the facility in </lowercase> <color=red>{FormatTimer(CursedRound.RoundTime)}</color>";
         }
         
         Kills[args.Player]++;
@@ -68,7 +68,10 @@ public class EndScreenModule : OriginsModule
         if (!CursedPlayer.TryGet(attackerDamageHandler.Attacker.Hub, out CursedPlayer attacker))
             return;
         
-        if (attacker == args.Player)
+        if (attacker == args.Player || attacker.IsHost)
+            return;
+        
+        if (!Damage.ContainsKey(attacker))
             return;
         
         Damage[attacker] += args.DamageAmount;
@@ -78,7 +81,7 @@ public class EndScreenModule : OriginsModule
     {
         if (string.IsNullOrEmpty(_dieMessage))
         {
-            _dieMessage = $"<color=red>Jesus-QC</color> <lowercase>was the first to die</lowercase> <color=yellow>{FormatTimer(CursedRound.RoundTime)}</color> <lowercase>after the round started</lowercase>";
+            _dieMessage = $"<color=red>{args.Player.DisplayNickname}</color> <lowercase>was the first to die</lowercase> <color=yellow>{FormatTimer(CursedRound.RoundTime)}</color> <lowercase>after the round started</lowercase>";
         }
         
         if (args.DamageHandlerBase is not AttackerDamageHandler attackerDamageHandler)
@@ -87,7 +90,10 @@ public class EndScreenModule : OriginsModule
         if (!CursedPlayer.TryGet(attackerDamageHandler.Attacker.Hub, out CursedPlayer attacker))
             return;
         
-        if (attacker == args.Player)
+        if (attacker == args.Player || attacker.IsHost)
+            return;
+        
+        if (!Kills.ContainsKey(attacker))
             return;
         
         Kills[attacker]++;

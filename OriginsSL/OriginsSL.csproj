@@ -52,6 +52,9 @@
         <Reference Include="NorthwoodLib">
           <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
         </Reference>
+        <Reference Include="NWAPIPermissionSystem">
+          <HintPath>$(SL_REFERENCES)\NWAPIPermissionSystem.dll</HintPath>
+        </Reference>
         <Reference Include="PluginAPI">
           <HintPath>$(SL_REFERENCES)\PluginAPI-Publicized.dll</HintPath>
         </Reference>
@@ -65,9 +68,13 @@
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>$(SL_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+          <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="EntryPoint.cs" />
+        <Compile Include="Features\Commands\CursedCommandUtils.cs" />
         <Compile Include="Features\Display\CursedDisplayBuilder.cs" />
         <Compile Include="Features\Display\CursedPollManager.cs" />
         <Compile Include="Features\Display\HudNotification.cs" />
@@ -75,8 +82,29 @@
         <Compile Include="Features\OriginsPlayerReplacer.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
+        <Compile Include="Modules\AdminTools\Fun\AliveGrenadeCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\Components\AliveGrenadeComponent.cs" />
+        <Compile Include="Modules\AdminTools\Fun\Components\RocketComponent.cs" />
+        <Compile Include="Modules\AdminTools\Fun\GrenadeCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\InverseRocketCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\RocketCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\ScaleCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\SizeCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\SpawnItemCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\SuicideCommand.cs" />
+        <Compile Include="Modules\AdminTools\Fun\TpsCommand.cs" />
+        <Compile Include="Modules\AdminTools\Moderation\JailCommand.cs" />
+        <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
+        <Compile Include="Modules\BulletHoleCap\BulletHoleCapModule.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
+        <Compile Include="Modules\CustomLobby\Components\RotatePlayerComponent.cs" />
+        <Compile Include="Modules\CustomLobby\Components\TeamTriggerComponent.cs" />
+        <Compile Include="Modules\CustomLobby\LobbyHandler.cs" />
+        <Compile Include="Modules\CustomLobby\Patches\CheckPlayerPatch.cs" />
+        <Compile Include="Modules\CustomLobby\Patches\ScpPlayerPickerPatch.cs" />
+        <Compile Include="Modules\CustomLobby\Patches\SpawnHumansPatch.cs" />
+        <Compile Include="Modules\CustomLobby\RoleManager.cs" />
         <Compile Include="Modules\DisconnectReplace\DisconnectReplaceModule.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererExtensions.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
@@ -89,6 +117,8 @@
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
+        <Compile Include="Modules\RemoteKeyCard\CheckPermissionsPatch.cs" />
+        <Compile Include="Modules\RemoteKeyCard\LockerCheckPermissionsPatch.cs" />
         <Compile Include="Modules\RespawnTimer\RespawnTimerModule.cs" />
         <Compile Include="Modules\Scp1162\Scp1162Module.cs" />
         <Compile Include="Modules\ScpList\ScpListModule.cs" />
