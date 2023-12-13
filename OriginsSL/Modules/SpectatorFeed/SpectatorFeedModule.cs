@@ -2,6 +2,7 @@ using CursedMod.Events.Arguments.Facility.Warhead;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using PlayerRoles;
 using PlayerStatsSystem;
 using UnityEngine;
 
@@ -38,7 +39,19 @@ public class SpectatorFeedModule : OriginsModule
         CursedWarheadEventsHandler.PlayerStartingDetonation += OnPlayerStartingDetonation;
         CursedWarheadEventsHandler.PlayerCancelingDetonation += OnPlayerCancelingDetonation;
         CursedPlayerEventsHandler.Escaping += OnPlayerEscaping;
+        CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         // TODO: Add detained (ply has detained other)
+    }
+    
+    private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
+    {
+        if (args.ChangeReason is not RoleChangeReason.Revived || args.NewRole != RoleTypeId.Scp0492)
+            return;
+        
+        if (args.Player.IsHost)
+            return;
+        
+        AddNotification("<color=#EC2121><a>" + args.Player.DisplayNickname + "</color><a><lowercase> has been resurrected</lowercase>");
     }
     
     private static void OnPlayerEscaping(PlayerEscapingEventArgs args)

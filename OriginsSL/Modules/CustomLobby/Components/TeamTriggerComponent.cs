@@ -21,7 +21,7 @@ public class TeamTriggerComponent : MonoBehaviour
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
         collider.isTrigger = true;
         collider.center = new Vector3(0, 12.5f, 0);
-        collider.size = new Vector3(1, 25f, 1);
+        collider.size = new Vector3(.9f, 25f, .9f);
     }
 
     private void OnTriggerEnter(Collider other)
