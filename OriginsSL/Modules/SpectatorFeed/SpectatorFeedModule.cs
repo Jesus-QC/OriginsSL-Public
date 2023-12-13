@@ -1,9 +1,11 @@
 using CursedMod.Events.Arguments.Facility.Warhead;
 using CursedMod.Events.Arguments.Player;
+using CursedMod.Events.Arguments.Respawning;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
 using PlayerStatsSystem;
+using Respawning;
 using UnityEngine;
 
 namespace OriginsSL.Modules.SpectatorFeed;
@@ -40,7 +42,24 @@ public class SpectatorFeedModule : OriginsModule
         CursedWarheadEventsHandler.PlayerCancelingDetonation += OnPlayerCancelingDetonation;
         CursedPlayerEventsHandler.Escaping += OnPlayerEscaping;
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
+        CursedRespawningEventsHandler.RespawningTeam += OnRespawningTeam;
         // TODO: Add detained (ply has detained other)
+    }
+
+    private static void OnRespawningTeam(RespawningTeamEventArgs args)
+    {
+        switch (args.TeamSpawning)
+        {
+            case SpawnableTeamType.NineTailedFox:
+                AddNotification("<color=#003ECA><a>MTF</color><a><lowercase> have spawned</lowercase>");
+                return;
+            case SpawnableTeamType.ChaosInsurgency:
+                AddNotification("<color=#008F1E><a>Chaos Insurgency</color><a><lowercase> have spawned</lowercase>");
+                break;
+            case SpawnableTeamType.None:
+            default:
+               return;
+        }
     }
     
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
