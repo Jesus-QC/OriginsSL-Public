@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
+using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using NorthwoodLib.Pools;
 using PlayerRoles;
@@ -41,6 +42,16 @@ public class ScpPlayerPickerPatch
 	    foreach (ReferenceHub hub in _hubs)
 	    {
 		    ticketsLoader.ModifyTickets(hub, ticketsLoader.GetTickets(hub, 10) - 1000);
+	    }
+
+	    foreach (CursedPlayer player in CursedPlayer.Collection)
+	    {
+		    int tickets = ticketsLoader.GetTickets(player.ReferenceHub, 10);
+		    
+		    if (tickets > -50)
+			    continue;
+		    
+		    ticketsLoader.ModifyTickets(player.ReferenceHub, 10);
 	    }
 	    
 	    _hubs.Clear();

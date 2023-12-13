@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using CursedMod.Events;
+using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using PlayerRoles;
 using PlayerRoles.RoleAssign;
@@ -30,8 +31,17 @@ public class SpawnHumansPatch
         List<ReferenceHub> classD = RoleManager.GetTeam(Team.ClassD);
         List<ReferenceHub> scientist = RoleManager.GetTeam(Team.Scientists);
         List<ReferenceHub> guard = RoleManager.GetTeam(Team.FoundationForces);
-        List<ReferenceHub> random = new ();
+        List<ReferenceHub> random = [];
 
+        List<ReferenceHub> scps = RoleManager.GetTeam(Team.SCPs);
+        ReferenceHub scp3114 = null;
+        
+        if (CursedPlayer.Count > 15 && scps.Count > 0)
+        {
+            scp3114 = scps.PullRandomItem();
+            SetRole(scp3114.roleManager, RoleTypeId.Scp3114);
+        }
+        
         foreach (ReferenceHub hub in ReferenceHub.AllHubs)
         {
             if (classD.Contains(hub))
@@ -58,7 +68,7 @@ public class SpawnHumansPatch
                 continue;
             }
             
-            if (!RoleAssigner.CheckPlayer(hub))
+            if (!RoleAssigner.CheckPlayer(hub) || hub == scp3114)
                 continue;
             
             random.Add(hub);
