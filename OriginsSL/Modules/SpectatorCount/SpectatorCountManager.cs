@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
-using OriginsSL;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles.Spectating;
 
-namespace CursedSL.Modules.SpectatorCount;
+namespace OriginsSL.Modules.SpectatorCount;
 
 public class SpectatorCountManager : OriginsModule
 {
