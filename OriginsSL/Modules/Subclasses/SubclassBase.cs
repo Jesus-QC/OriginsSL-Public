@@ -14,6 +14,7 @@ public abstract class SubclassBase : ISubclass
     public virtual RoleTypeId SpawnRole => RoleTypeId.None;
     public virtual RoleTypeId SpawnLocation => RoleTypeId.None;
     public virtual Vector3 PlayerSize { get; } = Vector3.zero;
+    public virtual Vector3 FakeSize { get; } = Vector3.zero;
     public virtual float Health => -1;
     public virtual float Ahp => -1;
     public virtual List<ItemType> Inventory => null;

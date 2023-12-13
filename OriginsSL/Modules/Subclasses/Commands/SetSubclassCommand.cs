@@ -23,7 +23,7 @@ public class SetSubclassCommand : ICommand, IUsageProvider
             return false;
         }
         
-        if (arguments.Count == 0)
+        if (arguments.Count < 2)
         {
             response = "Not enough arguments";
             return false;
@@ -38,13 +38,16 @@ public class SetSubclassCommand : ICommand, IUsageProvider
         }
 
         ISubclass subclass = null;
-
+        string args = arguments.At(1).ToLower();
+        
         foreach (KeyValuePair<RoleTypeId, ISubclass[]> roleSubclass in SubclassManager.AvailableSubclasses)
         {
             foreach (ISubclass availableSubclass in roleSubclass.Value)
             {
-                if (availableSubclass.CodeName == arguments.At(1).ToLower())
-                    subclass = availableSubclass;
+                if (availableSubclass.CodeName.ToLower() != args) 
+                    continue;
+                
+                subclass = availableSubclass;
                 break;
             }
             

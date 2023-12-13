@@ -129,8 +129,12 @@
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
         <Compile Include="Modules\Subclasses\Commands\SetSubclassCommand.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\OrcSubclass.cs" />
         <Compile Include="Modules\Subclasses\ISubclass.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChanger.cs" />
+        <Compile Include="Modules\Subclasses\Misc\PitchChangerSubclass.cs" />
+        <Compile Include="Modules\Subclasses\Misc\PlayerVoiceExtensions.cs" />
         <Compile Include="Modules\Subclasses\SubclassBase.cs" />
         <Compile Include="Modules\Subclasses\ISubclassEventsHandler.cs" />
         <Compile Include="Modules\Subclasses\SubclassExtensions.cs" />

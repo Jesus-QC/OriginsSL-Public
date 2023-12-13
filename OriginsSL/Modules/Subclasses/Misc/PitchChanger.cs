@@ -6,17 +6,17 @@ public class PitchShifter
 {
 	#region Private Static Memebers
 	private const int MaxFrameLength = 16000;
-	private static readonly float[] GInFifo = new float[MaxFrameLength];
-	private static readonly float[] GOutFifo = new float[MaxFrameLength];
-	private static readonly float[] GFfTworksp = new float[2 * MaxFrameLength];
-	private static readonly float[] GLastPhase = new float[MaxFrameLength / 2 + 1];
-	private static readonly float[] GSumPhase = new float[MaxFrameLength / 2 + 1];
-	private static readonly float[] GOutputAccum = new float[2 * MaxFrameLength];
-	private static readonly float[] GAnaFreq = new float[MaxFrameLength];
-	private static readonly float[] GAnaMagn = new float[MaxFrameLength];
-	private static readonly float[] GSynFreq = new float[MaxFrameLength];
-	private static readonly float[] GSynMagn = new float[MaxFrameLength];
-	private static long _gRover;
+	private readonly float[] GInFifo = new float[MaxFrameLength];
+	private readonly float[] GOutFifo = new float[MaxFrameLength];
+	private readonly float[] GFfTworksp = new float[2 * MaxFrameLength];
+	private readonly float[] GLastPhase = new float[MaxFrameLength / 2 + 1];
+	private readonly float[] GSumPhase = new float[MaxFrameLength / 2 + 1];
+	private readonly float[] GOutputAccum = new float[2 * MaxFrameLength];
+	private readonly float[] GAnaFreq = new float[MaxFrameLength];
+	private readonly float[] GAnaMagn = new float[MaxFrameLength];
+	private readonly float[] GSynFreq = new float[MaxFrameLength];
+	private readonly float[] GSynMagn = new float[MaxFrameLength];
+	private long _gRover;
 	#endregion
 
 	#region Public Static  Methods
@@ -27,12 +27,12 @@ public class PitchShifter
 	/// <param name="numSampsToProcess">The number of samples to process.</param>
 	/// <param name="sampleRate">The sample rate.</param>
 	/// <param name="indata">The input data.</param>
-	public static void PitchShift(float pitchShift, long numSampsToProcess, float sampleRate, float[] indata)
+	public void PitchShift(float pitchShift, long numSampsToProcess, float sampleRate, float[] indata)
 	{
 		PitchShift(pitchShift, numSampsToProcess, 2048, 10, sampleRate, indata);
 	}
 
-	private static void PitchShift(float pitchShift, long numSampsToProcess, long fftFrameSize, long osamp, float sampleRate, float[] indata)
+	private void PitchShift(float pitchShift, long numSampsToProcess, long fftFrameSize, long osamp, float sampleRate, float[] indata)
 	{
 		double magn, phase, tmp, window, real, imag;
 		double freqPerBin, expct;

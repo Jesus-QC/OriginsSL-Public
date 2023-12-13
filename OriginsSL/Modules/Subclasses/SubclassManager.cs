@@ -8,6 +8,7 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
+using MEC;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using PlayerRoles;
 using PluginAPI.Core;
@@ -21,7 +22,12 @@ public class SubclassManager : OriginsModule
 
     public static readonly Dictionary<RoleTypeId, ISubclass[]> AvailableSubclasses = new()
     {
-        [RoleTypeId.ClassD] = [new JanitorSubclass()]
+        [RoleTypeId.ClassD] = 
+        [
+            new JanitorSubclass(),
+            new OrcSubclass(),
+            new KidSubclass(),
+        ]
     };
     
     public override void OnLoaded()
@@ -30,6 +36,12 @@ public class SubclassManager : OriginsModule
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         CursedPlayerEventsHandler.Dying += OnPlayerDying;
         CursedPlayerEventsHandler.Spawning += OnSpawning;
+        CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
+    }
+
+    private static void OnRestartingRound()
+    {
+        Subclasses.Clear();
     }
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
@@ -42,28 +54,33 @@ public class SubclassManager : OriginsModule
 
         if (subclass.SpawnRole != RoleTypeId.None)
             args.NewRole = subclass.SpawnRole;
-
         if (subclass.PlayerSize != Vector3.zero)
-            args.Player.FakeScale = subclass.PlayerSize;
+            args.Player.Scale = subclass.PlayerSize;
+        if (subclass.FakeSize != Vector3.zero)
+            args.Player.FakeScale = subclass.FakeSize;
     }
 
     private static void OnSpawning(PlayerSpawningEventArgs args)
     {
         if (!args.Player.TryGetSubclass(out ISubclass subclass))
             return;
-        
+
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
-        if (subclass.Health > 0)
-            args.Player.Health = subclass.Health;
-        if (subclass.Ahp > 0)
-            args.Player.HumeShield = subclass.Ahp;
-        if (subclass.Inventory != null)
-            args.Player.SetItems(subclass.Inventory);
-        if (subclass.Ammo != null)
-            args.Player.SetAmmo(subclass.Ammo);
         
-        subclass.OnSpawn(args.Player);
+        Timing.CallDelayed(0.4f, () =>
+        {
+            if (subclass.Health > 0)
+                args.Player.Health = subclass.Health;
+            if (subclass.Ahp > 0)
+                args.Player.HumeShield = subclass.Ahp;
+            if (subclass.Inventory != null)
+                args.Player.SetItems(subclass.Inventory);
+            if (subclass.Ammo != null)
+                args.Player.SetAmmo(subclass.Ammo);
+
+            subclass.OnSpawn(args.Player);
+        });
     }
 
     private static void OnPlayerDying(ICursedPlayerEvent args)
@@ -79,17 +96,22 @@ public class SubclassManager : OriginsModule
     {
         if (subclass is null)
         {
-            if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
-                return;
-            
-            if (oldSubclass.PlayerSize != Vector3.zero)
-                player.FakeScale = Vector3.one;
-                
+            ResetSize(player);
             Subclasses.Remove(player);
             return;
         }
         
+        ResetSize(player);
         Subclasses.SetOrAddElement(player, subclass);
+    }
+
+    private static void ResetSize(CursedPlayer player)
+    {
+        if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
+            return;
+            
+        if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
+            player.Scale = Vector3.one;
     }
     
     private static void LoadEventsHandlers()
@@ -98,8 +120,6 @@ public class SubclassManager : OriginsModule
         {
             if (type.IsInterface || !typeof(ISubclassEventsHandler).IsAssignableFrom(type)) 
                 continue;
-            
-            Log.Info(type.FullName);
             
             ISubclassEventsHandler module = (ISubclassEventsHandler) Activator.CreateInstance(type);
             module.OnLoaded();

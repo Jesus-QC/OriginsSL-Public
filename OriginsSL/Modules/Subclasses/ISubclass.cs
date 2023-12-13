@@ -20,6 +20,7 @@ public interface ISubclass
     public RoleTypeId SpawnLocation { get; }
     
     public Vector3 PlayerSize { get; }
+    public Vector3 FakeSize { get; }
     
     public float Health { get; }
     
