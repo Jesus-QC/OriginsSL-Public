@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Round;
 using Hints;
 using OriginsSL.Features.Display;
 using PlayerRoles.RoleAssign;
+using PlayerRoles.Spectating;
 using UnityEngine;
 
 namespace OriginsSL.Modules.DisplayRenderer;
@@ -87,9 +89,10 @@ public class DisplayRendererModule : OriginsModule
             return;
         }
                 
-        if (player.IsDead)
+        if (player.IsDead && player.CurrentRole is CursedSpectatorRole spectatorRole)
         {
-            player.NetworkConnection?.Send(new HintMessage(new TextHint(displayBuilder.BuildForSpectator(), new HintParameter[] { new StringHintParameter(string.Empty) }, null ,4)));
+            CursedPlayer spectatedPlayer = spectatorRole.SpectatedPlayer;
+            player.NetworkConnection?.Send(new HintMessage(new TextHint(displayBuilder.BuildForSpectator(spectatedPlayer), new HintParameter[] { new StringHintParameter(string.Empty) }, null ,4)));
             return;
         }
                 

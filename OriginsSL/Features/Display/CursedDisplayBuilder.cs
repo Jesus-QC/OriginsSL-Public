@@ -7,6 +7,7 @@ using OriginsSL.Modules.EndScreen;
 using OriginsSL.Modules.RespawnTimer;
 using OriginsSL.Modules.ScpList;
 using OriginsSL.Modules.SpectatorFeed;
+using OriginsSL.Modules.Subclasses;
 
 namespace OriginsSL.Features.Display;
 
@@ -106,9 +107,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append(GetZone(ScreenZone.Important));
         _stringBuilder.AppendLine("</size>\n");
         _stringBuilder.Append("<size=40>");
-        _stringBuilder.Append("S<lowercase>ubclass</lowercase>");
+        _stringBuilder.Append(player.GetSubclassName());
         _stringBuilder.AppendLine("</size>");
-        _stringBuilder.AppendLine("Subclass Description");
+        _stringBuilder.AppendLine(player.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
         
@@ -171,7 +172,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         return _stringBuilder.ToString();
     }
 
-    public string BuildForSpectator()
+    public string BuildForSpectator(CursedPlayer spectatedPlayer)
     {
         UpdateZones();
         _stringBuilder.Clear();
@@ -205,9 +206,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
 
         _stringBuilder.AppendLine("<alpha=#ff>");
         _stringBuilder.Append("<size=40>");
-        _stringBuilder.Append("S<lowercase>ubclass</lowercase>");
+        _stringBuilder.Append(spectatedPlayer.GetSubclassName());
         _stringBuilder.AppendLine("</size>");
-        _stringBuilder.AppendLine("Subclass Description");
+        _stringBuilder.AppendLine(spectatedPlayer.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
         

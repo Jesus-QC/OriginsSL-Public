@@ -47,7 +47,7 @@ public class DisarmingPatch
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldloc_0),
+            new CodeInstruction(OpCodes.Ldloc_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldfld, AccessTools.Field(typeof(DisarmMessage), nameof(DisarmMessage.PlayerToDisarm))),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerDisarmingEventArgs))[0]),

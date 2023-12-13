@@ -24,7 +24,7 @@ public class BulletHoleCapModule : OriginsModule
     {
         if (BulletHoleCounter.TryGetValue(args.Player, out byte count))
         {
-            if (count >= 50)
+            if (count >= 75)
             {
                 args.IsAllowed = false;
                 return;

@@ -127,6 +127,12 @@
         <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
+        <Compile Include="Modules\Subclasses\ClassD\JanitorSubclass.cs" />
+        <Compile Include="Modules\Subclasses\ISubclass.cs" />
+        <Compile Include="Modules\Subclasses\SubclassBase.cs" />
+        <Compile Include="Modules\Subclasses\ISubclassEventsHandler.cs" />
+        <Compile Include="Modules\Subclasses\SubclassExtensions.cs" />
+        <Compile Include="Modules\Subclasses\SubclassManager.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
         <Compile Include="Modules\WelcomeMessage\WelcomeMessageModule.cs" />
         <Compile Include="OriginsModule.cs" />
@@ -141,9 +147,6 @@
         <Project>{0c30be39-8a46-4a2e-b763-96b99b09b177}</Project>
         <Name>CursedMod</Name>
       </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Modules\Subclasses\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
