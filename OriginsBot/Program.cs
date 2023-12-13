@@ -39,8 +39,15 @@ internal static class Program
             return Task.CompletedTask;
         };
 
+        client.Ready += () => OnReady(client);
+
         await client.StartAsync();
         await Task.Delay(Timeout.Infinite);
+    }
+
+    private static Task OnReady(BaseSocketClient client)
+    {
+        return client.SetStatusAsync(UserStatus.Idle);
     }
 
     private static ServiceProvider ConfigureServices() =>
