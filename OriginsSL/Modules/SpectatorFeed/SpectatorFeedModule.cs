@@ -43,7 +43,15 @@ public class SpectatorFeedModule : OriginsModule
         CursedPlayerEventsHandler.Escaping += OnPlayerEscaping;
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         CursedRespawningEventsHandler.RespawningTeam += OnRespawningTeam;
-        // TODO: Add detained (ply has detained other)
+        CursedPlayerEventsHandler.Disarming += OnPlayerDisarming;
+    }
+    
+    private static void OnPlayerDisarming(PlayerDisarmingEventArgs args)
+    {
+        if (args.Player.IsHost || args.Target.IsHost)
+            return;
+        
+        AddNotification("<color=" + args.Target.CurrentRole.RoleColor.ToHex() + "><a>" + args.Target.DisplayNickname + "</color><a><lowercase> has been disarmed by </lowercase><color=" + args.Player.CurrentRole.RoleColor.ToHex() + "><a>" + args.Player.DisplayNickname + "</color>");
     }
 
     private static void OnRespawningTeam(RespawningTeamEventArgs args)

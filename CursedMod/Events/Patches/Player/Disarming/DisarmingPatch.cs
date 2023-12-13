@@ -13,6 +13,7 @@ using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Disarming;
 using NorthwoodLib.Pools;
+using PluginAPI.Core;
 using PluginAPI.Events;
 
 namespace CursedMod.Events.Patches.Player.Disarming;
@@ -24,7 +25,7 @@ public class DisarmingPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DisarmingPatch>(1, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<DisarmingPatch>(159, instructions);
 
         int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj) - 3;
         
@@ -42,7 +43,7 @@ public class DisarmingPatch
             new (OpCodes.Brfalse_S, retLabel),
         });
         
-        index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj && i.OperandIs(AccessTools.GetDeclaredConstructors(typeof(PlayerHandcuffEvent)))) - 3;
+        index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Newobj) - 3;
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
