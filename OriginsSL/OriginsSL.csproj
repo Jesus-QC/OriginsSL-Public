@@ -130,6 +130,7 @@
         <Compile Include="Modules\Subclasses\Commands\SetSubclassCommand.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
         <Compile Include="Modules\Subclasses\ISubclass.cs" />
+        <Compile Include="Modules\Subclasses\Misc\PitchChanger.cs" />
         <Compile Include="Modules\Subclasses\SubclassBase.cs" />
         <Compile Include="Modules\Subclasses\ISubclassEventsHandler.cs" />
         <Compile Include="Modules\Subclasses\SubclassExtensions.cs" />
