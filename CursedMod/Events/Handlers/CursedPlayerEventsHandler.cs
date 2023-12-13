@@ -77,6 +77,7 @@ public static class CursedPlayerEventsHandler
             return;
         
         ChangingRole.InvokeEvent(args);
+        CursedDesyncModule.HandlePlayerChangingRole(args);
     }
 
     internal static void OnPlayerSpawning(PlayerSpawningEventArgs args)
@@ -85,6 +86,7 @@ public static class CursedPlayerEventsHandler
             return;
         
         Spawning.InvokeEvent(args);
+        CursedDesyncModule.HandlePlayerSpawning(args);
     }
 
     internal static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)

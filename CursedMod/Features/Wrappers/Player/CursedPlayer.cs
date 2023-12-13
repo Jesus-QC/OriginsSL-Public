@@ -292,6 +292,52 @@ public class CursedPlayer
         }
     }
     
+    public RoleTypeId FakeRole
+    {
+        get => CursedDesyncModule.FakedRoles.TryGetValue(this, out RoleTypeId role) ? role : RoleTypeId.None;
+        set
+        {
+            this.ChangeAppearance(value, Collection.Where(x => x != this));
+            
+            if (CursedDesyncModule.FakedRoles.ContainsKey(this))
+            {
+                if (FakeRole == RoleTypeId.None)
+                {
+                    CursedDesyncModule.FakedRoles.Remove(this);
+                    return;
+                }
+                
+                CursedDesyncModule.FakedRoles[this] = value;
+                return;
+            }
+            
+            CursedDesyncModule.FakedRoles.Add(this, value);
+        }
+    }
+    
+    public RoleTypeId FakeAliveRole
+    {
+        get => CursedDesyncModule.FakedRolesNoSpectators.TryGetValue(this, out RoleTypeId role) ? role : RoleTypeId.None;
+        set
+        {
+            this.ChangeAppearance(value, Collection.Where(x => x != this && !x.IsDead));
+            
+            if (CursedDesyncModule.FakedRolesNoSpectators.ContainsKey(this))
+            {
+                if (FakeRole == RoleTypeId.None)
+                {
+                    CursedDesyncModule.FakedRolesNoSpectators.Remove(this);
+                    return;
+                }
+                
+                CursedDesyncModule.FakedRolesNoSpectators[this] = value;
+                return;
+            }
+            
+            CursedDesyncModule.FakedRolesNoSpectators.Add(this, value);
+        }
+    }
+    
     public int Id
     {
         get => ReferenceHub.PlayerId;

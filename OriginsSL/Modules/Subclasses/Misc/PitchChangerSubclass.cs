@@ -49,5 +49,4 @@ public abstract class PitchChangerSubclass  : SubclassBase
             args.VoiceMessage = args.VoiceMessage.SetPitch(pitchChangerSubclass);
         }
     }
-    
 }

@@ -59,7 +59,7 @@ public class SubclassManager : OriginsModule
             args.Player.FakeScale = subclass.FakeSize;
     }
 
-    private static void OnSpawning(PlayerSpawningEventArgs args)
+    public static void OnSpawning(PlayerSpawningEventArgs args)
     {
         if (!args.Player.TryGetSubclass(out ISubclass subclass))
             return;

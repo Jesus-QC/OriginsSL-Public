@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
+using CursedMod.Events.Arguments.Player;
 using CursedMod.Features.Wrappers.Player;
 using NWAPIPermissionSystem;
 using OriginsSL.Features.Commands;
 using PlayerRoles;
+using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses.Commands;
 
@@ -68,7 +70,17 @@ public class SetSubclassCommand : ICommand, IUsageProvider
         
         foreach (CursedPlayer player in players)
         {
+            if (player.TryGetSubclass(out ISubclass oldSubclass) && subclass.GetType() == oldSubclass.GetType())
+                continue;
+            
             player.SetSubclass(subclass);
+            if (subclass.PlayerSize != Vector3.zero)
+                player.Scale = subclass.PlayerSize;
+            if (subclass.FakeSize != Vector3.zero)
+                player.FakeScale = subclass.FakeSize;
+            PlayerSpawningEventArgs spawningArgs = new (player.ReferenceHub, player.RoleBase, player.Position, player.HorizontalRotation);
+            SubclassManager.OnSpawning(spawningArgs);
+            player.Position = spawningArgs.SpawnPosition;
         }
 
         response = $"Done for {players.Count} players";

@@ -20,10 +20,14 @@ namespace CursedMod.Features.Wrappers.Player;
 public static class CursedDesyncModule
 {
     public static readonly Dictionary<CursedPlayer, Vector3> FakedScales = new ();
+    public static readonly Dictionary<CursedPlayer, RoleTypeId> FakedRoles = new ();
+    public static readonly Dictionary<CursedPlayer, RoleTypeId> FakedRolesNoSpectators = new ();
 
     public static void ClearCache()
     {
         FakedScales.Clear();
+        FakedRoles.Clear();
+        FakedRolesNoSpectators.Clear();
     }
 
     public static void HandlePlayerConnected(PlayerConnectedEventArgs args)
@@ -31,6 +35,38 @@ public static class CursedDesyncModule
         foreach (KeyValuePair<CursedPlayer, Vector3> fakedScale in FakedScales)
         {
             args.Player.SendFakeScaleMessage(fakedScale.Key, fakedScale.Value);
+        }
+        
+        foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRoles)
+        {
+            fakedRole.Key.ChangeAppearance(fakedRole.Value, [args.Player]);
+        }
+    }
+
+    public static void HandlePlayerChangingRole(PlayerChangingRoleEventArgs args)
+    {
+        if (FakedRoles.ContainsKey(args.Player))
+            FakedRoles.Remove(args.Player);
+        if (FakedRolesNoSpectators.ContainsKey(args.Player))
+            FakedRolesNoSpectators.Remove(args.Player);
+
+        if (args.NewRole is not(RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None or RoleTypeId.Filmmaker)) 
+            return;
+        
+        foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
+        {
+            fakedRole.Key.ChangeAppearance(fakedRole.Value, [args.Player]);
+        }
+    }
+    
+    public static void HandlePlayerSpawning(PlayerSpawningEventArgs args)
+    {
+        if (args.RoleType is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None or RoleTypeId.Filmmaker)
+            return;
+        
+        foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
+        {
+            fakedRole.Key.ChangeAppearance(fakedRole.Key.Role, [args.Player]);
         }
     }
 
