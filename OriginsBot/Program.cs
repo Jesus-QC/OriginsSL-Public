@@ -1,23 +1,53 @@
 ﻿using Discord;
+using Discord.Interactions;
 using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using OriginsBot.Commands;
 
 namespace OriginsBot;
 
 internal static class Program
 {
-    private static readonly DiscordSocketClient Client = new();
-
-    private static void Main(string[] args)
+    static void Main(string[] args)
     {
-        new LevelingImageBuilder("username", 7778, 80, 7085, 9999).Build();
-        return;
-        RunAsync(args[0]).GetAwaiter().GetResult();
+        RunAsync().GetAwaiter().GetResult();
     }
 
-    private static async Task RunAsync(string token)
+    static async Task RunAsync()
     {
-        await Client.LoginAsync(TokenType.Bot, token);
-        await Client.StartAsync();
-        await Task.Delay(-1);
+        await using ServiceProvider services = ConfigureServices();
+
+        DiscordSocketClient client = services.GetRequiredService<DiscordSocketClient>();
+        InteractionService commands = services.GetRequiredService<InteractionService>();
+        IConfiguration config = services.GetRequiredService<IConfiguration>();
+        CommandHandler handler = services.GetRequiredService<CommandHandler>();
+        
+        await handler.InitializeAsync();
+
+        await client.LoginAsync(TokenType.Bot, config["token"]);
+
+        client.Log += msg =>
+        {
+            Console.WriteLine(msg.ToString());
+            return Task.CompletedTask;
+        };
+
+        commands.Log += msg =>
+        {
+            Console.WriteLine(msg.ToString());
+            return Task.CompletedTask;
+        };
+
+        await client.StartAsync();
+        await Task.Delay(Timeout.Infinite);
     }
+
+    private static ServiceProvider ConfigureServices() =>
+        new ServiceCollection()
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build())
+            .AddSingleton<DiscordSocketClient>()
+            .AddSingleton<InteractionService>()
+            .AddSingleton<CommandHandler>()
+            .BuildServiceProvider();
 }

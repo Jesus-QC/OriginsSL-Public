@@ -1,6 +1,7 @@
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -52,15 +53,17 @@ public class LevelingImageBuilder
     private int XpToNextLevel { get; }
     private int Rank { get; }
 
-    public void Build()
+    public async Task<Stream> BuildAsync()
     {
-        Image image = Image.Load(Path.Combine(FontRetriever.DataDirectory, "Blank_75.png"));
+        Image image = await Image.LoadAsync(Path.Combine(FontRetriever.DataDirectory, "Blank_75.png"));
         
         image.Mutate(x => x.DrawText(Username, FontRetriever.UsernameFont, new SolidBrush(FontRetriever.MainColor), new SolidPen(Color.Black, 4), new PointF(36, 26)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.LevelFont, new PointF(175, 89)), Level.ToString().PadLeft(4, '0'), new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 4)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.ExpFont, new PointF(286, 161)),Xp.ToString().PadLeft(4, '0') + "/" + XpToNextLevel.ToString().PadLeft(4, '0'), new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 2)));
         image.Mutate(x => x.DrawText(FontRetriever.GetCenteredOptions(FontRetriever.RankFont, new PointF(702, 90)),"#" + Rank, new SolidBrush(FontRetriever.SecondaryColor), new SolidPen(Color.Black, 4)));
-        
-        image.Save(Path.Combine(FontRetriever.DataDirectory, "output.png"));
+
+        MemoryStream stream = new();
+        await image.SaveAsync(stream, new PngEncoder());
+        return stream;
     }
 }
