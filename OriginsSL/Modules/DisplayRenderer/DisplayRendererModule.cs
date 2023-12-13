@@ -7,7 +7,6 @@ using CursedMod.Features.Wrappers.Round;
 using Hints;
 using OriginsSL.Features.Display;
 using PlayerRoles.RoleAssign;
-using PlayerRoles.Spectating;
 using UnityEngine;
 
 namespace OriginsSL.Modules.DisplayRenderer;

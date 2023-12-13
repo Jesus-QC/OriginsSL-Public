@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CursedMod.Events.Arguments;
-using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.AdminToys;

@@ -11,7 +11,6 @@ using CursedMod.Features.Wrappers.Player.Roles;
 using MEC;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using PlayerRoles;
-using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
@@ -68,12 +67,16 @@ public class SubclassManager : OriginsModule
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
+        args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
+        
         Timing.CallDelayed(0.4f, () =>
         {
             if (subclass.Health > 0)
                 args.Player.Health = subclass.Health;
-            if (subclass.Ahp > 0)
-                args.Player.HumeShield = subclass.Ahp;
+            if (subclass.ArtificialHealth > 0)
+                args.Player.ArtificialHealth = subclass.ArtificialHealth;
+            if (subclass.HumeShield > 0)
+                args.Player.HumeShield = subclass.HumeShield;
             if (subclass.Inventory != null)
                 args.Player.SetItems(subclass.Inventory);
             if (subclass.Ammo != null)
@@ -96,19 +99,21 @@ public class SubclassManager : OriginsModule
     {
         if (subclass is null)
         {
-            ResetSize(player);
+            ResetTemporaryData(player);
             Subclasses.Remove(player);
             return;
         }
         
-        ResetSize(player);
+        ResetTemporaryData(player);
         Subclasses.SetOrAddElement(player, subclass);
     }
 
-    private static void ResetSize(CursedPlayer player)
+    private static void ResetTemporaryData(CursedPlayer player)
     {
         if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
             return;
+        
+        player.CustomInfo = string.Empty;
             
         if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
             player.Scale = Vector3.one;

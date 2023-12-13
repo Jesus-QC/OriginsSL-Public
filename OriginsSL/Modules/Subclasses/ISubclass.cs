@@ -24,7 +24,9 @@ public interface ISubclass
     
     public float Health { get; }
     
-    public float Ahp { get; }
+    public float ArtificialHealth { get; }
+    
+    public float HumeShield { get; }
     
     public List<ItemType> Inventory { get; }
     

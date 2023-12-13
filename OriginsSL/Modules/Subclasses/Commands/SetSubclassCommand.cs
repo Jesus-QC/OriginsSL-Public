@@ -5,7 +5,6 @@ using CommandSystem;
 using CursedMod.Features.Wrappers.Player;
 using NWAPIPermissionSystem;
 using OriginsSL.Features.Commands;
-using OriginsSL.Modules.AdminTools.Fun.Components;
 using PlayerRoles;
 
 namespace OriginsSL.Modules.Subclasses.Commands;

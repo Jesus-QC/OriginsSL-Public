@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using CursedMod.Events.Handlers;
-using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
 using MEC;
-using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.Ragdolls;
 

@@ -4,8 +4,6 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
-using PluginAPI.Core;
-using UnityEngine;
 
 namespace OriginsSL.Modules.ScpList;
 

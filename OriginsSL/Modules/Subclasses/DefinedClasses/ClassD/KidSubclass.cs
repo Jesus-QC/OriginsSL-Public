@@ -1,5 +1,3 @@
-using CursedMod.Events.Arguments.Player;
-using CursedMod.Events.Handlers;
 using OriginsSL.Modules.Subclasses.Misc;
 using UnityEngine;
 
