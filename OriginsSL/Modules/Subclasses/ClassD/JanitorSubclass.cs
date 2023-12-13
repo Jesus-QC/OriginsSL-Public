@@ -3,7 +3,6 @@ using CursedMod.Events.Arguments.Facility.Hazards;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
 using Mirror;
-using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses.ClassD;

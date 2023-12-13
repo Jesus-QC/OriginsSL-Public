@@ -7,9 +7,11 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Roles;
 using OriginsSL.Modules.Subclasses.ClassD;
 using PlayerRoles;
 using PluginAPI.Core;
+using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
 
@@ -27,13 +29,41 @@ public class SubclassManager : OriginsModule
         LoadEventsHandlers();
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         CursedPlayerEventsHandler.Dying += OnPlayerDying;
+        CursedPlayerEventsHandler.Spawning += OnSpawning;
     }
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
         ISubclass subclass = GetRandomSubclass(args.NewRole);
         args.Player.SetSubclass(subclass);
-        subclass?.OnSpawn(args.Player);
+        
+        if (subclass is null)
+            return;
+
+        if (subclass.SpawnRole != RoleTypeId.None)
+            args.NewRole = subclass.SpawnRole;
+
+        if (subclass.PlayerSize != Vector3.zero)
+            args.Player.FakeScale = subclass.PlayerSize;
+    }
+
+    private static void OnSpawning(PlayerSpawningEventArgs args)
+    {
+        if (!args.Player.TryGetSubclass(out ISubclass subclass))
+            return;
+        
+        if (subclass.SpawnLocation != RoleTypeId.None)
+            args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
+        if (subclass.Health > 0)
+            args.Player.Health = subclass.Health;
+        if (subclass.Ahp > 0)
+            args.Player.HumeShield = subclass.Ahp;
+        if (subclass.Inventory != null)
+            args.Player.SetItems(subclass.Inventory);
+        if (subclass.Ammo != null)
+            args.Player.SetAmmo(subclass.Ammo);
+        
+        subclass.OnSpawn(args.Player);
     }
 
     private static void OnPlayerDying(ICursedPlayerEvent args)
@@ -49,6 +79,12 @@ public class SubclassManager : OriginsModule
     {
         if (subclass is null)
         {
+            if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
+                return;
+            
+            if (oldSubclass.PlayerSize != Vector3.zero)
+                player.FakeScale = Vector3.one;
+                
             Subclasses.Remove(player);
             return;
         }
