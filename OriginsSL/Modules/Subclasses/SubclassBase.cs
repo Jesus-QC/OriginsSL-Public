@@ -8,6 +8,7 @@ namespace OriginsSL.Modules.Subclasses;
 public abstract class SubclassBase : ISubclass
 {
     public virtual string CodeName => string.Empty;
+    public virtual bool Spoofed => false;
     public virtual string Name => string.Empty;
     public virtual string Description => string.Empty;
     public virtual float SpawnChance => 0;

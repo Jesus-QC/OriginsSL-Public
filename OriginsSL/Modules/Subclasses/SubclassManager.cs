@@ -9,6 +9,7 @@ using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using MEC;
+using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using PlayerRoles;
@@ -29,6 +30,10 @@ public class SubclassManager : OriginsModule
             new KidSubclass(),
             new NtfSpy(),
         ],
+        [RoleTypeId.ChaosConscript] =
+        [
+            new ChaosSpy(),
+        ]
     };
     
     public override void OnLoaded()
@@ -69,7 +74,8 @@ public class SubclassManager : OriginsModule
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
-        args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
+        if (!subclass.Spoofed)
+            args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
         
         Timing.CallDelayed(0.4f, () =>
         {

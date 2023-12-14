@@ -128,6 +128,7 @@
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
         <Compile Include="Modules\Subclasses\Commands\SetSubclassCommand.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosSpy.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\OrcSubclass.cs" />

@@ -297,11 +297,14 @@ public class CursedPlayer
         get => CursedDesyncModule.FakedRoles.TryGetValue(this, out RoleTypeId role) ? role : RoleTypeId.None;
         set
         {
+            if (value == RoleTypeId.None)
+                value = Role;
+            
             this.ChangeAppearance(value, Collection.Where(x => x != this));
             
             if (CursedDesyncModule.FakedRoles.ContainsKey(this))
             {
-                if (FakeRole == RoleTypeId.None)
+                if (FakeRole == Role)
                 {
                     CursedDesyncModule.FakedRoles.Remove(this);
                     return;
@@ -320,11 +323,14 @@ public class CursedPlayer
         get => CursedDesyncModule.FakedRolesNoSpectators.TryGetValue(this, out RoleTypeId role) ? role : RoleTypeId.None;
         set
         {
-            this.ChangeAppearance(value, Collection.Where(x => x != this && !x.IsDead));
+            if (value == RoleTypeId.None)
+                value = Role;
+            
+            this.ChangeAppearance(value, Collection.Where(x => x != this && !x.IsDead && x.RoleBase.Team != RoleBase.Team));
             
             if (CursedDesyncModule.FakedRolesNoSpectators.ContainsKey(this))
             {
-                if (FakeRole == RoleTypeId.None)
+                if (FakeRole == Role)
                 {
                     CursedDesyncModule.FakedRolesNoSpectators.Remove(this);
                     return;

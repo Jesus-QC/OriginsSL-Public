@@ -9,6 +9,8 @@ public interface ISubclass
 {
     public string CodeName { get; }
     
+    public bool Spoofed { get; }
+    
     public string Name { get; }
     
     public string Description { get; }

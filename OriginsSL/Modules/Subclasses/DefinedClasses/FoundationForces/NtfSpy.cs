@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Modules.Subclasses.Misc;
 using PlayerRoles;
 
@@ -11,6 +13,7 @@ public class NtfSpy : SpySubclass
     public override float SpawnChance => 1000f;
     public override RoleTypeId SpawnRole => RoleTypeId.NtfPrivate;
     protected override RoleTypeId DisguisedAs => RoleTypeId.ClassD;
+    public override List<ItemType> Inventory { get; } = [ItemType.KeycardGuard];
 
     // public override bool FilterSubclass(CursedPlayer player) => CursedPlayer.Count > 15;
 }
