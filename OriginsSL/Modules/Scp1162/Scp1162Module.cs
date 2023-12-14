@@ -6,6 +6,7 @@ using CursedMod.Features.Wrappers.Facility.Rooms;
 using MapGeneration;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Scp1162;
@@ -35,7 +36,11 @@ public class Scp1162Module : OriginsModule
         
         args.IsAllowed = false;
         args.Player.RemoveItem(args.Item);
-        args.Player.AddItem(RandomItem).Drop();
+        ItemType randomItem = RandomItem;
+        
+        if (randomItem != ItemType.None)
+            args.Player.AddItem(randomItem);
+        
         args.Player.SendOriginsHint("<b>You dropped an item inside <i><color=yellow>SCP-1162</color></i>...</b>", ScreenZone.Environment);
     }
     

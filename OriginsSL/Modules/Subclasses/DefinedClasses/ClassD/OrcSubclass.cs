@@ -6,7 +6,7 @@ namespace OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 public class OrcSubclass : PitchChangerSubclass
 { 
     public override string CodeName => "orc";
-    public override string Name => "<color=#454339>O<lowercase>rc</lowercase></color>";
+    public override string Name => "<color=#21d139>O<lowercase>rc</lowercase></color>";
     public override string Description => "you are big and your voice sounds deep";
     public override float SpawnChance => 0.5f;
 

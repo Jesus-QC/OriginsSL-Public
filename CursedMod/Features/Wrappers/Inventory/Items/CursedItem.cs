@@ -130,16 +130,6 @@ public class CursedItem
     }
     
     public static CursedItem Create(ItemType type) => Get(CursedServer.LocalPlayer.Inventory.CreateItemInstance(new ItemIdentifier(type, ItemSerialGenerator.GenerateNext()), false));
-    
-    public static CursedItem Spawn(CursedItem item, Vector3 position, Quaternion rotation, ReferenceHub previousOwner = null)
-    {
-        item.Transform.position = position;
-        item.Transform.rotation = rotation;
-        item.Base.Owner = previousOwner;
-        item.Spawn();
-
-        return item;
-    }
 
     public void HoldItem() => Owner.CurrentItem = this;
 
@@ -157,5 +147,13 @@ public class CursedItem
             GameObject.SetActive(true);
 
         NetworkServer.Spawn(GameObject);
+    }
+    
+    public void Spawn(Vector3 position, Quaternion rotation, ReferenceHub previousOwner = null)
+    {
+        Transform.position = position;
+        Transform.rotation = rotation;
+        Base.Owner = previousOwner;
+        Spawn();
     }
 }
