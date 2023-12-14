@@ -14,6 +14,7 @@ using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
 using PlayerRoles;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
@@ -81,7 +82,7 @@ public class SubclassManager : OriginsModule
     {
         if (!args.Player.TryGetSubclass(out ISubclass subclass))
             return;
-
+        
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
