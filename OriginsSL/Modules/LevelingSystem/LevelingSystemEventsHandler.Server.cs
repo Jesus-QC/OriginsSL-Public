@@ -1,8 +1,8 @@
 namespace OriginsSL.Modules.LevelingSystem;
 
-public partial class LevelingSystemEventsHandler
+public static partial class LevelingSystemEventsHandler
 {
-    public void RegisterServerEvents()
+    public static void RegisterServerEvents()
     {
         
     }
