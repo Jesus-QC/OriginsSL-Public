@@ -15,5 +15,7 @@ public class NtfSpy : SpySubclass
     protected override RoleTypeId DisguisedAs => RoleTypeId.ClassD;
     public override List<ItemType> Inventory { get; } = [ItemType.KeycardGuard];
 
+    public override Dictionary<ItemType, ushort> Ammo { get; } = [];
+
     // public override bool FilterSubclass(CursedPlayer player) => CursedPlayer.Count > 15;
 }
