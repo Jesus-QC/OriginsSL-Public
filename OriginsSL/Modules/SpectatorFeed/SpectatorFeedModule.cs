@@ -44,6 +44,7 @@ public class SpectatorFeedModule : OriginsModule
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         CursedRespawningEventsHandler.RespawningTeam += OnRespawningTeam;
         CursedPlayerEventsHandler.Disarming += OnPlayerDisarming;
+        // TODO: Add generator active handler + handle event
     }
     
     private static void OnPlayerDisarming(PlayerDisarmingEventArgs args)
