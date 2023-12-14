@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Modules.Subclasses.Misc;
 using PlayerRoles;
 

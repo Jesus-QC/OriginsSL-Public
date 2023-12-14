@@ -1,7 +1,5 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
-using PlayerRoles;
-using PluginAPI.Core;
 
 namespace OriginsSL.Fixes;
 
