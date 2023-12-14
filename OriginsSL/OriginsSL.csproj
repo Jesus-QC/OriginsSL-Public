@@ -134,6 +134,7 @@
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\OrcSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\FoundationForces\NtfSpy.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\Scientist\HeadResearcherSubclass.cs" />
         <Compile Include="Modules\Subclasses\ISubclass.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChanger.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChangerSubclass.cs" />

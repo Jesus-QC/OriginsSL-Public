@@ -12,6 +12,7 @@ using MEC;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
+using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
 using PlayerRoles;
 using UnityEngine;
 
@@ -29,6 +30,10 @@ public class SubclassManager : OriginsModule
             new OrcSubclass(),
             new KidSubclass(),
             new NtfSpy(),
+        ],
+        [RoleTypeId.Scientist] = 
+        [
+            new HeadResearcherSubclass(),
         ],
         [RoleTypeId.ChaosConscript] =
         [

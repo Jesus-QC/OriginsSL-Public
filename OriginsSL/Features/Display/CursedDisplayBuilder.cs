@@ -147,9 +147,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append(GetZone(ScreenZone.Important));
         _stringBuilder.AppendLine("</size>\n");
         _stringBuilder.Append("<size=40>");
-        _stringBuilder.Append("Subclass");
+        _stringBuilder.Append(player.GetSubclassName());
         _stringBuilder.AppendLine("</size>");
-        _stringBuilder.AppendLine("Subclass Description");
+        _stringBuilder.AppendLine(player.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
         
