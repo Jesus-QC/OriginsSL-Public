@@ -57,6 +57,12 @@ public class SubclassManager : OriginsModule
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
+        if (args.NewRole == args.Player.Role)
+        {
+            args.IsAllowed = false;
+            return;
+        }
+        
         ISubclass subclass = GetRandomSubclass(args.NewRole, args.Player);
         args.Player.SetSubclass(subclass);
         

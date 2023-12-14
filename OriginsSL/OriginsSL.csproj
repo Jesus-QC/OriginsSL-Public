@@ -80,7 +80,6 @@
         <Compile Include="Features\Display\HudNotification.cs" />
         <Compile Include="Features\Display\ScreenZone.cs" />
         <Compile Include="Features\OriginsPlayerReplacer.cs" />
-        <Compile Include="Fixes\SetRoleFix.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\AdminTools\Fun\AliveGrenadeCommand.cs" />
