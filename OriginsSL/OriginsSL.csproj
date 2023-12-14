@@ -131,6 +131,7 @@
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\OrcSubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\FoundationForces\NtfSpy.cs" />
         <Compile Include="Modules\Subclasses\ISubclass.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChanger.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChangerSubclass.cs" />
@@ -154,9 +155,6 @@
         <Project>{0c30be39-8a46-4a2e-b763-96b99b09b177}</Project>
         <Name>CursedMod</Name>
       </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Modules\Subclasses\DefinedClasses\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,6 +10,7 @@ using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using MEC;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
+using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using PlayerRoles;
 using UnityEngine;
 
@@ -26,7 +27,8 @@ public class SubclassManager : OriginsModule
             new JanitorSubclass(),
             new OrcSubclass(),
             new KidSubclass(),
-        ]
+            new NtfSpy(),
+        ],
     };
     
     public override void OnLoaded()
@@ -45,7 +47,7 @@ public class SubclassManager : OriginsModule
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
-        ISubclass subclass = GetRandomSubclass(args.NewRole);
+        ISubclass subclass = GetRandomSubclass(args.NewRole, args.Player);
         args.Player.SetSubclass(subclass);
         
         if (subclass is null)
@@ -131,17 +133,17 @@ public class SubclassManager : OriginsModule
         }
     }
 
-    private static ISubclass GetRandomSubclass(RoleTypeId roleTypeId)
+    private static ISubclass GetRandomSubclass(RoleTypeId roleTypeId, CursedPlayer player)
     {
         if (!AvailableSubclasses.TryGetValue(roleTypeId, out ISubclass[] subclasses))
             return null;
         
-        float totalChance = subclasses.Sum(subclass => subclass.SpawnChance) + 1;
+        float totalChance = subclasses.Sum(subclass => subclass.FilterSubclass(player) ? subclass.SpawnChance : 0) + 1;
         float finalChance = UnityEngine.Random.Range(0f, totalChance);
         
         foreach (ISubclass subclass in subclasses)
         {
-            finalChance -= subclass.SpawnChance;
+            finalChance -= subclass.FilterSubclass(player) ? subclass.SpawnChance : 0;
             
             if (finalChance <= 0f)
                 return Activator.CreateInstance(subclass.GetType()) as ISubclass;

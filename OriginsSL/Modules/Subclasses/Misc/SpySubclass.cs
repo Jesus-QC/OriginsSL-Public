@@ -1,22 +1,17 @@
-using CursedMod.Events.Arguments.Player;
+using CursedMod.Features.Wrappers.Player;
 using PlayerRoles;
 
 namespace OriginsSL.Modules.Subclasses.Misc;
 
 public abstract class SpySubclass : SubclassBase
 {
-    public virtual RoleTypeId DisguisedAs { get; } = RoleTypeId.None;
-    
-    public class SpySubclassHandler : ISubclassEventsHandler
-    {
-        public void OnLoaded()
-        {
-            
-        }
+    protected virtual RoleTypeId DisguisedAs => RoleTypeId.None;
 
-        private static void OnChangingRole(PlayerChangingRoleEventArgs args)
-        {
-            
-        }
+    public override RoleTypeId SpawnLocation => DisguisedAs;
+
+    public override void OnSpawn(CursedPlayer player)
+    {
+        player.FakeAliveRole = DisguisedAs;
+        base.OnSpawn(player);
     }
 }

@@ -13,7 +13,7 @@ public class JanitorSubclass : SubclassBase
     public override string Name => "<color=#c0b2e6>J<lowercase>anitor</lowercase></color>";
     public override string Description => "cleans up tantrums by standing on them";
     
-    public override float SpawnChance => 1f;
+    public override float SpawnChance => 0.7f;
     public override List<ItemType> Inventory { get; } = [ItemType.KeycardJanitor];
 
     // Counter for the tantrum cleaning

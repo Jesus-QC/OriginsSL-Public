@@ -21,6 +21,8 @@ public abstract class SubclassBase : ISubclass
     public virtual List<ItemType> Inventory => null;
     public virtual Dictionary<ItemType, ushort> Ammo => null;
 
+    public virtual bool FilterSubclass(CursedPlayer player) => true;
+
     public virtual void OnSpawn(CursedPlayer player) { }
 
     public virtual void OnDeath(CursedPlayer player) { }

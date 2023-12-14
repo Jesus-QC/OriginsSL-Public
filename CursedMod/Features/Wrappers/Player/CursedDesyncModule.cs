@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using CursedMod.Events.Arguments.Player;
+using MEC;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -55,7 +56,7 @@ public static class CursedDesyncModule
         
         foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
         {
-            fakedRole.Key.ChangeAppearance(fakedRole.Value, [args.Player]);
+            fakedRole.Key.ChangeAppearance(fakedRole.Key.Role, [args.Player]);
         }
     }
     
@@ -63,10 +64,13 @@ public static class CursedDesyncModule
     {
         if (args.RoleType is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None or RoleTypeId.Filmmaker)
             return;
-        
+
         foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
         {
-            fakedRole.Key.ChangeAppearance(fakedRole.Key.Role, [args.Player]);
+            if (fakedRole.Key == args.Player)
+                continue;
+                
+            fakedRole.Key.ChangeAppearance(fakedRole.Value, [args.Player]);
         }
     }
 
