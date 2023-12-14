@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InitializeRolePatch.cs" company="CursedMod">
+// <copyright file="ServerSetRolePatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -17,12 +17,12 @@ using PlayerRoles;
 namespace CursedMod.Events.Patches.Player.Roles;
 
 [DynamicEventPatch(typeof(CursedPlayerEventsHandler), nameof(CursedPlayerEventsHandler.ChangingRole))]
-[HarmonyPatch(typeof(PlayerRoleManager), nameof(PlayerRoleManager.InitializeNewRole))]
-public class InitializeRolePatch
+[HarmonyPatch(typeof(PlayerRoleManager), nameof(PlayerRoleManager.ServerSetRole))]
+public class ServerSetRolePatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<InitializeRolePatch>(111, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ServerSetRolePatch>(34, instructions);
 
         Label ret = generator.DefineLabel();
         LocalBuilder args = generator.DeclareLocal(typeof(PlayerChangingRoleEventArgs));
