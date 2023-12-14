@@ -79,11 +79,10 @@ public class SubclassManager : OriginsModule
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
-        if (!subclass.Spoofed)
-            args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
-        
         Timing.CallDelayed(0.4f, () =>
         {
+            if (!subclass.Spoofed)
+                args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
             if (subclass.Health > 0)
                 args.Player.Health = subclass.Health;
             if (subclass.ArtificialHealth > 0)
