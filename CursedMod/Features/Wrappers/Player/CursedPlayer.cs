@@ -326,7 +326,7 @@ public class CursedPlayer
             if (value == RoleTypeId.None)
                 value = Role;
             
-            this.ChangeAppearance(value, Collection.Where(x => x != this && !x.IsDead && x.RoleBase.Team != RoleBase.Team));
+            this.ChangeAppearance(value, Collection.Where(x => x != this && !x.IsDead));
             
             if (CursedDesyncModule.FakedRolesNoSpectators.ContainsKey(this))
             {

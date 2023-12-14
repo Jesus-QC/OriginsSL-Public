@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using CursedMod.Events.Arguments.Player;
-using MEC;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -51,27 +50,23 @@ public static class CursedDesyncModule
         if (FakedRolesNoSpectators.ContainsKey(args.Player))
             FakedRolesNoSpectators.Remove(args.Player);
 
-        Team newTeam = args.NewRole.GetTeam();
+        if (args.NewRole is not(RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None or RoleTypeId.Filmmaker)) 
+            return;
         
         foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
         {
-            if (newTeam is not Team.Dead && newTeam != fakedRole.Key.RoleBase.Team)
-                continue;
-            
             fakedRole.Key.ChangeAppearance(fakedRole.Key.Role, [args.Player]);
         }
     }
     
     public static void HandlePlayerSpawning(PlayerSpawningEventArgs args)
     {
-        Team newTeam = args.Player.RoleBase.Team;
-
-        if (newTeam == Team.Dead)
+        if (args.RoleType is RoleTypeId.Spectator or RoleTypeId.Overwatch or RoleTypeId.None or RoleTypeId.Filmmaker)
             return;
-        
+
         foreach (KeyValuePair<CursedPlayer, RoleTypeId> fakedRole in FakedRolesNoSpectators)
         {
-            if (fakedRole.Key.RoleBase.Team == newTeam)
+            if (fakedRole.Key == args.Player)
                 continue;
                 
             fakedRole.Key.ChangeAppearance(fakedRole.Value, [args.Player]);
