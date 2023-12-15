@@ -1,6 +1,7 @@
 ﻿using CursedMod.Loader;
 using CursedMod.Loader.Modules;
 using HarmonyLib;
+using OriginsSL.Modules.LevelingSystem;
 using PluginAPI.Core;
 
 namespace OriginsSL;
@@ -23,7 +24,9 @@ public class EntryPoint : CursedModule
         
         _harmony = new Harmony("cursed.jesusqc.com");
         _harmony.PatchAll();
-   
+
+        LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
+        
         base.OnLoaded();
     }
 }
