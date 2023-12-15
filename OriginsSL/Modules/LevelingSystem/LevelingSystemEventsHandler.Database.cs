@@ -6,6 +6,8 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using MySql.Data.MySqlClient;
+using OriginsSL.Features.Display;
+using OriginsSL.Modules.DisplayRenderer;
 
 namespace OriginsSL.Modules.LevelingSystem;
 
@@ -17,7 +19,7 @@ public static partial class LevelingSystemEventsHandler
     {
         Connection = new MySqlConnection($"Server={LevelingSystemModule.Config.DatabaseAddress}; Port={LevelingSystemModule.Config.DatabasePort}; Database={LevelingSystemModule.Config.DatabaseName}; Uid={LevelingSystemModule.Config.UserId}; Pwd={LevelingSystemModule.Config.Password};");
         CreateDatabase();
-        CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
+        CursedRoundEventsHandler.RestartingRound += OnRestartingRoundDatabase;
         CursedPlayerEventsHandler.Connected += OnPlayerConnected;
         CursedPlayerEventsHandler.Disconnected += OnPlayerDisconnected;
     }
@@ -26,7 +28,7 @@ public static partial class LevelingSystemEventsHandler
     private static readonly Dictionary<CursedPlayer, int> PlayerExp = new();
     private static readonly Dictionary<CursedPlayer, int> PlayerLevel = new();
 
-    private static void OnRestartingRound()
+    private static void OnRestartingRoundDatabase()
     {
         PlayerIds.Clear();
         PlayerExp.Clear();
@@ -92,12 +94,15 @@ public static partial class LevelingSystemEventsHandler
     private static async void Authorize(CursedPlayer player)
     {
          (int id, int exp, int level) = await CreatePlayer(player);
+         
          PlayerIds.Add(player, id);
          PlayerExp.Add(player, exp);
          PlayerLevel.Add(player, level);
+         
+         OnAuthenticated(player);
     }
 
-    private static async void AddExp(this CursedPlayer player, int exp)
+    public static async void AddExp(this CursedPlayer player, int exp)
     {
         if (!PlayerIds.TryGetValue(player, out int plyId))
             return;
@@ -113,8 +118,15 @@ public static partial class LevelingSystemEventsHandler
         
         PlayerExp[player] += exp;
         PlayerLevel[player] = ConvertExpToLevel(PlayerExp[player]);
+        
+        if (!DisplayRendererModule.TryGetDisplayBuilder(player, out CursedDisplayBuilder builder))
+            return;
+        
+        builder.AddNotification($"[ + {exp} Exp ]");
     }
     
+    public static bool TryGetId(this CursedPlayer player, out int id) => PlayerIds.TryGetValue(player, out id);
+
     // Converts Exp to Level:
     // 1000 Exp = 1 Level
     // When reached 10 Levels, it will be 2000 Exp = 1 Level

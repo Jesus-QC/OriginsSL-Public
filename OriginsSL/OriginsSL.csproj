@@ -169,6 +169,7 @@
         <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingConfig.cs" />
+        <Compile Include="Modules\LevelingSystem\LevelingRateLimiter.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Database.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Player.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Server.cs" />
@@ -176,6 +177,7 @@
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\CheckPermissionsPatch.cs" />
+        <Compile Include="Modules\RemoteKeyCard\GeneratorCheckPermissionsPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\LockerCheckPermissionsPatch.cs" />
         <Compile Include="Modules\RespawnTimer\RespawnTimerModule.cs" />
         <Compile Include="Modules\Scp1162\Scp1162Module.cs" />
