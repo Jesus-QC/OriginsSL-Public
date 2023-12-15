@@ -88,29 +88,6 @@ public static partial class LevelingSystemEventsHandler
         int level = ConvertExpToLevel(exp);
         return (id, exp, level);
     }
-    
-    // Converts Exp to Level:
-    // 1000 Exp = 1 Level
-    // When reached 10 Levels, it will be 2000 Exp = 1 Level
-    // When reached 20 Levels, it will be 3000 Exp = 1 Level
-    // And so on...
-    private static int ConvertExpToLevel(int exp)
-    {
-        const int levelChunkTo = 10;
-        const int startingExpPerLevel = 1000;
-        
-        int index = 1;
-        while (true)
-        {
-            int neededExp = startingExpPerLevel * levelChunkTo * index;
-			
-            if (exp <= neededExp)
-                return levelChunkTo * (index - 1) + exp / (startingExpPerLevel * index);
-                
-            exp -= neededExp;
-            index++;
-        }
-    }
 
     private static async void Authorize(CursedPlayer player)
     {
@@ -135,5 +112,29 @@ public static partial class LevelingSystemEventsHandler
         await cmd.ExecuteNonQueryAsync();
         
         PlayerExp[player] += exp;
+        PlayerLevel[player] = ConvertExpToLevel(PlayerExp[player]);
+    }
+    
+    // Converts Exp to Level:
+    // 1000 Exp = 1 Level
+    // When reached 10 Levels, it will be 2000 Exp = 1 Level
+    // When reached 20 Levels, it will be 3000 Exp = 1 Level
+    // And so on...
+    private static int ConvertExpToLevel(int exp)
+    {
+        const int levelChunkTo = 10;
+        const int startingExpPerLevel = 1000;
+        
+        int index = 1;
+        while (true)
+        {
+            int neededExp = startingExpPerLevel * levelChunkTo * index;
+			
+            if (exp <= neededExp)
+                return levelChunkTo * (index - 1) + exp / (startingExpPerLevel * index);
+                
+            exp -= neededExp;
+            index++;
+        }
     }
 }
