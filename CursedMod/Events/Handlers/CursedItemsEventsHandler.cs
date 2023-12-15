@@ -40,7 +40,7 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerDryfiringWeaponEventArgs> PlayerDryfiringWeapon;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerTogglingWeaponFlashlightEventArgs> PlayerTogglinhWeaponFlashlight;
+    public static event CursedEventManager.CursedEventHandler<PlayerTogglingWeaponFlashlightEventArgs> PlayerTogglingWeaponFlashlight;
     
     public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon; 
     
@@ -161,7 +161,7 @@ public static class CursedItemsEventsHandler
         if (!args.Player.CheckPlayer())
             return;
         
-        PlayerTogglinhWeaponFlashlight.InvokeEvent(args);
+        PlayerTogglingWeaponFlashlight.InvokeEvent(args);
     }
     
     internal static void OnPlayerInspectingWeapon(PlayerInspectingWeaponEventArgs args)
