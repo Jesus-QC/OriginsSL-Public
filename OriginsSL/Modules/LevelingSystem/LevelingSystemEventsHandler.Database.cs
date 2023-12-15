@@ -33,6 +33,7 @@ public static partial class LevelingSystemEventsHandler
         PlayerIds.Clear();
         PlayerExp.Clear();
         PlayerLevel.Clear();
+        ClearPlayerCache();
     }
 
     private static void OnPlayerConnected(PlayerConnectedEventArgs args)
@@ -122,7 +123,7 @@ public static partial class LevelingSystemEventsHandler
         if (!DisplayRendererModule.TryGetDisplayBuilder(player, out CursedDisplayBuilder builder))
             return;
         
-        builder.AddNotification($"[ + {exp} Exp ]");
+        builder.AddNotification($"⌈ + {exp} E<lowercase>xp</lowercase> ⌋");
     }
     
     public static bool TryGetId(this CursedPlayer player, out int id) => PlayerIds.TryGetValue(player, out id);

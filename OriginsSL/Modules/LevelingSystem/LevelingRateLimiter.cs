@@ -39,12 +39,18 @@ public class LevelingRateLimiter
 
     public void AddExpAndUsage(CursedPlayer player, int exp)
     {
+        if (player.DoNotTrack)
+            return;
+        
         player.AddExp(exp);
         AddUsage(player);
     }
     
     public void AddExpWithCheck(CursedPlayer player, int exp)
     {
+        if (player.DoNotTrack)
+            return;
+        
         if (IsRateLimited(player))
             return;
         
