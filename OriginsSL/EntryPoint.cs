@@ -19,13 +19,13 @@ public class EntryPoint : CursedModule
     
     public override void OnLoaded()
     {
+        LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
+        
         ModuleLoader.LoadModules();
         Log.Info("Loaded all modules");
         
         _harmony = new Harmony("cursed.jesusqc.com");
         _harmony.PatchAll();
-
-        LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
         
         base.OnLoaded();
     }

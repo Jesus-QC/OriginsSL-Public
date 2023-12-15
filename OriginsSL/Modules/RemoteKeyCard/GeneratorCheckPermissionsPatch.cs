@@ -14,7 +14,7 @@ namespace OriginsSL.Modules.RemoteKeyCard;
 [HarmonyPatch(typeof(Scp079Generator), nameof(Scp079Generator.ServerInteract))]
 public class GeneratorCheckPermissionsPatch
 {
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
         List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
 
@@ -22,7 +22,8 @@ public class GeneratorCheckPermissionsPatch
             => x.operand is MethodInfo m 
                && m == AccessTools.Method(typeof(DoorPermissionUtils), nameof(DoorPermissionUtils.HasFlagFast))) - 17;
         
-        CodeInstruction jump = newInstructions[index + 5];
+        Label jump = generator.DefineLabel();
+        newInstructions[index + 5].labels.Add(jump);
         
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
@@ -30,7 +31,7 @@ public class GeneratorCheckPermissionsPatch
             new (OpCodes.Ldfld, AccessTools.Field(typeof(Scp079Generator), nameof(Scp079Generator._requiredPermission))),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Call, AccessTools.Method(typeof(GeneratorCheckPermissionsPatch), nameof(CheckPerms))),
-            new (OpCodes.Br_S, jump)
+            new (OpCodes.Br, jump)
         });
         
         foreach (CodeInstruction instruction in newInstructions)

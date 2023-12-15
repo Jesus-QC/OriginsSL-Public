@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using CursedMod.Features.Wrappers.Player;
 using MySql.Data.MySqlClient;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
+using PluginAPI.Core;
 
 namespace OriginsSL.Modules.LevelingSystem;
 
@@ -53,20 +55,27 @@ public static partial class LevelingSystemEventsHandler
 
     private static async void CreateDatabase()
     {
-        MySqlConnection con = (MySqlConnection)Connection.Clone();
-        await con.OpenAsync();
+        try
+        {
+            MySqlConnection con = (MySqlConnection)Connection.Clone();
+            await con.OpenAsync();
 
-        MySqlCommand cmd = new("CREATE TABLE IF NOT EXISTS LevelingSystem(" +
-                               "Id INT AUTO_INCREMENT PRIMARY KEY," +
-                               "Username varchar(255) NOT NULL DEFAULT 'Unknown'," +
-                               "SteamId bigint DEFAULT NULL," +
-                               "DiscordId bigint DEFAULT NULL," +
-                               "NorthWoodId varchar(255) DEFAULT NULL," +
-                               "Experience INT NOT NULL DEFAULT 0," +
-                               "Level INT NOT NULL DEFAULT 0);");
-        
-        
-        await cmd.ExecuteNonQueryAsync();
+            MySqlCommand cmd = new("CREATE TABLE IF NOT EXISTS LevelingSystem(" +
+                                   "Id INT AUTO_INCREMENT PRIMARY KEY," +
+                                   "Username varchar(255) NOT NULL DEFAULT 'Unknown'," +
+                                   "SteamId bigint DEFAULT NULL," +
+                                   "DiscordId bigint DEFAULT NULL," +
+                                   "NorthWoodId varchar(255) DEFAULT NULL," +
+                                   "Experience INT NOT NULL DEFAULT 0," +
+                                   "Level INT NOT NULL DEFAULT 0);", con);
+
+
+            await cmd.ExecuteNonQueryAsync();
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.ToString());
+        }
     }
     
     private static async Task<(int, int, int)> CreatePlayer(CursedPlayer player)
@@ -74,17 +83,25 @@ public static partial class LevelingSystemEventsHandler
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         await con.OpenAsync();
 
-        MySqlCommand cmd = new("IF(EXISTS(SELECT * FROM LevelingSystem WHERE SteamId = @SteamId or DiscordId = @DiscordId or NorthWoodId = @NorthWoodId)) THEN SELECT Id, Exp FROM LevelingSystem WHERE SteamId = @SteamId or DiscordId = @DiscordId or NorthWoodId = @NorthWoodId; ELSE INSERT INTO LevelingSystem(Username, SteamId, DiscordId, NorthWoodId) VALUES (@Username, @SteamId, @DiscordId, @NorthWoodId);SELECT LAST_INSERT_ID(), 0;END IF;", con);
+        MySqlCommand cmd =
+            new(
+                "IF (EXISTS(SELECT * FROM LevelingSystem WHERE SteamId = @SteamId or DiscordId = @DiscordId or NorthWoodId = @NorthWoodId)) THEN SELECT Id, Experience FROM LevelingSystem WHERE SteamId = @SteamId or DiscordId = @DiscordId or NorthWoodId = @NorthWoodId; ELSE INSERT INTO LevelingSystem(Username, SteamId, DiscordId, NorthWoodId) VALUES (@Username, @SteamId, @DiscordId, @NorthWoodId); SELECT LAST_INSERT_ID(), 0;END IF;",
+                con);
         cmd.Parameters.AddWithValue("@Username", player.RealNickname);
-        cmd.Parameters.AddWithValue("@SteamId", player.AuthenticationType == AuthenticationType.Steam ? player.RawUserId : null);
-        cmd.Parameters.AddWithValue("@DiscordId", player.AuthenticationType == AuthenticationType.Discord ? player.RawUserId : null);
-        cmd.Parameters.AddWithValue("@NorthWoodId", player.AuthenticationType is AuthenticationType.NorthWood or AuthenticationType.Other ? player.UserId : null);
-        
+        cmd.Parameters.AddWithValue("@SteamId",
+            player.AuthenticationType == AuthenticationType.Steam ? player.RawUserId : null);
+        cmd.Parameters.AddWithValue("@DiscordId",
+            player.AuthenticationType == AuthenticationType.Discord ? player.RawUserId : null);
+        cmd.Parameters.AddWithValue("@NorthWoodId",
+            player.AuthenticationType is AuthenticationType.NorthWood or AuthenticationType.Other
+                ? player.UserId
+                : null);
+
         using DbDataReader reader = await cmd.ExecuteReaderAsync();
 
-        if (!reader.HasRows) 
+        if (!reader.HasRows)
             return (0, 0, 0);
-        
+
         await reader.ReadAsync();
         int id = reader.GetInt32(0);
         int exp = reader.GetInt32(1);
@@ -95,6 +112,9 @@ public static partial class LevelingSystemEventsHandler
     private static async void Authorize(CursedPlayer player)
     {
          (int id, int exp, int level) = await CreatePlayer(player);
+         
+         if (id == 0)
+             return;
          
          PlayerIds.Add(player, id);
          PlayerExp.Add(player, exp);
@@ -108,6 +128,7 @@ public static partial class LevelingSystemEventsHandler
         if (!PlayerIds.TryGetValue(player, out int plyId))
             return;
         
+        Log.Info("Adding exp to player " + player.DisplayNickname + " - " + exp);
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         await con.OpenAsync();
 

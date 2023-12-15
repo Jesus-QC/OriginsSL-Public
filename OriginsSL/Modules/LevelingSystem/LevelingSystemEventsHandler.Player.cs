@@ -31,7 +31,6 @@ public static partial class LevelingSystemEventsHandler
         CursedPlayerEventsHandler.EscapingPocketDimension += OnPlayerEscapingPocketDimension;
         CursedPlayerEventsHandler.Disarming += OnPlayerDisarming;
         CursedPlayerEventsHandler.RemovingHandcuff += OnPlayerRemovingHandcuff;
-        CursedScp914EventsHandler.PlayerEnablingScp914 += OnPlayerEnablingScp914;
         CursedScp914EventsHandler.PlayerChangingScp914KnobSetting += OnPlayerChangingScp914KnobSetting;
         CursedWarheadEventsHandler.PlayerStartingDetonation += OnPlayerStartingDetonation;
         CursedWarheadEventsHandler.PlayerCancelingDetonation += OnPlayerCancellingDetonation;
@@ -143,13 +142,6 @@ public static partial class LevelingSystemEventsHandler
     private static void OnPlayerRemovingHandcuff(PlayerRemovingHandcuffEventArgs args)
     {
         RemovingHandcuffsLimiter.AddExpWithCheck(args.Player, 50);
-    }
-    
-    private static readonly LevelingRateLimiter Enabling914Limiter = new (3);
-    
-    private static void OnPlayerEnablingScp914(PlayerEnablingScp914EventArgs args)
-    {
-        Enabling914Limiter.AddExpWithCheck(args.Player, 25);
     }
     
     private static readonly LevelingRateLimiter ChangingKnowSettingLimiter = new (3);
