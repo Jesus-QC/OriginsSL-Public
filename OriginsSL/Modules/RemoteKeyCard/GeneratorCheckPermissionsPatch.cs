@@ -8,6 +8,7 @@ using InventorySystem.Items;
 using InventorySystem.Items.Keycards;
 using MapGeneration.Distributors;
 using NorthwoodLib.Pools;
+using PluginAPI.Core;
 
 namespace OriginsSL.Modules.RemoteKeyCard;
 
@@ -22,16 +23,13 @@ public class GeneratorCheckPermissionsPatch
             => x.operand is MethodInfo m 
                && m == AccessTools.Method(typeof(DoorPermissionUtils), nameof(DoorPermissionUtils.HasFlagFast))) - 17;
         
-        Label jump = generator.DefineLabel();
-        newInstructions[index + 5].labels.Add(jump);
-        
         newInstructions.InsertRange(index, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
+            new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
             new (OpCodes.Ldfld, AccessTools.Field(typeof(Scp079Generator), nameof(Scp079Generator._requiredPermission))),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Call, AccessTools.Method(typeof(GeneratorCheckPermissionsPatch), nameof(CheckPerms))),
-            new (OpCodes.Br, jump)
+            new (OpCodes.Br, newInstructions[index + 18].operand)
         });
         
         foreach (CodeInstruction instruction in newInstructions)
@@ -42,6 +40,7 @@ public class GeneratorCheckPermissionsPatch
 
     private static bool CheckPerms(KeycardPermissions permissions, ReferenceHub ply)
     {
+        Log.Info("test");
         foreach (ItemBase item in CursedPlayer.Get(ply).Items.Values)
         {
             if (item is not KeycardItem keyCardItem)
@@ -50,7 +49,7 @@ public class GeneratorCheckPermissionsPatch
             if (keyCardItem.Permissions.HasFlagFast(permissions))
                 return true;
         }
-
+        
         return false;
     }
 }

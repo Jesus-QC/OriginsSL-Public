@@ -109,7 +109,7 @@ public static partial class LevelingSystemEventsHandler
     
     private static void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs args)
     {
-        if (!args.IsAllowed)
+        if (!args.HasPermissions)
             return;
         
         if (!DoorInteractions.ContainsKey(args.Door))
