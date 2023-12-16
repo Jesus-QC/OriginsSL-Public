@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://167.235.97.154:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="s1_scpsl@94.130.162.149" uuid="903807fc-3a3f-4671-bda9-cf7567b5d11c">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://94.130.162.149:3306/s1_scpsl</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -13,7 +13,7 @@ namespace OriginsSL.Modules.SpectatorCount;
 public class SpectatorCountManager : OriginsModule
 {
     private static readonly List<CancellationTokenSource> CancellationTokenSources = [];
-
+    
     public override void OnLoaded()
     {
         CursedRoundEventsHandler.WaitingForPlayers += Start;
@@ -23,7 +23,7 @@ public class SpectatorCountManager : OriginsModule
     private static void Start()
     {
         CancellationTokenSource cancellationTokenSource = new();
-        Task.Run(() => Timer(cancellationTokenSource));
+        Task.Run(() => Timer(cancellationTokenSource), cancellationTokenSource.Token);
         CancellationTokenSources.Add(cancellationTokenSource);
     }
 
@@ -39,7 +39,6 @@ public class SpectatorCountManager : OriginsModule
     
     private static async Task Timer(CancellationTokenSource cancellationTokenSource)
     {
-        CursedLogger.LogInformation("SpectatorCountManager started");
         Dictionary<uint, int> spectatorCount = new ();
         
         while (!cancellationTokenSource.IsCancellationRequested)
@@ -78,7 +77,5 @@ public class SpectatorCountManager : OriginsModule
 
             await Task.Delay(1500, cancellationTokenSource.Token);
         }
-
-        CursedLogger.LogInformation("SpectatorCountManager stopped");
     }
 }

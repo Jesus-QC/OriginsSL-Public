@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
@@ -19,8 +20,17 @@ public static partial class LevelingSystemEventsHandler
     
     public static void InitDatabase()
     {
-        Connection = new MySqlConnection($"Server={LevelingSystemModule.Config.DatabaseAddress}; Port={LevelingSystemModule.Config.DatabasePort}; Database={LevelingSystemModule.Config.DatabaseName}; Uid={LevelingSystemModule.Config.UserId}; Pwd={LevelingSystemModule.Config.Password};");
-        CreateDatabase();
+        try
+        {
+            Log.Warning("Initiating database...");
+            Connection = new MySqlConnection($"Server={LevelingSystemModule.Config.DatabaseAddress}; Port={LevelingSystemModule.Config.DatabasePort}; Database={LevelingSystemModule.Config.DatabaseName}; Uid={LevelingSystemModule.Config.UserId}; Pwd={LevelingSystemModule.Config.Password};");
+            CreateDatabase();
+        }
+        catch (Exception e)
+        {
+            Log.Error(e.ToString());
+        }
+        
         CursedRoundEventsHandler.RestartingRound += OnRestartingRoundDatabase;
         CursedPlayerEventsHandler.Connected += OnPlayerConnected;
         CursedPlayerEventsHandler.Disconnected += OnPlayerDisconnected;
@@ -53,30 +63,24 @@ public static partial class LevelingSystemEventsHandler
         PlayerLevel.Remove(args.Player);
     }
 
-    private static async void CreateDatabase()
+    private static void CreateDatabase()
     {
-        try
-        {
-            MySqlConnection con = (MySqlConnection)Connection.Clone();
-            await con.OpenAsync();
+        Log.Warning("CREATING TABLES:");  
+        MySqlConnection con = (MySqlConnection)Connection.Clone();
+        con.Open();
 
-            MySqlCommand cmd = new("CREATE TABLE IF NOT EXISTS LevelingSystem(" +
-                                   "Id INT AUTO_INCREMENT PRIMARY KEY," +
-                                   "Username varchar(255) NOT NULL DEFAULT 'Unknown'," +
-                                   "SteamId bigint DEFAULT NULL," +
-                                   "DiscordId bigint DEFAULT NULL," +
-                                   "NorthWoodId varchar(255) DEFAULT NULL," +
-                                   "Experience INT NOT NULL DEFAULT 0," +
-                                   "Level INT NOT NULL DEFAULT 0);", con);
+        MySqlCommand cmd = new("CREATE TABLE IF NOT EXISTS LevelingSystem(" +
+                               "Id INT AUTO_INCREMENT PRIMARY KEY," +
+                               "Username varchar(255) NOT NULL DEFAULT 'Unknown'," +
+                               "SteamId bigint DEFAULT NULL," +
+                               "DiscordId bigint DEFAULT NULL," +
+                               "NorthWoodId varchar(255) DEFAULT NULL," +
+                               "Experience INT NOT NULL DEFAULT 0," +
+                               "Level INT NOT NULL DEFAULT 0);", con);
 
 
-            await cmd.ExecuteNonQueryAsync();
-            Log.Info("CREATED TABLE LevelingSystem");
-        }
-        catch (Exception e)
-        {
-            Log.Error(e.ToString());
-        }
+        cmd.ExecuteNonQuery();
+        Log.Warning("\tCREATED TABLE LevelingSystem");  
     }
     
     private static async Task<(int, int, int)> CreatePlayer(CursedPlayer player)

@@ -26,7 +26,7 @@ public class RespawnTimerModule : OriginsModule
     private static void Start()
     {
         CancellationTokenSource cancellationTokenSource = new();
-        Task.Run(() => RunTimer(cancellationTokenSource));
+        Task.Run(() => RunTimer(cancellationTokenSource), cancellationTokenSource.Token);
         CancellationTokenSources.Add(cancellationTokenSource);
     }
 
@@ -44,8 +44,6 @@ public class RespawnTimerModule : OriginsModule
 
     private static async Task RunTimer(CancellationTokenSource cancellationTokenSource)
     {
-        CursedLogger.LogInformation("RespawnTimerManager started");
-        
         int tipCount = 0;
         string tip = string.Empty;
         AvailableTips.Add($"D<lowercase>id you know there are in total {AvailableTips.Count + 1} tips like this one?</lowercase>");
@@ -73,8 +71,6 @@ public class RespawnTimerModule : OriginsModule
             MtfChance = $"{Mathf.Round(Respawn.NtfTickets * 100)}%";
             SpectatorCount = CursedPlayer.Collection.Count(x => x.IsDead).ToString();
         }
-        
-        CursedLogger.LogInformation("RespawnTimerManager stopped");
     }
 
     public static string Timer = string.Empty;

@@ -12,4 +12,6 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         LevelingImageBuilder levelingImageBuilder = new (member.Username, Random.Shared.Next(0, 9999), Random.Shared.Next(0, 5000), 5000, Random.Shared.Next(0, 9999));
         await RespondWithFileAsync(await levelingImageBuilder.BuildAsync(), "level.png");
     }
+    
+    
 }
