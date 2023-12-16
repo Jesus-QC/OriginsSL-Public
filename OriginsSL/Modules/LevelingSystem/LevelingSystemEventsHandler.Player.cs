@@ -109,13 +109,20 @@ public static partial class LevelingSystemEventsHandler
     
     private static void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs args)
     {
+        if (!args.IsAllowed)
+            return;
+        
         if (!DoorInteractions.ContainsKey(args.Door))
             DoorInteractions.Add(args.Door, []);
         
-        if (DoorInteractions[args.Door].Add(args.Player))
+        if (!DoorInteractions[args.Door].Add(args.Player))
             return;
         
         args.Player.AddExp(10);
+        
+        if (!args.Door.IsGate)
+            return;
+        
         GateLimiter.AddExpWithCheck(args.Player, 35);
     }
     

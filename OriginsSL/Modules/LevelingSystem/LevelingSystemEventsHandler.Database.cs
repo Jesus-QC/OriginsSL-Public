@@ -128,23 +128,24 @@ public static partial class LevelingSystemEventsHandler
         if (!PlayerIds.TryGetValue(player, out int plyId))
             return;
         
-        Log.Info("Adding exp to player " + player.DisplayNickname + " - " + exp);
+        PlayerExp[player] += exp;
+        int level = ConvertExpToLevel(PlayerExp[player]);
+        PlayerLevel[player] = level;
+        
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         await con.OpenAsync();
 
-        MySqlCommand cmd = new("UPDATE LevelingSystem SET Experience = Experience + @Exp WHERE Id=@Id", con);
+        MySqlCommand cmd = new("UPDATE LevelingSystem SET Experience = Experience + @Exp, Level = @Level WHERE Id=@Id", con);
         cmd.Parameters.AddWithValue("@Id", plyId);
         cmd.Parameters.AddWithValue("@Exp", exp);
+        cmd.Parameters.AddWithValue("@Level", level);
    
         await cmd.ExecuteNonQueryAsync();
-        
-        PlayerExp[player] += exp;
-        PlayerLevel[player] = ConvertExpToLevel(PlayerExp[player]);
         
         if (!DisplayRendererModule.TryGetDisplayBuilder(player, out CursedDisplayBuilder builder))
             return;
         
-        builder.AddNotification($"⌈ + {exp} E<lowercase>xp</lowercase> ⌋");
+        builder.AddNotification($"<color=#E5DEA2>⌈ + {exp}</color> <color=#AFC0B8>E</color><lowercase><color=#94B1C3>x</color><color=#79A2CE>p</color></lowercase> <color=#4384E4>⌋</color>");
     }
     
     public static bool TryGetId(this CursedPlayer player, out int id) => PlayerIds.TryGetValue(player, out id);
