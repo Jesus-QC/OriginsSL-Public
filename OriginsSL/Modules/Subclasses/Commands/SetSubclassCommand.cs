@@ -73,14 +73,7 @@ public class SetSubclassCommand : ICommand, IUsageProvider
             if (player.TryGetSubclass(out ISubclass oldSubclass) && subclass.GetType() == oldSubclass.GetType())
                 continue;
             
-            player.SetSubclass(subclass);
-            if (subclass.PlayerSize != Vector3.zero)
-                player.Scale = subclass.PlayerSize;
-            if (subclass.FakeSize != Vector3.zero)
-                player.FakeScale = subclass.FakeSize;
-            PlayerSpawningEventArgs spawningArgs = new (player.ReferenceHub, player.RoleBase, player.Position, player.HorizontalRotation);
-            SubclassManager.OnSpawning(spawningArgs);
-            player.Position = spawningArgs.SpawnPosition;
+            player.ForceSubclass(subclass);
         }
 
         response = $"Done for {players.Count} players";

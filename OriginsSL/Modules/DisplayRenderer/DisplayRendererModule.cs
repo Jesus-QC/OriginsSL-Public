@@ -7,6 +7,7 @@ using CursedMod.Features.Wrappers.Round;
 using Hints;
 using OriginsSL.Features.Display;
 using PlayerRoles.RoleAssign;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.DisplayRenderer;
@@ -23,6 +24,15 @@ public class DisplayRendererModule : OriginsModule
         StaticUnityMethods.OnUpdate += OnUpdate;
         CursedPlayerEventsHandler.Connected += OnPlayerConnected;
         CursedPlayerEventsHandler.Disconnecting += OnPlayerDisconnecting;
+        CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
+    }
+
+    private static void OnRestartingRound()
+    {
+        foreach (CursedDisplayBuilder display in DisplayBuilders.Values)
+            display.ClearData();
+        
+        DisplayBuilders.Clear();
     }
 
     private static void OnPlayerConnected(PlayerConnectedEventArgs args)

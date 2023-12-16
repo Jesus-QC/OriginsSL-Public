@@ -63,7 +63,7 @@ public class RespawnTimerModule : OriginsModule
             Timer = $"{timeUntilSpawn.Minutes.ToString().PadLeft(2, '0')}:{timeUntilSpawn.Seconds.ToString().PadLeft(2, '0')}";
             
             if (CursedRespawnManager.NextKnownTeam == SpawnableTeamType.None)
-                Info = tip;
+                Info = "<color=#717ac9>❓</color> " + tip;
             else
                 Info = Respawn.NextKnownTeam == SpawnableTeamType.ChaosInsurgency ? "<b><color=#58e85f>C<lowercase>haos wave spawning</lowercase></color></b>" : "<b><color=#479ade>M<lowercase>tf wave spawning</lowercase></color></b>";
 

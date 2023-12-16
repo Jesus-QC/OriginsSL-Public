@@ -30,9 +30,12 @@ public class LevelingRateLimiter
     {
         if (!player.TryGetId(out int id))
             return;
-        
+
         if (!_registeredTimes.ContainsKey(id))
+        {
             _registeredTimes.Add(id, 1);
+            return;
+        }
             
         _registeredTimes[id]++;
     }

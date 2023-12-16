@@ -29,6 +29,5 @@ public class DisconnectReplaceModule : OriginsModule
         
         OriginsPlayerReplacer.ReplacePlayer(player, args.Player);
         player.SendOriginsHint("R<lowercase>eplaced a player that was disconnected</lowercase>", ScreenZone.Important, 5f);
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CursedMod.Events.Arguments;
+using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.AdminToys;
@@ -14,6 +15,7 @@ using OriginsSL.Features.Display;
 using OriginsSL.Modules.CustomLobby.Components;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.CustomLobby;
@@ -29,19 +31,16 @@ public class LobbyHandler : OriginsModule
         CursedRoundEventsHandler.RoundStarted += HandleStart;
         CursedPlayerEventsHandler.Connected += HandleConnection;
         CursedPlayerEventsHandler.Disconnecting += HandleDisconnection;
-        CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
+        CursedItemsEventsHandler.PlayerDroppingItem += OnInteractingWithItem;
+        CursedItemsEventsHandler.PlayerPickingUpItem += OnInteractingWithItem;
     }
 
-    private static void OnRestartingRound()
-    {
-        CursedItemsEventsHandler.PlayerDroppingItem -= OnInteractingWithItem;
-        CursedItemsEventsHandler.PlayerPickingUpItem -= OnInteractingWithItem;
-    }
-    
     private static void OnInteractingWithItem(ICursedCancellableEvent args)
     {
-        if (CursedRound.IsInLobby)
-            args.IsAllowed = false;
+        if (!CursedRound.IsInLobby)
+            return;
+
+        args.IsAllowed = false;
     }
     
     private static void OnMapGenerated()
@@ -68,9 +67,6 @@ public class LobbyHandler : OriginsModule
             .Spawn());
         
         _spawnPos = room.GetLocalPoint(new Vector3(6.5f, 198f, 10.02f));
-        
-        CursedItemsEventsHandler.PlayerDroppingItem += OnInteractingWithItem;
-        CursedItemsEventsHandler.PlayerPickingUpItem += OnInteractingWithItem;
     }
     
     private static void HandleStart()
@@ -100,7 +96,7 @@ public class LobbyHandler : OriginsModule
 
     private static void HandleConnection(PlayerConnectedEventArgs args)
     {
-        if(!CursedRound.IsInLobby)
+        if (!CursedRound.IsInLobby)
             return;
         
         args.Player.Role = RoleTypeId.Tutorial;

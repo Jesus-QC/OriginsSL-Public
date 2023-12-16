@@ -14,16 +14,13 @@ using InventorySystem.Items;
 
 namespace CursedMod.Events.Arguments.Items;
 
-public class PlayerPickedUpItemEventArgs : EventArgs, ICursedCancellableEvent, ICursedPlayerEvent, ICursedItemEvent 
+public class PlayerPickedUpItemEventArgs : EventArgs, ICursedPlayerEvent, ICursedItemEvent 
 {
     public PlayerPickedUpItemEventArgs(Inventory inventory, ItemBase itemBase)
     {
-        IsAllowed = true;
         Player = CursedPlayer.Get(inventory._hub);
         Item = CursedItem.Get(itemBase);
     }
-    
-    public bool IsAllowed { get; set; }
 
     public CursedPlayer Player { get; }
 

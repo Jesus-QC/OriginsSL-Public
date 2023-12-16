@@ -3,6 +3,8 @@ using System.Linq;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 using CursedMod.Features.Wrappers.Player;
+using MEC;
+using OriginsSL.Modules.Subclasses;
 using PlayerRoles;
 
 namespace OriginsSL.Features;
@@ -10,8 +12,14 @@ namespace OriginsSL.Features;
 
 public static class OriginsPlayerReplacer
 {
-    public static void ReplacePlayer(CursedPlayer target, CursedPlayer other)
+    public static void ReplacePlayer(CursedPlayer target, CursedPlayer other, bool checkSubclass = true)
     {
+        if (checkSubclass && target.TryGetSubclass(out ISubclass subclass))
+        {
+            other.ForceSubclass(subclass);
+            Timing.CallDelayed(0.8f, () => ReplacePlayer(target, other, false));
+        }
+        
         List<CursedItem> items = other.ClearItemsWithoutDestroying().ToList();
         List<ItemType> firearms = [];
 

@@ -11,6 +11,7 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
 using HarmonyLib;
+using InventorySystem.Items.Pickups;
 using InventorySystem.Searching;
 using NorthwoodLib.Pools;
 
@@ -24,8 +25,10 @@ public class ItemSearchCompletePatch
     {
         List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ItemSearchCompletePatch>(29, instructions);
 
+        Label skip = generator.DefineLabel();
         Label ret = generator.DefineLabel();
 
+        newInstructions[0].labels.Add(skip);
         newInstructions[newInstructions.Count - 1].labels.Add(ret);
         
         newInstructions.InsertRange(0, new[]
@@ -37,7 +40,15 @@ public class ItemSearchCompletePatch
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerPickingUpItem))),
             new (OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(PlayerPickingUpItemEventArgs), nameof(PlayerPickingUpItemEventArgs.IsAllowed))),
-            new (OpCodes.Brfalse_S, ret),
+            new (OpCodes.Brtrue_S, skip),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldfld, AccessTools.Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
+            new (OpCodes.Ldarg_0),
+            new (OpCodes.Ldfld, AccessTools.Field(typeof(ItemSearchCompletor), nameof(ItemSearchCompletor.TargetPickup))),
+            new (OpCodes.Ldfld, AccessTools.Field(typeof(ItemPickupBase), nameof(ItemPickupBase.Info))),
+            new (OpCodes.Call, AccessTools.Method(typeof(ItemSearchCompletePatch), nameof(GetCancelInfo))),
+            new (OpCodes.Callvirt, AccessTools.PropertySetter(typeof(ItemPickupBase), nameof(ItemPickupBase.NetworkInfo))),
+            new (OpCodes.Br_S, ret),
         });
         
         foreach (CodeInstruction instruction in newInstructions)
@@ -45,4 +56,6 @@ public class ItemSearchCompletePatch
 
         ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
+
+    private static PickupSyncInfo GetCancelInfo(PickupSyncInfo oldInfo) => oldInfo with { InUse = false };
 }
