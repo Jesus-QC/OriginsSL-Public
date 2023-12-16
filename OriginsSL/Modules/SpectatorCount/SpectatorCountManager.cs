@@ -23,7 +23,7 @@ public class SpectatorCountManager : OriginsModule
     private static void Start()
     {
         CancellationTokenSource cancellationTokenSource = new();
-        Task.Run(() => Timer(cancellationTokenSource), cancellationTokenSource.Token);
+        Task.Run(() => Timer(cancellationTokenSource));
         CancellationTokenSources.Add(cancellationTokenSource);
     }
 
@@ -76,7 +76,7 @@ public class SpectatorCountManager : OriginsModule
             
             spectatorCount.Clear();
 
-            await Task.Delay(1500);
+            await Task.Delay(1500, cancellationTokenSource.Token);
         }
 
         CursedLogger.LogInformation("SpectatorCountManager stopped");

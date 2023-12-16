@@ -71,6 +71,7 @@ public static partial class LevelingSystemEventsHandler
 
 
             await cmd.ExecuteNonQueryAsync();
+            Log.Info("CREATED TABLE LevelingSystem");
         }
         catch (Exception e)
         {

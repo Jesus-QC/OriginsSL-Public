@@ -26,7 +26,7 @@ public class RespawnTimerModule : OriginsModule
     private static void Start()
     {
         CancellationTokenSource cancellationTokenSource = new();
-        Task.Run(() => RunTimer(cancellationTokenSource), cancellationTokenSource.Token);
+        Task.Run(() => RunTimer(cancellationTokenSource));
         CancellationTokenSources.Add(cancellationTokenSource);
     }
 
@@ -52,7 +52,7 @@ public class RespawnTimerModule : OriginsModule
         
         while (!cancellationTokenSource.IsCancellationRequested)
         {
-            await Task.Delay(1000);
+            await Task.Delay(1000, cancellationTokenSource.Token);
             
             tipCount++;
             if (tipCount == 9)
