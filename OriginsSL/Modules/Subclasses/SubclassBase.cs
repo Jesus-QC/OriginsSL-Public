@@ -22,6 +22,8 @@ public abstract class SubclassBase : ISubclass
     public virtual List<ItemType> Inventory => null;
     public virtual Dictionary<ItemType, ushort> Ammo => null;
     public virtual bool KeepAfterEscaping => false;
+    
+    public virtual bool IsLocked { get; set; } = false;
 
     public virtual bool FilterSubclass(CursedPlayer player) => true;
 

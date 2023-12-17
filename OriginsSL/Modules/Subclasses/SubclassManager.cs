@@ -57,16 +57,19 @@ public class SubclassManager : OriginsModule
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
     {
-        if (args.ChangeReason is RoleChangeReason.RemoteAdmin)
-        {
-            args.Player.SetSubclass(null);
-            return;
-        }
-        
         if (args.NewRole == args.Player.Role)
         {
             args.IsAllowed = false;
             return;
+        }
+        
+        if (args.Player.TryGetSubclass(out ISubclass oldSubclass))
+        {
+            if (oldSubclass.IsLocked)
+                return;
+            
+            if (oldSubclass.KeepAfterEscaping && args.ChangeReason is RoleChangeReason.Escaped)
+                return;
         }
         
         ISubclass subclass = GetRandomSubclass(args.NewRole, args.Player);

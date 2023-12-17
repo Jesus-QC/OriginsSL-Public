@@ -13,4 +13,6 @@ public class OrcSubclass : PitchChangerSubclass
     public override Vector3 FakeSize { get; } = new (1.7f, 1, 1.5f);
     
     public override float Pitch { get; } = 0.7f;
+    
+    public override bool KeepAfterEscaping => true;
 }

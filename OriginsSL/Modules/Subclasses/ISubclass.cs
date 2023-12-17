@@ -35,6 +35,8 @@ public interface ISubclass
     public Dictionary<ItemType, ushort> Ammo { get; }
     
     public bool KeepAfterEscaping { get; }
+    
+    public bool IsLocked { get; set; }
 
     public bool FilterSubclass(CursedPlayer player);
     

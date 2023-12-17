@@ -12,4 +12,6 @@ public class KidSubclass : PitchChangerSubclass
     public override Vector3 PlayerSize { get; } = new (0.6f, 0.6f, 0.6f);
 
     public override float Pitch { get; } = 1.3f;
+
+    public override bool KeepAfterEscaping => true;
 }
