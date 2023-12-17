@@ -32,8 +32,8 @@ public class AuthenticationController : ControllerBase
         
             MySqlCommand cmd = new("UPDATE LevelingSystem SET DiscordId=@DiscordId WHERE SteamId=@SteamId", connection);
             cmd.Parameters.AddWithValue("@DiscordId", id);
-            cmd.Parameters.AddWithValue("@SteamId", steamId);
-
+            cmd.Parameters.AddWithValue("@SteamId", steamId[37..]);
+            
             await cmd.ExecuteNonQueryAsync();
         }
         catch (Exception e)

@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Web;
 using Discord;
 using Discord.Interactions;
@@ -12,8 +13,36 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
     public async Task LevelingCommand([Summary(description:"Member which you'd like to view progress")]IUser? member = null)
     {
         member ??= Context.User;
-        LevelingImageBuilder levelingImageBuilder = new (member.Username, Random.Shared.Next(0, 9999), Random.Shared.Next(0, 5000), 5000, Random.Shared.Next(0, 9999));
+
+        (int level, int exp, int rank) = await GetLevelExpAndRank(member.Id);
+        if (level == 0 && exp == 0 && rank == 0)
+        {
+            await RespondAsync("There has been an error while fetching your level. Please try again later.");
+            return;
+            
+        }
+        
+        LevelingImageBuilder levelingImageBuilder = new (member.Username, level, exp, (level - level % 10 + 1) * 1000, Random.Shared.Next(0, 9999));
         await RespondWithFileAsync(await levelingImageBuilder.BuildAsync(), "level.png");
+    }
+    
+    private static async Task<(int, int, int)> GetLevelExpAndRank(ulong discordId)
+    {
+        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await connection.OpenAsync();
+        
+        MySqlCommand cmd = new("IF (EXISTS(SELECT * FROM LevelingSystem WHERE DiscordId=@DiscordId)) THEN WITH cte AS ( SELECT Level, Experience, DiscordId, RANK() OVER (ORDER BY Experience DESC) AS rank FROM LevelingSystem) SELECT Level, Experience, rank FROM cte WHERE DiscordId=@DiscordId;ELSE SELECT 0,0,0;END IF;", connection);
+        cmd.Parameters.AddWithValue("@DiscordId", discordId);
+        
+        DbDataReader reader = await cmd.ExecuteReaderAsync();
+        if (!reader.HasRows)
+            return (0, 0, 0);
+
+        await reader.ReadAsync();
+        int level = reader.GetInt32(0);
+        int exp = reader.GetInt32(1);
+        int rank = reader.GetInt32(2);
+        return (level, exp, rank);
     }
 
     private static readonly HashSet<ulong> AlreadySyncedIds = [];
