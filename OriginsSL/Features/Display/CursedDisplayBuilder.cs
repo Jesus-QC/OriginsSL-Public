@@ -249,8 +249,10 @@ public class CursedDisplayBuilder(CursedPlayer player)
         }
         else
         {
-            (int level,int exp, int total) = player.GetLevelingProgress();
-            _stringBuilder.Append("<alpha=#50>LEVEL: ");
+            (int level,int exp, int total) = spectatedPlayer.GetLevelingProgress();
+            _stringBuilder.Append("<alpha=#50>");
+            _stringBuilder.Append(spectatedPlayer.DisplayNickname);
+            _stringBuilder.Append(" - LEVEL: ");
             _stringBuilder.Append(level);
             _stringBuilder.Append(" - EXP: ");
             _stringBuilder.Append(exp);
