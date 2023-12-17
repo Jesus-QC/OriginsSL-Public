@@ -79,5 +79,6 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         cmd.Parameters.AddWithValue("@DiscordId", id);
 
         await cmd.ExecuteNonQueryAsync();
+        AlreadySyncedIds.Remove(id);
     }
 }
