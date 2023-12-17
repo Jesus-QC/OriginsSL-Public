@@ -63,6 +63,8 @@ public class LevelingImageBuilder
 
     public async Task<Stream> BuildAsync()
     {
+        Console.WriteLine(Xp);
+        Console.WriteLine(XpToNextLevel);
         Image image = await Image.LoadAsync(Path.Combine(FontRetriever.DataDirectory, $"Blank_{GetValue(Xp, XpToNextLevel)}.png"));
         
         image.Mutate(x => x.Clip(new Polygon(new []

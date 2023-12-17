@@ -19,11 +19,33 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         {
             await RespondAsync("There has been an error while fetching your level. Please try again later.");
             return;
-            
         }
+
+        (int actualExp, int neededExp) = GetExpProgress(exp);
         
-        LevelingImageBuilder levelingImageBuilder = new (member.Username, level, exp, (level - level % 10 + 1) * 1000, Random.Shared.Next(0, 9999));
+        LevelingImageBuilder levelingImageBuilder = new (member.Username, level, actualExp, neededExp, rank);
         await RespondWithFileAsync(await levelingImageBuilder.BuildAsync(), "level.png");
+    }
+    
+    private static (int, int) GetExpProgress(int exp)
+    {
+        const int levelChunkTo = 10;
+        const int startingExpPerLevel = 1000;
+        
+        int index = 1;
+        while (true)
+        {
+            int neededExp = startingExpPerLevel * levelChunkTo * index;
+
+            if (exp <= neededExp)
+            {
+                int chunk = index * 1000;
+                return (exp % chunk, chunk);
+            }
+                
+            exp -= neededExp;
+            index++;
+        }
     }
     
     private static async Task<(int, int, int)> GetLevelExpAndRank(ulong discordId)
