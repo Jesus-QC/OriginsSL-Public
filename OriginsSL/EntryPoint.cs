@@ -2,6 +2,7 @@
 using CursedMod.Loader.Modules;
 using HarmonyLib;
 using OriginsSL.Modules.LevelingSystem;
+using OriginsSL.Modules.ServerStatusMessage;
 using PluginAPI.Core;
 
 namespace OriginsSL;
@@ -20,6 +21,7 @@ public class EntryPoint : CursedModule
     public override void OnLoaded()
     {
         LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
+        ServerStatusMessageModule.Config = GetConfig<ServerStatusMessageConfig>("serverstatusmessage");
         
         ModuleLoader.LoadModules();
         Log.Info("Loaded all modules");
