@@ -16,6 +16,8 @@ public class JanitorSubclass : SubclassBase
     public override float SpawnChance => 0.7f;
     public override List<ItemType> Inventory { get; } = [ItemType.KeycardJanitor];
 
+    public override bool KeepAfterEscaping { get; } = true;
+
     // Counter for the tantrum cleaning
     private float _counter;
     
