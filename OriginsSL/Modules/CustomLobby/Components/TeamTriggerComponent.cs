@@ -21,7 +21,7 @@ public class TeamTriggerComponent : MonoBehaviour
         BoxCollider collider = gameObject.AddComponent<BoxCollider>();
         collider.isTrigger = true;
         collider.center = new Vector3(0, 12.5f, 0);
-        collider.size = new Vector3(.9f, 25f, .9f);
+        collider.size = new Vector3(.8f, 25f, .8f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,17 +45,17 @@ public class TeamTriggerComponent : MonoBehaviour
 
         RoleManager.RemoveFromQueue(player.ReferenceHub, _team);
         player.SendOriginsHint("SELECTED", ScreenZone.Important);
-        player.SendOriginsHint("<size=40><b><u><color=#ff0000>R</color><lowercase><color=#e87d44>a</color><color=#cad473>n</color><color=#9ce27a>d</color><color=#84e0a3>o</color><color=#76d8dd>m</color></lowercase></b></u></size></size>", ScreenZone.Environment);
+        player.SendOriginsHint("<size=40><b><u><color=#B7A2D7>R</color><lowercase><color=#BFACD0>a</color><color=#C7B6C9>n</color><color=#CFC0C2>d</color><color=#D7CABB>o</color><color=#DFD4B4>m</color></lowercase></b></u></size></size>", ScreenZone.Environment);
     }
 
     private static string GetTeamName(Team team)
     {
         return team switch
         {
-            Team.SCPs => "<color=#ee2835>SCPs</color>",
-            Team.FoundationForces => "<color=#4a48d7>F</color><lowercase><color=#4d64dc>o</color><color=#4f7fe1>u</color><color=#529be6>n</color><color=#54b6eb>d</color><color=#58bce8>a</color><color=#5cc2e6>t</color><color=#5fc8e3>i</color><color=#63cee0>o</color><color=#5fc8e3>n</color></lowercase> <color=#58bce8>F</color><lowercase><color=#54b6eb>o</color><color=#529be6>r</color><color=#4f7fe1>c</color><color=#4d64dc>e</color><color=#4a48d7>s</color></lowercase>",
-            Team.Scientists => "<color=#eeb663>S</color><lowercase><color=#e5ba65>c</color><color=#ddbe66>i</color><color=#d4c268>e</color><color=#cbc669>n</color><color=#c3c96b>t</color><color=#bacd6c>i</color><color=#b1d16e>s</color><color=#a9d56f>t</color><color=#a0d971>s</color></lowercase>",
-            Team.ClassD => "<color=#e66236>C</color><lowercase><color=#e36c37>l</color><color=#df7638>a</color><color=#dc8139>s</color><color=#d88b3a>s</color></lowercase><color=#d5953b>D</color>",
+            Team.SCPs => "<color=#FB178E>S</color><color=#F3136D>C</color><color=#EB0F4C>P</color><lowercase><color=#E30B2B>s</color></lowercase>",
+            Team.FoundationForces => "<color=#37DDEC>F</color><lowercase><color=#3ED2EC>o</color><color=#45C7EC>u</color><color=#4CBCEC>n</color><color=#53B1EC>d</color><color=#5AA6EC>a</color><color=#619BEC>t</color><color=#6890EC>i</color><color=#6F85EC>o</color><color=#767AEC>n</color></lowercase> <color=#8464EC>F</color><lowercase><color=#8B59EC>o</color><color=#924EEC>r</color><color=#9943EC>c</color><color=#A038EC>e</color><color=#A72DEC>s</color></lowercase>",
+            Team.Scientists => "<color=#F4E06D>S</color><lowercase><color=#F2DB6C>c</color><color=#F0D66B>i</color><color=#EED16A>e</color><color=#ECCC69>n</color><color=#EAC768>t</color><color=#E8C267>i</color><color=#E6BD66>s</color><color=#E4B865>t</color><color=#E2B364>s</color></lowercase>",
+            Team.ClassD => "<color=#FF8E00>C</color><lowercase><color=#FB7B09>l</color><color=#F76812>a</color><color=#F3551B>s</color><color=#EF4224>s</color></lowercase><color=#EB2F2D>D</color>",
             _ => string.Empty
         };
     }

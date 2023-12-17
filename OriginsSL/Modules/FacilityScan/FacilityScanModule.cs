@@ -27,11 +27,7 @@ public class FacilityScanModule : OriginsModule
         {
             yield return Timing.WaitForSeconds(Random.Range(200, 300));
 
-            int classDCount = 0;
-            int scientistCount = 0;
-            int mtfCount = 0;
-            int chaosCount = 0;
-            int scpsCount = 0;
+            int classDCount = 0, scientistCount = 0, mtfCount = 0, chaosCount = 0, scpsCount = 0;
             
             foreach (CursedPlayer player in CursedPlayer.Collection)
             {
@@ -46,8 +42,11 @@ public class FacilityScanModule : OriginsModule
                 else if (player.CurrentRole.Team == Team.SCPs)
                     scpsCount++;
             }
+            
+            if (classDCount == 0 && scientistCount == 0 && mtfCount == 0 && chaosCount == 0 && scpsCount == 0)
+                continue;
 
-            string message = ".G6 .G2 .G3 Facility Scan Completed .G6 .G6 .G2 .G3 Found ";
+            string message = ".G6 Facility Scan Completed .G2 .G3 Found ";
             
             if (classDCount > 0)
                 message += $"{classDCount} Class D ";
