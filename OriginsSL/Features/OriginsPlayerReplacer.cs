@@ -22,10 +22,12 @@ public static class OriginsPlayerReplacer
             Dictionary<ItemType, ushort> ammo = other.Ammo.ToDictionary(x => x.Key, x => x.Value);
             float health = other.Health;
             float humeShield = other.HumeShield;
+         
+            other.SetSubclass(null);
             
             target.Position = other.Position;
             target.SetRole(other.Role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
-
+            
             Timing.CallDelayed(0.1f, () => target.ForceSubclass(subclass));
             Timing.CallDelayed(0.8f, () => target.SetData(items, ammo, RoleTypeId.None, health, humeShield, Vector3.zero));
         }

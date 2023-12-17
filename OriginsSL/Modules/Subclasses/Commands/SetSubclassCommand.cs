@@ -73,7 +73,7 @@ public class SetSubclassCommand : ICommand, IUsageProvider
             if (player.TryGetSubclass(out ISubclass oldSubclass) && subclass.GetType() == oldSubclass.GetType())
                 continue;
             
-            player.ForceSubclass(subclass);
+            player.ForceSubclass(Activator.CreateInstance(subclass.GetType()) as ISubclass);
         }
 
         response = $"Done for {players.Count} players";
