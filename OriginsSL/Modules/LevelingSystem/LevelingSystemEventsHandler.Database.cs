@@ -38,13 +38,15 @@ public static partial class LevelingSystemEventsHandler
     
     private static readonly Dictionary<CursedPlayer, int> PlayerIds = new();
     private static readonly Dictionary<CursedPlayer, int> PlayerExp = new();
-    private static readonly Dictionary<CursedPlayer, int> PlayerLevel = new();
+    private static readonly Dictionary<CursedPlayer, (int, int, int)> PlayerProgress = new();
+
+    public static (int, int, int) GetLevelingProgress(this CursedPlayer player) => !PlayerProgress.ContainsKey(player) ? (0, 0, 0) : PlayerProgress[player];
 
     private static void OnRestartingRoundDatabase()
     {
         PlayerIds.Clear();
         PlayerExp.Clear();
-        PlayerLevel.Clear();
+        PlayerProgress.Clear();
         ClearPlayerCache();
     }
 
@@ -60,12 +62,12 @@ public static partial class LevelingSystemEventsHandler
     {
         PlayerIds.Remove(args.Player);
         PlayerExp.Remove(args.Player);
-        PlayerLevel.Remove(args.Player);
+        PlayerProgress.Remove(args.Player);
     }
 
     private static void CreateDatabase()
     {
-        Log.Warning("CREATING TABLES:");  
+        Log.Warning("CREATING TABLES:");
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         con.Open();
 
@@ -83,7 +85,7 @@ public static partial class LevelingSystemEventsHandler
         Log.Warning("\tCREATED TABLE LevelingSystem");  
     }
     
-    private static async Task<(int, int, int)> CreatePlayer(CursedPlayer player)
+    private static async Task<(int, int)> CreatePlayer(CursedPlayer player)
     {
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         await con.OpenAsync();
@@ -105,25 +107,25 @@ public static partial class LevelingSystemEventsHandler
         using DbDataReader reader = await cmd.ExecuteReaderAsync();
 
         if (!reader.HasRows)
-            return (0, 0, 0);
+            return (0, 0);
 
         await reader.ReadAsync();
         int id = reader.GetInt32(0);
         int exp = reader.GetInt32(1);
-        int level = ConvertExpToLevel(exp);
-        return (id, exp, level);
+        
+        return (id, exp);
     }
 
     private static async void Authorize(CursedPlayer player)
     {
-         (int id, int exp, int level) = await CreatePlayer(player);
+         (int id, int exp) = await CreatePlayer(player);
          
          if (id == 0)
              return;
          
          PlayerIds.Add(player, id);
          PlayerExp.Add(player, exp);
-         PlayerLevel.Add(player, level);
+         PlayerProgress.Add(player, GetLevelExpProgress(exp));
          
          OnAuthenticated(player);
     }
@@ -134,8 +136,8 @@ public static partial class LevelingSystemEventsHandler
             return;
         
         PlayerExp[player] += exp;
-        int level = ConvertExpToLevel(PlayerExp[player]);
-        PlayerLevel[player] = level;
+        (int level, int totExp, int needExp) = GetLevelExpProgress(PlayerExp[player]);
+        PlayerProgress[player] = (level, totExp, needExp);
         
         MySqlConnection con = (MySqlConnection)Connection.Clone();
         await con.OpenAsync();
@@ -160,7 +162,7 @@ public static partial class LevelingSystemEventsHandler
     // When reached 10 Levels, it will be 2000 Exp = 1 Level
     // When reached 20 Levels, it will be 3000 Exp = 1 Level
     // And so on...
-    private static int ConvertExpToLevel(int exp)
+    private static (int, int, int) GetLevelExpProgress(int exp)
     {
         const int levelChunkTo = 10;
         const int startingExpPerLevel = 1000;
@@ -169,9 +171,12 @@ public static partial class LevelingSystemEventsHandler
         while (true)
         {
             int neededExp = startingExpPerLevel * levelChunkTo * index;
-			
+
             if (exp <= neededExp)
-                return levelChunkTo * (index - 1) + exp / (startingExpPerLevel * index);
+            {
+                int chunk = index * 1000;
+                return (levelChunkTo * (index - 1) + exp / (startingExpPerLevel * index), exp % chunk, chunk);
+            }
                 
             exp -= neededExp;
             index++;

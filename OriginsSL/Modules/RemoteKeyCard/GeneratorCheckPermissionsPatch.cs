@@ -40,7 +40,6 @@ public class GeneratorCheckPermissionsPatch
 
     private static bool CheckPerms(KeycardPermissions permissions, ReferenceHub ply)
     {
-        Log.Info("test");
         foreach (ItemBase item in CursedPlayer.Get(ply).Items.Values)
         {
             if (item is not KeycardItem keyCardItem)

@@ -61,7 +61,7 @@ public class ServerStatusMessageModule : OriginsModule
             .AddField("Status", "```yml\n+ Online```", true)
             .AddField("Players", $"```cs\n- {CursedPlayer.Count} / {CursedServer.MaxPlayerSlots}```", true)
             .AddField("Version", $"```cs\n- {GameCore.Version.VersionString}```", true)
-            .AddField("Player List", "```cs\n " + GetPlayerList() + "```", true)
+            .AddField("Player List", "```cs\n" + GetPlayerList() + "```", true)
             .WithFooter("Origins SL - made with 🩷 by jesusqc")
             .Build();
     }
@@ -74,7 +74,7 @@ public class ServerStatusMessageModule : OriginsModule
         string playerList = string.Empty;
         foreach (CursedPlayer player in CursedPlayer.Dictionary.Values)
         {
-            playerList += " - " + player.DisplayNickname + "\n";
+            playerList += "- " + player.DisplayNickname + "\n";
         }
 
         return playerList;

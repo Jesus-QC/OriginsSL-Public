@@ -4,6 +4,7 @@ using System.Text;
 using CursedMod.Features.Wrappers.Player;
 using NorthwoodLib.Pools;
 using OriginsSL.Modules.EndScreen;
+using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.RespawnTimer;
 using OriginsSL.Modules.ScpList;
 using OriginsSL.Modules.SpectatorFeed;
@@ -14,8 +15,8 @@ namespace OriginsSL.Features.Display;
 public class CursedDisplayBuilder(CursedPlayer player)
 {
     private const string Header = "<size=65%><line-height=87%><voffset=12.9em>";
-    private const string Footer = "<size=55%><b><color=#E2E0A6>o</color><color=#D8D4AC>r</color><color=#CEC8B2>i</color><color=#C4BCB8>g</color><color=#BAB0BE>i</color><color=#B0A4C4>n</color><color=#A698CA>s</color>";
-    private const string Discord = "<lowercase><b><color=#D9D68C>o</color><color=#D4CD8F>r</color><color=#CFC492>i</color><color=#CABB95>g</color><color=#C5B298>i</color><color=#C0A99B>n</color><color=#BBA09E>s</color><color=#B697A1>.</color><color=#B18EA4>s</color><color=#AC85A7>c</color><color=#A77CAA>p</color><color=#A273AD>s</color><color=#9D6AB0>l</color><color=#9861B3>.</color><color=#9358B6>x</color><color=#8E4FB9>y</color><color=#8946BC>z</color></b></lowercase>";
+    private const string Footer = "<line-height=0><size=55%><b><color=#E2E0A6>o</color><color=#D8D4AC>r</color><color=#CEC8B2>i</color><color=#C4BCB8>g</color><color=#BAB0BE>i</color><color=#B0A4C4>n</color><color=#A698CA>s</color><align=right><size=40%>";
+    private const string Discord = "<lowercase><b><color=#E5DCA9>d</color><color=#E3D6AC>i</color><color=#E1D0AF>s</color><color=#DFCAB2>c</color><color=#DDC4B5>o</color><color=#DBBEB8>r</color><color=#D9B8BB>d</color><color=#D7B2BE>.</color><color=#D5ACC1>o</color><color=#D3A6C4>r</color><color=#D1A0C7>i</color><color=#CF9ACA>g</color><color=#CD94CD>i</color><color=#CB8ED0>n</color><color=#C988D3>s</color><color=#C782D6>.</color><color=#C57CD9>i</color><color=#C376DC>n</color><color=#C170DF>k</color></b></lowercase>";
 
     private readonly Dictionary<ScreenZone, HudNotification> _savedZones = new()
     {
@@ -112,6 +113,21 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine(player.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
+
+        if (player.DoNotTrack)
+        {
+            _stringBuilder.AppendLine("DNT - Leveling Disabled");
+        }
+        else
+        {
+            (int level,int exp, int total) = player.GetLevelingProgress();
+            _stringBuilder.Append("<alpha=#50>LEVEL: ");
+            _stringBuilder.Append(level);
+            _stringBuilder.Append(" - EXP: ");
+            _stringBuilder.Append(exp);
+            _stringBuilder.Append(" / ");
+            _stringBuilder.Append(total);
+        }
         
         return _stringBuilder.ToString();
     }
@@ -152,6 +168,21 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine(player.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
+        
+        if (player.DoNotTrack)
+        {
+            _stringBuilder.AppendLine("DNT - Leveling Disabled");
+        }
+        else
+        {
+            (int level,int exp, int total) = player.GetLevelingProgress();
+            _stringBuilder.Append("<alpha=#50>LEVEL: ");
+            _stringBuilder.Append(level);
+            _stringBuilder.Append(" - EXP: ");
+            _stringBuilder.Append(exp);
+            _stringBuilder.Append(" / ");
+            _stringBuilder.Append(total);
+        }
         
         return _stringBuilder.ToString();
     }
@@ -211,6 +242,21 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.AppendLine(spectatedPlayer.GetSubclassDescription());
         _stringBuilder.Append("\n\n\n\n");
         _stringBuilder.AppendLine(Footer);
+        
+        if (player.DoNotTrack)
+        {
+            _stringBuilder.AppendLine("DNT - Leveling Disabled");
+        }
+        else
+        {
+            (int level,int exp, int total) = player.GetLevelingProgress();
+            _stringBuilder.Append("<alpha=#50>LEVEL: ");
+            _stringBuilder.Append(level);
+            _stringBuilder.Append(" - EXP: ");
+            _stringBuilder.Append(exp);
+            _stringBuilder.Append(" / ");
+            _stringBuilder.Append(total);
+        }
         
         return _stringBuilder.ToString();
     }
