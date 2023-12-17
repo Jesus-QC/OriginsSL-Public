@@ -2,6 +2,7 @@ using System.Reflection;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
+using IResult = Discord.Interactions.IResult;
 
 namespace OriginsBot.Commands;
 
@@ -49,6 +50,6 @@ public class CommandHandler(InteractionService commands, DiscordSocketClient dis
 
     private async Task RegisterCommands()
     {
-        await commands.RegisterCommandsToGuildAsync(configuration.GetValue<ulong>("guild"), true);
+        await commands.RegisterCommandsToGuildAsync(configuration.GetValue<ulong>("guild"));
     }
 }

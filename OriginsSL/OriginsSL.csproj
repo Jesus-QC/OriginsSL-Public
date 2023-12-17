@@ -172,7 +172,6 @@
         <Compile Include="Modules\LevelingSystem\LevelingRateLimiter.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Database.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Player.cs" />
-        <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Server.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />

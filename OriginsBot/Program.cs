@@ -1,20 +1,24 @@
-﻿using Discord;
+﻿using System.Web;
+using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using OriginsBot.Commands;
+using OriginsBot.Security;
+using OriginsBot.Website;
 
 namespace OriginsBot;
 
 internal static class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
-        RunAsync().GetAwaiter().GetResult();
+#pragma warning disable CS4014
+        RunBotAsync();
+#pragma warning restore CS4014 
+        WebsiteBuilder.Run(args);
     }
 
-    static async Task RunAsync()
+    private static async Task RunBotAsync()
     {
         await using ServiceProvider services = ConfigureServices();
 
@@ -22,6 +26,9 @@ internal static class Program
         InteractionService commands = services.GetRequiredService<InteractionService>();
         IConfiguration config = services.GetRequiredService<IConfiguration>();
         CommandHandler handler = services.GetRequiredService<CommandHandler>();
+        DatabaseHandler databaseHandler = services.GetRequiredService<DatabaseHandler>();
+        
+        databaseHandler.Initialize();
         
         await handler.InitializeAsync();
 
@@ -52,9 +59,10 @@ internal static class Program
 
     private static ServiceProvider ConfigureServices() =>
         new ServiceCollection()
-            .AddSingleton<IConfiguration>(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build())
+            .AddSingleton<IConfiguration>(new ConfigurationBuilder().AddJsonFile("discord.json").Build())
             .AddSingleton<DiscordSocketClient>()
             .AddSingleton<InteractionService>()
             .AddSingleton<CommandHandler>()
+            .AddSingleton<DatabaseHandler>()
             .BuildServiceProvider();
 }

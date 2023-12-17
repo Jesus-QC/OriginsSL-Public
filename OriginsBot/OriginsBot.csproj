@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -10,13 +10,10 @@
 
     <ItemGroup>
         <PackageReference Include="Discord.Net" Version="3.13.0" />
+        <PackageReference Include="MySql.Data" Version="8.2.0" />
         <PackageReference Include="SixLabors.Fonts" Version="2.0.1" />
         <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+        <PackageReference Include="AspNet.Security.OpenId.Steam" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
