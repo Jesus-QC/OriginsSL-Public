@@ -245,7 +245,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         
         if (player.DoNotTrack)
         {
-            _stringBuilder.AppendLine("DNT - Leveling Disabled");
+            _stringBuilder.AppendLine("<alpha=#40>DNT - Leveling Disabled");
         }
         else if (!spectatedPlayer.IsHost)
         {
