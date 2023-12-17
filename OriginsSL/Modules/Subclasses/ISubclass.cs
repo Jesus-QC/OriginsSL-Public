@@ -33,6 +33,8 @@ public interface ISubclass
     public List<ItemType> Inventory { get; }
     
     public Dictionary<ItemType, ushort> Ammo { get; }
+    
+    public bool KeepAfterEscaping { get; }
 
     public bool FilterSubclass(CursedPlayer player);
     

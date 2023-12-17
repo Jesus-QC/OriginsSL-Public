@@ -2,12 +2,14 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Round;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
 using PlayerRoles.Spectating;
 using PlayerRoles.Voice;
+using PluginAPI.Core;
 using UnityEngine;
 using VoiceChat;
 using VoiceChat.Networking;
@@ -87,22 +89,40 @@ public class ScpProximityChatController : OriginsModule
 
     private static void SendProximityMessage(VoiceMessage msg)
     {
-        foreach (ReferenceHub referenceHub in ReferenceHub.AllHubs)
+        foreach (CursedPlayer player in CursedPlayer.Collection)
         {
-            if (referenceHub.roleManager.CurrentRole is SpectatorRole && !msg.Speaker.IsSpectatedBy(referenceHub))
-                continue;
-                
-            if (referenceHub.roleManager.CurrentRole is not IVoiceRole voiceRole2)
+            if (player.ReferenceHub == msg.Speaker)
                 continue;
             
-            if (Vector3.Distance(msg.Speaker.transform.position, referenceHub.transform.position) >= 7)
+            if (player.CurrentRole.RoleBase is not IVoiceRole voiceRole2)
                 continue;
-
-            if (voiceRole2.VoiceModule.ValidateReceive(msg.Speaker, VoiceChatChannel.Proximity) == VoiceChatChannel.None)
+            
+            if (player.CurrentRole is CursedSpectatorRole spectatorRole)
+            {
+                if (!msg.Speaker.IsSpectatedBy(player.ReferenceHub) && !ValidatePosition(msg, spectatorRole.SpectatorRoleBase.CameraPosition, voiceRole2))
+                    continue;
+                
+                msg.Channel = VoiceChatChannel.ScpChat;
+                player.NetworkConnection.Send(msg);
                 continue;
+            }
+            
+            if (!ValidatePosition(msg, player.Position, voiceRole2))
+                return;
             
             msg.Channel = VoiceChatChannel.Proximity;
-            referenceHub.connectionToClient.Send(msg);
+            player.NetworkConnection.Send(msg);
         }
+    }
+
+    private static bool ValidatePosition(VoiceMessage msg, Vector3 position, IVoiceRole voiceRole2)
+    {
+        if (Vector3.Distance(msg.Speaker.transform.position, position) >= 7)
+            return false;
+
+        if (voiceRole2.VoiceModule.ValidateReceive(msg.Speaker, VoiceChatChannel.Proximity) == VoiceChatChannel.None)
+            return false;
+        
+        return true;
     }
 }

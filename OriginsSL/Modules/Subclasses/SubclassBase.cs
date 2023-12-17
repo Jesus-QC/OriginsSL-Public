@@ -21,6 +21,7 @@ public abstract class SubclassBase : ISubclass
     public virtual float HumeShield => -1;
     public virtual List<ItemType> Inventory => null;
     public virtual Dictionary<ItemType, ushort> Ammo => null;
+    public virtual bool KeepAfterEscaping => false;
 
     public virtual bool FilterSubclass(CursedPlayer player) => true;
 
