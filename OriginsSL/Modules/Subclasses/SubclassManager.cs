@@ -9,6 +9,7 @@ using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using MEC;
+using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
@@ -97,7 +98,7 @@ public class SubclassManager : OriginsModule
         Timing.CallDelayed(0.4f, () =>
         {
             if (!subclass.Spoofed)
-                args.Player.CustomInfo = $"<size=20><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
+                args.Player.CustomInfo = $"{GetLevelingCustomInfo(args.Player)}\n<size=22><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
             if (subclass.Health > 0)
                 args.Player.Health = subclass.Health;
             if (subclass.ArtificialHealth > 0)
@@ -140,7 +141,7 @@ public class SubclassManager : OriginsModule
         if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
             return;
         
-        player.CustomInfo = string.Empty;
+        player.CustomInfo = GetLevelingCustomInfo(player);
             
         if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
             player.Scale = Vector3.one;
@@ -175,5 +176,14 @@ public class SubclassManager : OriginsModule
         }
         
         return null;
+    }
+
+    private static string GetLevelingCustomInfo(CursedPlayer player)
+    {
+        if (player.DoNotTrack)
+            return string.Empty;
+
+        (int level, _, _) = player.GetLevelingProgress();
+        return $"<size=15><color=#DC143C>Level {level}</color></size>";
     }
 }
