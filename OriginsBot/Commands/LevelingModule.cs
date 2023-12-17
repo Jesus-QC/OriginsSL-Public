@@ -27,6 +27,74 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         await RespondWithFileAsync(await levelingImageBuilder.BuildAsync(), "level.png");
     }
     
+    [SlashCommand("leaderboard", "View the leveling leaderboard.")]
+    public async Task LeaderboardCommand()
+    {
+        (int level, int exp, int rank) = await GetLevelExpAndRank(Context.User.Id);
+        await RespondAsync(embed: await GetLeaderboard(0, Context.User.Username, level, exp, rank), components: new ComponentBuilder().AddRow(
+            new ActionRowBuilder()
+                .WithButton(null, "lb_prev", ButtonStyle.Secondary, Emote.Parse("<:arrowpinkleft:1186017160410173500>")))
+                .WithButton(null, "lb_next", ButtonStyle.Secondary, Emote.Parse("<:arrowpink:1186017163404902481>")
+            ).Build());
+    }
+
+    public static async Task<Embed> GetLeaderboard(int offset, string username, int level, int exp, int plyRank)
+    {
+        Console.WriteLine(level + " " + exp + " " + plyRank);
+        EmbedBuilder builder = new()
+        {
+            Title = "Origins SL Leaderboard",
+        };
+
+        string usernames = string.Empty, experiences = string.Empty, levels = string.Empty; 
+        
+        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await connection.OpenAsync();
+        
+        MySqlCommand cmd = new("SELECT Username, Level, Experience FROM LevelingSystem ORDER BY Experience DESC LIMIT 10 OFFSET @Offset", connection);
+        cmd.Parameters.AddWithValue("@Offset", offset * 10);
+        
+        DbDataReader reader = await cmd.ExecuteReaderAsync();
+
+        int rank = 1 + offset;
+        while (await reader.ReadAsync())
+        {
+            string lbUsername = reader.GetString(0);
+            int lbLevel = reader.GetInt32(1);
+            int lbExp = reader.GetInt32(2);
+            
+            string rankEmoji = rank switch
+            {
+                1 => "<:trophy1:1186009506287722516>",
+                2 => "<:trophy2:1186009504719056987>",
+                3 => "<:trophy3:1186009502047285278>",
+                _ => rank != plyRank ? "<:player:1186012196552056913>" : "<:playerselected:1186012194098385116>",
+            };
+            
+            usernames += $"`{rank.ToString().PadLeft(4, '0')}` | {rankEmoji} | {lbUsername} {(rank == plyRank ? "**(YOU)**" : string.Empty)}\n";
+            levels += $"`{lbLevel}`\n";
+            experiences += $"`{lbExp}`\n";
+            rank++;
+        }
+
+        if (rank <= plyRank)
+        {
+            usernames += $"`{plyRank.ToString().PadLeft(4, '0')}` | <:playerselected:1186012194098385116> | {username} **(YOU)**\n";
+            levels += $"`{level}`\n";
+            experiences += $"`{exp}`\n";
+        }
+        
+        builder.AddField("Username", usernames, true);
+        builder.AddField("Level", levels, true);
+        builder.AddField("Experience", experiences, true);
+
+        builder.Footer = new EmbedFooterBuilder().WithText("Page: " + ++offset);
+
+        return builder.Build();
+    }
+    
+    
+    
     private static (int, int) GetExpProgress(int exp)
     {
         const int levelChunkTo = 10;
