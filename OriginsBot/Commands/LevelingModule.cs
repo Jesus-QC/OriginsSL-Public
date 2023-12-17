@@ -17,7 +17,7 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         (int level, int exp, int rank) = await GetLevelExpAndRank(member.Id);
         if (level == 0 && exp == 0 && rank == 0)
         {
-            await RespondAsync("There has been an error while fetching your level. Please try again later.");
+            await RespondAsync("There has been an error while fetching the user. **Make sure the account is synced with the `/sync` command.**`");
             return;
         }
 
