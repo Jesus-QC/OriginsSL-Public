@@ -51,7 +51,7 @@ public class ServerStatusMessageModule : OriginsModule
 
     private static string GetTimestamp()
     {
-        return "Refreshing in <t:" + DateTimeOffset.UtcNow.AddSeconds(5).ToUnixTimeSeconds() + ":R>";
+        return "Refreshing <t:" + DateTimeOffset.UtcNow.AddSeconds(5).ToUnixTimeSeconds() + ":R>";
     }
 
     private static Embed BuildEmbed()
@@ -59,12 +59,24 @@ public class ServerStatusMessageModule : OriginsModule
         return new EmbedBuilder()
             .WithTitle("**Main Server **")
             .AddField("Status", "```yml\n+ Online```", true)
-            .AddField("Players", $"```cs\n{CursedPlayer.Collection} / {CursedServer.MaxPlayerSlots}```", true)
+            .AddField("Players", $"```cs\n- {CursedPlayer.Count} / {CursedServer.MaxPlayerSlots}```", true)
             .AddField("Version", $"```cs\n- {GameCore.Version.VersionString}```", true)
             .AddField("Player List", "```cs\n " + GetPlayerList() + "```", true)
+            .WithFooter("Origins SL - made with 🩷 by jesusqc")
             .Build();
     }
 
-    private static string GetPlayerList() 
-        => CursedPlayer.Count == 0 ? " - No players online :c" : ReferenceHub.HubByPlayerIds.Values.Aggregate(string.Empty, (current, hub) => current + (" - " + hub.nicknameSync.DisplayName + "\n"));
+    private static string GetPlayerList()
+    {
+        if (CursedPlayer.Count == 0)
+            return " - No players online :c";
+        
+        string playerList = string.Empty;
+        foreach (CursedPlayer player in CursedPlayer.Dictionary.Values)
+        {
+            playerList += " - " + player.DisplayNickname + "\n";
+        }
+
+        return playerList;
+    }
 }
