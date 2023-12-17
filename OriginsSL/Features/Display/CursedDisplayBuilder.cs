@@ -247,7 +247,7 @@ public class CursedDisplayBuilder(CursedPlayer player)
         {
             _stringBuilder.AppendLine("DNT - Leveling Disabled");
         }
-        else
+        else if (!spectatedPlayer.IsHost)
         {
             (int level,int exp, int total) = spectatedPlayer.GetLevelingProgress();
             _stringBuilder.Append("<alpha=#50>");
