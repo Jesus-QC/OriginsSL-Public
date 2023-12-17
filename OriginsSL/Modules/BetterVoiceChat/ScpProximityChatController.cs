@@ -99,9 +99,9 @@ public class ScpProximityChatController : OriginsModule
             
             if (player.CurrentRole is CursedSpectatorRole spectatorRole)
             {
-                if (!msg.Speaker.IsSpectatedBy(player.ReferenceHub) && !ValidatePosition(msg, spectatorRole.SpectatorRoleBase.CameraPosition, voiceRole2))
+                if (!msg.Speaker.IsSpectatedBy(player.ReferenceHub) && !ValidatePosition(msg, spectatorRole.SpectatedPlayer.Position, voiceRole2)) 
                     continue;
-                
+
                 msg.Channel = VoiceChatChannel.ScpChat;
                 player.NetworkConnection.Send(msg);
                 continue;
