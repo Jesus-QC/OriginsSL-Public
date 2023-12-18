@@ -1,6 +1,7 @@
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
+using OriginsSL.Modules.Subclasses;
 using PlayerRoles;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class EmoteDummyOwner : MonoBehaviour
 {
     private Vector3 _initialPos = Vector3.zero;
     private RoleTypeId _role = RoleTypeId.None;
+    private Vector3 _scale = Vector3.zero;
     private Vector3 _fakeScale = Vector3.zero;
     
     private CursedPlayer _owner;
@@ -23,6 +25,7 @@ public class EmoteDummyOwner : MonoBehaviour
         _ragdoll = ragdoll;
         _initialPos = player.Position;
         _role = player.Role;
+        _scale = player.Scale;
         _fakeScale = player.FakeScale;
         player.FakeScale = new Vector3(0.01f, 0.01f, 0.01f);
     }
@@ -33,6 +36,10 @@ public class EmoteDummyOwner : MonoBehaviour
             return;
         
         _owner.FakeScale = _fakeScale;
+        
+        if (_scale != Vector3.one)
+            _owner.Scale = _scale;
+        
         _dummy.DestroyDummy();
         _ragdoll.Destroy();
         Destroy(this);

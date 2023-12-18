@@ -6,7 +6,7 @@ using NWAPIPermissionSystem;
 namespace OriginsSL.Modules.Emote.Commands;
 
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
-[CommandHandler(typeof(GameConsoleCommandHandler))]
+[CommandHandler(typeof(ClientCommandHandler))]
 public class EmoteCommand : ICommand
 {
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -15,6 +15,12 @@ public class EmoteCommand : ICommand
         if (!sender.CheckPermission("origins.fun.emote") && !ply.IsHost)
         {
             response = "Not enough perms.";
+            return false;
+        }
+
+        if (ply.IsDead)
+        {
+            response = "You can't dance while dead.";
             return false;
         }
         

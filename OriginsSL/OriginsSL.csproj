@@ -200,6 +200,7 @@
         <Compile Include="Modules\LevelingSystem\LevelingSystemModule.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
+        <Compile Include="Modules\PocketSucker\PocketSuckerModule.cs" />
         <Compile Include="Modules\RemoteKeyCard\CheckPermissionsPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\GeneratorCheckPermissionsPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\LockerCheckPermissionsPatch.cs" />
