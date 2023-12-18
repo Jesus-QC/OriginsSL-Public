@@ -15,6 +15,9 @@ public static class EmoteHandler
 {
     public static void Dance(this CursedPlayer player)
     {
+        if (!EmoteDummyOwner.PlayersEmoting.Add(player))
+            return;
+        
         Timing.RunCoroutine(SkeletonDance(player));
     }
 
