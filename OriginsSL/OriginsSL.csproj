@@ -184,6 +184,9 @@
         <Compile Include="Modules\DisplayRenderer\DisplayRendererExtensions.cs" />
         <Compile Include="Modules\DisplayRenderer\DisplayRendererModule.cs" />
         <Compile Include="Modules\DoorRestartSystem\DoorRestartSystemModule.cs" />
+        <Compile Include="Modules\Emote\Commands\EmoteCommand.cs" />
+        <Compile Include="Modules\Emote\Components\EmoteDummyOwner.cs" />
+        <Compile Include="Modules\Emote\EmoteHandler.cs" />
         <Compile Include="Modules\EndRoundFF\EndRoundFFModule.cs" />
         <Compile Include="Modules\EndScreen\EndScreenModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />

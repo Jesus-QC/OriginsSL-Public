@@ -15,6 +15,7 @@ using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerRoles.PlayableScps.Scp096;
 using PlayerRoles.PlayableScps.Scp106;
 using PlayerRoles.PlayableScps.Scp173;
+using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.PlayableScps.Scp939;
 using PlayerRoles.Ragdolls;
 using PlayerRoles.Spectating;
@@ -95,6 +96,7 @@ public class CursedFpcRole : CursedRole
             Scp106Role scp106Role => new CursedScp106Role(scp106Role),
             Scp173Role scp173Role => new CursedScp173Role(scp173Role),
             Scp939Role scp939Role => new CursedScp939Role(scp939Role),
+            Scp3114Role scp3114Role => new CursedScp3114Role(scp3114Role),
             _ => new CursedFpcRole(roleBase)
         };
     }
