@@ -35,8 +35,10 @@ public class Scp1162Module : OriginsModule
             return;
         
         args.IsAllowed = false;
+        
+        ItemType randomItem = RandomAmmo.Contains(args.Item.ItemType) ? RandomAmmo.RandomItem() : AvailableItems.RandomItem();
+        
         args.Player.RemoveItem(args.Item);
-        ItemType randomItem = RandomItem;
         
         if (randomItem != ItemType.None)
             args.Player.AddItem(randomItem);
@@ -44,7 +46,7 @@ public class Scp1162Module : OriginsModule
         args.Player.SendOriginsHint("<b>You dropped an item inside <i><color=yellow>SCP-1162</color></i>...</b>", ScreenZone.Environment);
     }
     
-    private static readonly List<ItemType> AvailableItems =
+    private static readonly ItemType[] AvailableItems =
     [
         ItemType.Adrenaline,
         ItemType.Lantern,
@@ -78,5 +80,12 @@ public class Scp1162Module : OriginsModule
         ItemType.None
     ];
 
-    private static ItemType RandomItem => AvailableItems[Random.Range(0, AvailableItems.Count)];
+    private static readonly List<ItemType> RandomAmmo =
+    [
+        ItemType.Ammo9x19,
+        ItemType.Ammo12gauge,
+        ItemType.Ammo44cal,
+        ItemType.Ammo556x45,
+        ItemType.Ammo762x39
+    ];
 }
