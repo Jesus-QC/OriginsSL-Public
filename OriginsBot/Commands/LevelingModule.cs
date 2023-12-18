@@ -146,7 +146,7 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
             return;
         }
         
-        await RespondAsync("# Sync Steam Account\nPlease go to the link below to sync your steam account with your discord account.\nhttps://sync.origins.ink/signin?discordId=" + HttpUtility.HtmlEncode(AesEncryptor.Encrypt(Context.User.Id.ToString())), ephemeral: true);
+        await RespondAsync("# Sync Steam Account\nPlease go to the link below to sync your steam account with your discord account.\nhttps://sync.origins.ink/signin?discordId=" + HttpUtility.UrlEncode(AesEncryptor.Encrypt(Context.User.Id.ToString())), ephemeral: true);
     }
     
     [SlashCommand("desync", "Desync your discord account with your steam account.")]

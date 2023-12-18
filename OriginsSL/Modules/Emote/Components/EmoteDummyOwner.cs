@@ -34,7 +34,7 @@ public class EmoteDummyOwner : MonoBehaviour
 
     private void Update()
     {
-        if (_initialPos == _owner.Position || _role != _owner.Role)
+        if (_initialPos == _owner.Position && _role == _owner.Role)
             return;
         
         _owner.FakeScale = _fakeScale;
