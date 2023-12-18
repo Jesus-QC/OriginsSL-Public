@@ -2,9 +2,8 @@
 using CommandSystem;
 using CursedMod.Features.Wrappers.Player;
 using NWAPIPermissionSystem;
-using OriginsSL.Modules.Emote;
 
-namespace OriginsSL.Modules.AdminTools.Fun;
+namespace OriginsSL.Modules.Emote.Commands;
 
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 [CommandHandler(typeof(GameConsoleCommandHandler))]

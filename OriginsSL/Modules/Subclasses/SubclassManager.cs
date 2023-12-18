@@ -138,10 +138,10 @@ public class SubclassManager : OriginsModule
 
     private static void ResetTemporaryData(CursedPlayer player)
     {
+        player.CustomInfo = GetLevelingCustomInfo(player);
+        
         if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
             return;
-        
-        player.CustomInfo = GetLevelingCustomInfo(player);
             
         if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
             player.Scale = Vector3.one;
