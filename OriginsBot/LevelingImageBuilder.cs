@@ -9,7 +9,7 @@ using Path = System.IO.Path;
 
 namespace OriginsBot;
 
-public class LevelingImageBuilder
+public class LevelingImageBuilder(string username, int level, int xp, int xpToNextLevel, int rank)
 {
     private static class FontRetriever
     {
@@ -45,21 +45,12 @@ public class LevelingImageBuilder
             RankFont = family.CreateFont(50, FontStyle.Regular);
         }
     }
-    
-    public LevelingImageBuilder(string username, int level, int xp, int xpToNextLevel, int rank)
-    {
-        Username = username;
-        Level = level;
-        Xp = xp;
-        XpToNextLevel = xpToNextLevel;
-        Rank = rank;
-    }
 
-    private string Username { get; }
-    private int Level { get; }
-    private int Xp { get; }
-    private int XpToNextLevel { get; }
-    private int Rank { get; }
+    private string Username { get; } = username;
+    private int Level { get; } = level;
+    private int Xp { get; } = xp;
+    private int XpToNextLevel { get; } = xpToNextLevel;
+    private int Rank { get; } = rank;
 
     public async Task<Stream> BuildAsync()
     {
@@ -94,8 +85,5 @@ public class LevelingImageBuilder
         return string.Empty;
     }
 
-    private static readonly HashSet<int> Values = new()
-    {
-        0,10,25,45,60,75,90,95
-    };
+    private static readonly HashSet<int> Values = [0, 10, 25, 45, 60, 75, 90, 95];
 }
