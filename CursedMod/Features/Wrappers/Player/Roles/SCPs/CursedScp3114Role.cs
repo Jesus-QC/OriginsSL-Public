@@ -99,7 +99,7 @@ public class CursedScp3114Role : CursedFpcRole
     {
         Disguise.CurRagdoll = ragdoll.Base;
         Disguise.OnProgressSet();
-        Disguise._completionTime = 10;
+        Disguise._completionTime = Disguise.Duration;
         Disguise.OnProgressSet();
         Disguise.ServerComplete();
     }
