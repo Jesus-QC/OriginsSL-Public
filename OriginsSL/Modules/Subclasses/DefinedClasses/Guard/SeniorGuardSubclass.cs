@@ -8,7 +8,7 @@ public class SeniorGuardSubclass : SubclassBase
     public override string CodeName => "seniorguard";
     public override string Name => "<color=#3b689c>S<lowercase>enior</lowercase> G<lowercase>uard</lowercase></color>";
     public override string Description => "veteran, upgraded equipment";
-    public override float SpawnChance => 0.5f;
+    public override float SpawnChance => 0.25f;
     public override bool KeepAfterEscaping => true;
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.Flashlight];
 
