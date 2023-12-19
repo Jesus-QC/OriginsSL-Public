@@ -74,10 +74,19 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.ChaosMarauder] = 
         [
             new LanternHolderSubclass(),
-            new ChaosJuggernautSubclass()
+            new ChaosJuggernautSubclass(),
+            new ChaosSupportSubclass(),
         ],
-        [RoleTypeId.ChaosRepressor] = [],
-        [RoleTypeId.ChaosRifleman] = [],
+        [RoleTypeId.ChaosRepressor] = 
+        [
+            new LanternHolderSubclass(),
+            new ChaosSupportSubclass(),
+        ],
+        [RoleTypeId.ChaosRifleman] = 
+        [
+            new LanternHolderSubclass(),
+            new ChaosSupportSubclass(),
+        ],
     };
     
     public override void OnLoaded()

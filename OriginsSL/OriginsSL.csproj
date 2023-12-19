@@ -217,6 +217,7 @@
         <Compile Include="Modules\Subclasses\Commands\SetSubclassCommand.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosJuggernautSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosSpySubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosSupportSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\DrugDealerSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />

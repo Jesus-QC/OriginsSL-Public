@@ -10,5 +10,4 @@ public class DoctorSubclass : SubclassBase
     public override float SpawnChance => 0.5f;
     public override bool KeepAfterEscaping => true;
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.Medkit, ItemType.Medkit, ItemType.Painkillers, ItemType.Painkillers];
-    
 }

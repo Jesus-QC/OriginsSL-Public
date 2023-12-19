@@ -18,6 +18,7 @@ using CursedMod.Features.Wrappers.AdminToys;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Inventory.Items;
+using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 using CursedMod.Features.Wrappers.Inventory.Pickups;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Roles;
@@ -31,6 +32,8 @@ using Interactables;
 using InventorySystem;
 using InventorySystem.Disarming;
 using InventorySystem.Items;
+using InventorySystem.Items.Firearms;
+using InventorySystem.Items.Firearms.Attachments;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.Usables.Scp330;
 using InventorySystem.Searching;
@@ -904,6 +907,26 @@ public class CursedPlayer
     {
         Inventory.UserInventory.Items[item.Serial] = item.Base;
         Inventory.SendItemsNextFrame = true;
+    }
+
+    public CursedFirearmItem AddFirearm(ItemType itemType)
+    {
+        CursedItem item = AddItem(itemType);
+
+        if (item is not CursedFirearmItem firearm)
+            return null;
+
+        if (AttachmentsServerHandler.PlayerPreferences.TryGetValue(ReferenceHub, out Dictionary<ItemType, uint> dictionary) && dictionary.TryGetValue(itemType, out uint code))
+            firearm.FirearmBase.ApplyAttachmentsCode(code, true);
+        
+        FirearmStatusFlags firearmStatusFlags = FirearmStatusFlags.MagazineInserted;
+        
+        if (firearm.FirearmBase.HasAdvantageFlag(AttachmentDescriptiveAdvantages.Flashlight)) 
+            firearmStatusFlags |= FirearmStatusFlags.FlashlightEnabled;
+        
+        firearm.Status = new FirearmStatus(firearm.AmmoManagerModule.MaxAmmo, firearmStatusFlags, firearm.FirearmBase.GetCurrentAttachmentsCode());
+
+        return firearm;
     }
     
     public void SetItems(IEnumerable<CursedItem> items)
