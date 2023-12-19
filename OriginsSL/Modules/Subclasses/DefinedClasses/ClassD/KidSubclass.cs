@@ -14,4 +14,6 @@ public class KidSubclass : PitchChangerSubclass
     public override float Pitch { get; } = 1.3f;
 
     public override bool KeepAfterEscaping => true;
+
+    public override float Health { get; } = 50f;
 }
