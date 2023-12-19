@@ -30,9 +30,13 @@ public interface ISubclass
     
     public float HumeShield { get; }
     
-    public List<ItemType> Inventory { get; }
+    public List<ItemType> OverrideInventory { get; }
     
-    public Dictionary<ItemType, ushort> Ammo { get; }
+    public List<ItemType> AdditiveInventory { get; }
+    
+    public Dictionary<ItemType, ushort> OverrideAmmo { get; }
+    
+    public Dictionary<ItemType, ushort> AdditiveAmmo { get; }
     
     public bool KeepAfterEscaping { get; }
     

@@ -19,8 +19,10 @@ public abstract class SubclassBase : ISubclass
     public virtual float Health => -1;
     public virtual float ArtificialHealth => -1;
     public virtual float HumeShield => -1;
-    public virtual List<ItemType> Inventory => null;
-    public virtual Dictionary<ItemType, ushort> Ammo => null;
+    public virtual List<ItemType> OverrideInventory => null;
+    public virtual List<ItemType> AdditiveInventory => null;
+    public virtual Dictionary<ItemType, ushort> OverrideAmmo => null;
+    public virtual Dictionary<ItemType, ushort> AdditiveAmmo => null;
     public virtual bool KeepAfterEscaping => false;
     
     public virtual bool IsLocked { get; set; } = false;

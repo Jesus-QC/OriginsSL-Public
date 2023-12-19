@@ -14,7 +14,7 @@ public class JanitorSubclass : SubclassBase
     public override string Description => "cleans up tantrums by standing on them";
     
     public override float SpawnChance => 0.7f;
-    public override List<ItemType> Inventory { get; } = [ItemType.KeycardJanitor];
+    public override List<ItemType> AdditiveInventory { get; } = [ItemType.KeycardJanitor];
 
     public override bool KeepAfterEscaping { get; } = true;
 

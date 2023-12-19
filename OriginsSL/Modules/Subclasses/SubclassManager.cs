@@ -40,6 +40,7 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.ChaosConscript] =
         [
             new ChaosSpy(),
+            new LanternHolderSubclass(),
         ]
     };
     
@@ -106,10 +107,14 @@ public class SubclassManager : OriginsModule
                 args.Player.ArtificialHealth = subclass.ArtificialHealth;
             if (subclass.HumeShield > 0)
                 args.Player.HumeShield = subclass.HumeShield;
-            if (subclass.Inventory != null)
-                args.Player.SetItems(subclass.Inventory);
-            if (subclass.Ammo != null)
-                args.Player.SetAmmo(subclass.Ammo);
+            if (subclass.OverrideInventory != null)
+                args.Player.SetItems(subclass.OverrideInventory);
+            if (subclass.OverrideAmmo != null)
+                args.Player.SetAmmo(subclass.OverrideAmmo);
+            if (subclass.AdditiveInventory != null)
+                args.Player.AddItems(subclass.AdditiveInventory);
+            if (subclass.AdditiveAmmo != null)
+                args.Player.AddAmmo(subclass.AdditiveAmmo);
 
             subclass.OnSpawn(args.Player);
         });
