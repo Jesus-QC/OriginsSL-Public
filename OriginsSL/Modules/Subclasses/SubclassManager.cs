@@ -42,14 +42,28 @@ public class SubclassManager : OriginsModule
             new DoctorSubclass(),
             new VigilantSubclass(),
         ],
+        [RoleTypeId.FacilityGuard] = [],
+        [RoleTypeId.NtfSpecialist] = [],
         [RoleTypeId.NtfPrivate] = 
         [
             new LanternHolderSubclass(),
+            new CandyLover(),
+        ],
+        [RoleTypeId.NtfSergeant] =
+        [
+            new CandyLover(),
+        ],
+        [RoleTypeId.NtfCaptain] = 
+        [
+            new CandyLover(),
         ],
         [RoleTypeId.ChaosConscript] =
         [
             new LanternHolderSubclass(),
         ],
+        [RoleTypeId.ChaosMarauder] = [],
+        [RoleTypeId.ChaosRepressor] = [],
+        [RoleTypeId.ChaosRifleman] = [],
     };
     
     public override void OnLoaded()
@@ -175,7 +189,7 @@ public class SubclassManager : OriginsModule
 
     private static ISubclass GetRandomSubclass(RoleTypeId roleTypeId, CursedPlayer player)
     {
-        if (!AvailableSubclasses.TryGetValue(roleTypeId, out ISubclass[] subclasses))
+        if (!AvailableSubclasses.TryGetValue(roleTypeId, out ISubclass[] subclasses) || subclasses.Length == 0)
             return null;
         
         float totalChance = subclasses.Sum(subclass => subclass.FilterSubclass(player) ? subclass.SpawnChance : 0) + 1;
