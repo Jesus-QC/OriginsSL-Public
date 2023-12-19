@@ -8,7 +8,6 @@ using InventorySystem.Items;
 using InventorySystem.Items.Keycards;
 using MapGeneration.Distributors;
 using NorthwoodLib.Pools;
-using PluginAPI.Core;
 
 namespace OriginsSL.Modules.RemoteKeyCard;
 

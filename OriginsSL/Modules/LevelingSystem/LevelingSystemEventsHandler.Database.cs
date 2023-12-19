@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;

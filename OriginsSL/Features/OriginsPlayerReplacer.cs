@@ -4,7 +4,6 @@ using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 using CursedMod.Features.Wrappers.Player;
 using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Attachments.Components;
 using MEC;
 using OriginsSL.Modules.Subclasses;
 using PlayerRoles;

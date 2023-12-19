@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Player;
 using Hazards;
+using PlayerRoles.PlayableScps.Scp939;
 using UnityEngine;
 
 namespace CursedMod.Features.Wrappers.Facility.Hazards;
@@ -66,6 +67,7 @@ public class CursedEnvironmentalHazard
         {
             SinkholeEnvironmentalHazard sinkholeEnvironmentalHazard => new CursedSinkholeHazard(sinkholeEnvironmentalHazard),
             TantrumEnvironmentalHazard tantrumEnvironmentalHazard => new CursedTantrumHazard(tantrumEnvironmentalHazard),
+            Scp939AmnesticCloudInstance amnesticCloudHazard => new CursedAmnesticCloudHazard(amnesticCloudHazard),
             TemporaryHazard temporaryHazard => new CursedTemporaryHazard(temporaryHazard),
             _ => new CursedEnvironmentalHazard(environmentalHazard)
         };

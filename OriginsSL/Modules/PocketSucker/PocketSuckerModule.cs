@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CursedMod.Events.Arguments.Facility.Hazards;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
-using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CustomPlayerEffects;
 using MEC;

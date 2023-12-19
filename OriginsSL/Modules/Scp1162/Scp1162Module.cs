@@ -3,10 +3,12 @@ using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Facility.Rooms;
+using CursedMod.Features.Wrappers.Player;
+using Hazards;
 using MapGeneration;
+using MEC;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
-using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Scp1162;
@@ -23,7 +25,18 @@ public class Scp1162Module : OriginsModule
 
     private static void OnMapGenerated()
     {
-        _lastPosition = CursedRoom.Get(RoomName.Lcz173).GetLocalPoint(new Vector3(17.25f, 11, 8f));
+        CursedRoom room = CursedRoom.Get(RoomName.Lcz173);
+        _lastPosition = room.GetLocalPoint(new Vector3(17.25f, 11, 8f));
+
+        Timing.CallDelayed(1, () =>
+        {
+            SinkholeEnvironmentalHazard sinkhole = Object.FindObjectOfType<SinkholeEnvironmentalHazard>();
+            Transform transform = sinkhole.transform;
+            sinkhole.MaxDistance = 0;
+            transform.position = _lastPosition + new Vector3(0,0.6f,0);
+            transform.rotation = room.Rotation * Quaternion.Euler(0, 100, 0);
+            CursedPlayer.SendSpawnMessageToAll(sinkhole.netIdentity);
+        });
     }
 
     private static void OnDroppingItem(PlayerDroppingItemEventArgs args)

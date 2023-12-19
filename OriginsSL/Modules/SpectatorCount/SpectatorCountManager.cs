@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CursedMod.Events.Handlers;
-using CursedMod.Features.Logger;
 using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;

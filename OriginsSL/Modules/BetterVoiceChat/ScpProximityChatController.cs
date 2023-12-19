@@ -9,7 +9,6 @@ using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
 using PlayerRoles.Spectating;
 using PlayerRoles.Voice;
-using PluginAPI.Core;
 using UnityEngine;
 using VoiceChat;
 using VoiceChat.Networking;

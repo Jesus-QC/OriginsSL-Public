@@ -1,7 +1,6 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using PlayerRoles;
-using PlayerStatsSystem;
 using Utils;
 
 namespace OriginsSL.Modules.PeanutExplode;
