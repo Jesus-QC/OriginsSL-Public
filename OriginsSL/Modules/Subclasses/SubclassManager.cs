@@ -31,17 +31,22 @@ public class SubclassManager : OriginsModule
             new OrcSubclass(),
             new KidSubclass(),
             new NtfSpy(),
-            new LanternHolderSubclass()
+            new LanternHolderSubclass(),
+            new DrugDealerSubclass(),
         ],
         [RoleTypeId.Scientist] = 
         [
             new HeadResearcherSubclass(),
+            new ChaosSpy(),
+        ],
+        [RoleTypeId.NtfPrivate] = 
+        [
+            new LanternHolderSubclass(),
         ],
         [RoleTypeId.ChaosConscript] =
         [
-            new ChaosSpy(),
             new LanternHolderSubclass(),
-        ]
+        ],
     };
     
     public override void OnLoaded()

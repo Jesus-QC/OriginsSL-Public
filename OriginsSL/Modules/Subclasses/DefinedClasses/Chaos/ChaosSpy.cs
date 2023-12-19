@@ -12,7 +12,6 @@ public class ChaosSpy : SpySubclass
     public override float SpawnChance => 0.1f;
     public override RoleTypeId SpawnRole => RoleTypeId.ChaosConscript;
     protected override RoleTypeId DisguisedAs => RoleTypeId.Scientist;
-    public override RoleTypeId SpawnLocation => RoleTypeId.None;
-
+    
     public override bool FilterSubclass(CursedPlayer player) => CursedPlayer.Count > 15;
 }

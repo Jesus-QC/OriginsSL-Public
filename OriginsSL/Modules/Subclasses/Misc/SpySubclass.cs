@@ -43,20 +43,18 @@ public abstract class SpySubclass : SubclassBase
             if (args.Attacker is null)
                 return;
             
-            if (CursedServer.IsFriendlyFireEnabled && args.Attacker.RoleBase.Team == args.Player.RoleBase.Team)
+            if (args.Attacker.RoleBase.Team == args.Player.RoleBase.Team && !CursedServer.IsFriendlyFireEnabled)
                 return;
 
             if (args.Player.TryGetSubclass(out ISubclass playerSubclass) && playerSubclass is SpySubclass { _disguised: true} playerSpySubclass)
             {
                 playerSpySubclass.UnDisguise(args.Player);
             }
-            else
-            {
-                if (args.Attacker is null || !args.Attacker.TryGetSubclass(out ISubclass attackerSubclass) || attackerSubclass is not SpySubclass { _disguised: true } spySubclass)
-                    return;
             
-                spySubclass.UnDisguise(args.Attacker);
-            }
+            if (args.Attacker is null || !args.Attacker.TryGetSubclass(out ISubclass attackerSubclass) || attackerSubclass is not SpySubclass { _disguised: true } spySubclass)
+                return;
+            
+            spySubclass.UnDisguise(args.Attacker);
         }
     }
 }

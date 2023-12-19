@@ -13,6 +13,7 @@ public class NtfSpy : SpySubclass
     public override float SpawnChance => 0.1f;
     public override RoleTypeId SpawnRole => RoleTypeId.NtfPrivate;
     protected override RoleTypeId DisguisedAs => RoleTypeId.ClassD;
+    
     public override List<ItemType> OverrideInventory { get; } = [ItemType.KeycardGuard];
 
     public override Dictionary<ItemType, ushort> OverrideAmmo { get; } = [];
