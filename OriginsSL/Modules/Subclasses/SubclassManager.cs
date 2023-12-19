@@ -13,6 +13,7 @@ using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
+using OriginsSL.Modules.Subclasses.DefinedClasses.Guard;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
 using PlayerRoles;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class SubclassManager : OriginsModule
             new JanitorSubclass(),
             new OrcSubclass(),
             new KidSubclass(),
-            new NtfSpy(),
+            new NtfSpySubclass(),
             new LanternHolderSubclass(),
             new DrugDealerSubclass(),
             new SignalIntruderSubclass()
@@ -38,15 +39,19 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.Scientist] = 
         [
             new HeadResearcherSubclass(),
-            new ChaosSpy(),
+            new ChaosSpySubclass(),
             new DoctorSubclass(),
             new VigilantSubclass(),
         ],
         [RoleTypeId.FacilityGuard] = 
         [
             new DrugDealerSubclass(),
+            new SeniorGuardSubclass(),
         ],
-        [RoleTypeId.NtfSpecialist] = [],
+        [RoleTypeId.NtfSpecialist] =
+        [
+            new LanternHolderSubclass(),
+        ],
         [RoleTypeId.NtfPrivate] = 
         [
             new LanternHolderSubclass(),
@@ -55,6 +60,7 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.NtfSergeant] =
         [
             new CandyLover(),
+            new LanternHolderSubclass(),
         ],
         [RoleTypeId.NtfCaptain] = 
         [
@@ -63,8 +69,13 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.ChaosConscript] =
         [
             new LanternHolderSubclass(),
+            new ChaosSpySubclass(),
         ],
-        [RoleTypeId.ChaosMarauder] = [],
+        [RoleTypeId.ChaosMarauder] = 
+        [
+            new LanternHolderSubclass(),
+            new ChaosJuggernautSubclass()
+        ],
         [RoleTypeId.ChaosRepressor] = [],
         [RoleTypeId.ChaosRifleman] = [],
     };

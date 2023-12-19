@@ -5,7 +5,7 @@ using PlayerRoles;
 
 namespace OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 
-public class NtfSpy : SpySubclass
+public class NtfSpySubclass : SpySubclass
 {
     public override string CodeName => "ntfspy";
     public override string Name => "<color=#FF8E00>N<lowercase>tf</lowercase>S<lowercase>py</lowercase></color>";

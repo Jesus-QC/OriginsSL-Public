@@ -4,7 +4,7 @@ using PlayerRoles;
 
 namespace OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 
-public class ChaosSpy : SpySubclass
+public class ChaosSpySubclass : SpySubclass
 {
     public override string CodeName => "chaosspy";
     public override string Name => "<color=#FFFF7C>C<lowercase>haos</lowercase>S<lowercase>py</lowercase></color>";
