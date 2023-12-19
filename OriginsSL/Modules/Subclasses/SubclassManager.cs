@@ -42,7 +42,10 @@ public class SubclassManager : OriginsModule
             new DoctorSubclass(),
             new VigilantSubclass(),
         ],
-        [RoleTypeId.FacilityGuard] = [],
+        [RoleTypeId.FacilityGuard] = 
+        [
+            new DrugDealerSubclass(),
+        ],
         [RoleTypeId.NtfSpecialist] = [],
         [RoleTypeId.NtfPrivate] = 
         [

@@ -10,6 +10,7 @@ public class CandyLover : SubclassBase
     public override string Description => "loves candy, probably saved some in their pockets";
     public override float SpawnChance => 0.5f;
     public override bool KeepAfterEscaping => true;
-    public override Vector3 FakeSize => new (1.7f, 1, 1.7f);
+    public override Vector3 PlayerSize => new (1, 0.8f, 1);
+    public override Vector3 FakeSize => new (1.2f, 0.8f, 2f);
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.SCP330, ItemType.SCP330, ItemType.SCP330];
 }
