@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Player;
 
 namespace OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 
@@ -12,5 +11,5 @@ public class LanternHolderSubclass : SubclassBase
     
     public override bool KeepAfterEscaping => true;
 
-    public override List<ItemType> AdditiveInventory => [ItemType.Flashlight];
+    public override List<ItemType> AdditiveInventory { get; } = [ItemType.Lantern];
 }
