@@ -31,6 +31,7 @@ public class SubclassManager : OriginsModule
             new OrcSubclass(),
             new KidSubclass(),
             new NtfSpy(),
+            new LanternHolderSubclass()
         ],
         [RoleTypeId.Scientist] = 
         [
