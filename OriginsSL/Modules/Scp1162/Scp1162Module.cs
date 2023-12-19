@@ -39,9 +39,11 @@ public class Scp1162Module : OriginsModule
         ItemType randomItem = RandomAmmo.Contains(args.Item.ItemType) ? RandomAmmo.RandomItem() : AvailableItems.RandomItem();
         
         args.Player.RemoveItem(args.Item);
-        
+
         if (randomItem != ItemType.None)
-            args.Player.AddItem(randomItem);
+        {
+            args.Player.AddItem(randomItem).Drop();
+        }
         
         args.Player.SendOriginsHint("<b>You dropped an item inside <i><color=yellow>SCP-1162</color></i>...</b>", ScreenZone.Environment);
     }
