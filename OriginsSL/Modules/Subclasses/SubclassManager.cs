@@ -33,11 +33,14 @@ public class SubclassManager : OriginsModule
             new NtfSpy(),
             new LanternHolderSubclass(),
             new DrugDealerSubclass(),
+            new SignalIntruderSubclass()
         ],
         [RoleTypeId.Scientist] = 
         [
             new HeadResearcherSubclass(),
             new ChaosSpy(),
+            new DoctorSubclass(),
+            new VigilantSubclass(),
         ],
         [RoleTypeId.NtfPrivate] = 
         [
