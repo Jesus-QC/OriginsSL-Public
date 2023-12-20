@@ -13,7 +13,7 @@ using CursedMod.Loader;
 using CursedMod.Loader.Modules;
 using PluginAPI.Core;
 
-namespace CursedMod.Features.Wrappers.Server.GameModes;
+namespace OriginsSL.Modules.GameModes;
 
 public static class CursedGameModeLoader
 {
@@ -66,7 +66,11 @@ public static class CursedGameModeLoader
         if (CurrentGameMode is null) 
             return;
         
+        if (CurrentGameMode.IsCustomLobbyEnabled)
+            CustomLobby.LobbyHandler.IsEnabled = false;
+        
         CurrentGameMode.PrepareGameMode();
+        
         Log.Info("Enabled GameMode: " + CurrentGameMode.GameModeName + " | GameMode Description: " + CurrentGameMode.GameModeDescription + " For this round");
     }
     
@@ -92,8 +96,12 @@ public static class CursedGameModeLoader
         if (CurrentGameMode is null)
             return;
         
-        Log.Info("Disabled GameMode: " + CurrentGameMode.GameModeName + " Due to a round end");
+        if (!CurrentGameMode.IsCustomLobbyEnabled)
+            CustomLobby.LobbyHandler.IsEnabled = true;
+            
         CurrentGameMode.StopGameMode();
         CurrentGameMode = null;
+        
+        Log.Info("Disabled GameMode: " + CurrentGameMode.GameModeName + " Due to a round end");
     }
 }

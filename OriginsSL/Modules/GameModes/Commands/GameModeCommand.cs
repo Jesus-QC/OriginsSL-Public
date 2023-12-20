@@ -10,9 +10,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CommandSystem;
-using CursedMod.Features.Wrappers.Server.GameModes;
 
-namespace CursedMod.Loader.Commands.IntegratedCommands;
+namespace OriginsSL.Modules.GameModes.Commands;
 
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 public class GameModeCommand : ICommand, IUsageProvider

@@ -6,7 +6,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CursedMod.Features.Wrappers.Server.GameModes;
+namespace OriginsSL.Modules.GameModes;
 
 public interface ICursedGameMode
 {
@@ -14,6 +14,8 @@ public interface ICursedGameMode
     
     public string GameModeDescription { get; }
 
+    public bool IsCustomLobbyEnabled { get; }
+    
     public void PrepareGameMode();
 
     public void StopGameMode();
