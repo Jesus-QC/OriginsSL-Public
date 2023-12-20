@@ -6,6 +6,9 @@ public class LevelingSystemModule : OriginsModule
     
     public override void OnLoaded()
     {
+        if (Config.DatabaseAddress == "0")
+            return;
+        
         LevelingSystemEventsHandler.InitDatabase();
         LevelingSystemEventsHandler.RegisterPlayerEvents();
     }
