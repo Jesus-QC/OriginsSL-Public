@@ -31,11 +31,11 @@ public class PocketSuckerModule : OriginsModule
         Timing.RunCoroutine(PortalAnimation(args.Player));
     }
 
-    private static readonly HashSet<CursedPlayer> _suckingPlayers = [];
+    private static readonly HashSet<CursedPlayer> SuckingPlayers = [];
     
     private static IEnumerator<float> PortalAnimation(CursedPlayer player)
     {
-        if (!_suckingPlayers.Add(player))
+        if (!SuckingPlayers.Add(player))
             yield break;
         
         bool inGodMode = player.HasGodMode;
@@ -62,6 +62,9 @@ public class PocketSuckerModule : OriginsModule
         player.EnableEffect<Sinkhole>();
         
         player.SendOriginsHint("<b>Y<lowercase>ou have been sucked by a sinkhole</lowercase></b>", ScreenZone.Environment);
-        _suckingPlayers.Remove(player);
+        SuckingPlayers.Remove(player);
+
+        yield return Timing.WaitForSeconds(0.2f);
+        player.EnableEffect<PocketCorroding>();
     }
 }
