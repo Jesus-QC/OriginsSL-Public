@@ -8,6 +8,7 @@ using PlayerRoles.Ragdolls;
 
 namespace OriginsSL.Modules.EntityCleanup;
 
+[DisabledModule]
 public class EntityCleanupModule : OriginsModule
 {
     public override void OnLoaded()

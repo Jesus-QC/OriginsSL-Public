@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses;
 
 namespace OriginsSL;
@@ -20,7 +21,8 @@ public static class ModuleLoader
             module.OnLoaded();
         }
         
-        new SubclassManager().OnLoaded(); // Load subclasses as the last one
+        new SubclassManager().OnLoaded(); // Load subclasses later
+        new LevelingSystemModule().OnLoaded(); // Load leveling the latest
     }
 }
 

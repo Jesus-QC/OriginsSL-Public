@@ -1,5 +1,6 @@
 namespace OriginsSL.Modules.LevelingSystem;
 
+[DisabledModule]
 public class LevelingSystemModule : OriginsModule
 {
     public static LevelingConfig Config { get; internal set; }
