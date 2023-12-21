@@ -1,56 +1,42 @@
 using Discord;
-using Discord.Interactions;
+using Discord.Rest;
 using Discord.WebSocket;
 
 namespace OriginsBot.Commands;
 
-public class ButtonHandler : InteractionModuleBase<SocketInteractionContext<SocketMessageComponent>>
+public class ButtonHandler(DiscordSocketClient discord)
 {
-    [ComponentInteraction("lb_prev")]
-    public async Task UpdateMessage()
+    public static readonly ButtonBuilder LeaderboardNextButton = ButtonBuilder.CreateSecondaryButton("Previous Page", "lb_prev", Emote.Parse("<:arrowpinkleft:1186017160410173500>"));
+    public static readonly ButtonBuilder LeaderboardPrevButton = ButtonBuilder.CreateSecondaryButton("Next Page", "lb_next", Emote.Parse("<:arrowpink:1186017163404902481>"));
+    
+    public void Initialize()
     {
-        try
-        {
-            string? page = Context.Interaction.Message.Embeds.First().Footer?.Text.Replace("Page: ", string.Empty);
+        discord.ButtonExecuted += HandleButton;
+        discord.ModalSubmitted += HandleModal;
+    }
 
-            if (string.IsNullOrEmpty(page) || !int.TryParse(page, out int pageNumber))
-                return;
-
-            pageNumber--;
-
-            if (pageNumber == 0)
-            {
-                await RespondAsync("You are already on the first page.", ephemeral: true);
-                return;
-            }
-
-            Embed embed = await LevelingModule.GetLeaderboard(pageNumber, string.Empty, 0, 0, 0);
-
-            await Context.Interaction.UpdateAsync(msg => { msg.Embed = embed; });
-        }
-        catch (Exception e)
-        {
-        }
+    private async Task HandleButton(SocketMessageComponent component)
+    {
+        if (component.Data.CustomId == LeaderboardNextButton.CustomId)
+            await HandleLeaderboardButton(component, false);
+        else if (component.Data.CustomId == LeaderboardPrevButton.CustomId)
+            await HandleLeaderboardButton(component, true);
     }
     
-    [ComponentInteraction("lb_next")]
-    public async Task UpdateMessageNext()
+    private async Task HandleLeaderboardButton(SocketMessageComponent component, bool prev)
     {
-        try
-        {
-            string? page = Context.Interaction.Message.Embeds.First().Footer?.Text.Replace("Page: ", string.Empty);
+        if (!int.TryParse(component.Message.Embeds.First().Footer?.Text.Replace("Page: ", "") ?? "0", out int page))
+            return;
 
-            if (string.IsNullOrEmpty(page) || !int.TryParse(page, out int pageNumber))
-                return;
+        page += prev ? -1 : 1;
 
-            pageNumber++;
+        Embed embed = await LevelingModule.GetLeaderboard(page);
 
-            Embed embed = await LevelingModule.GetLeaderboard(pageNumber, string.Empty, 0, 0, 0);
+        await component.Message.ModifyAsync(x => x.Embed = embed);
+    }
 
-            await Context.Interaction.UpdateAsync(msg => { msg.Embed = embed; });
-        }
-        catch (Exception e)
-        {
-        }
+    private Task HandleModal(SocketModal modal)
+    {
+        return Task.CompletedTask;
     }
 }

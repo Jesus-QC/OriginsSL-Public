@@ -33,14 +33,13 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         (int level, int exp, int rank) = await GetLevelExpAndRank(Context.User.Id);
         await RespondAsync(embed: await GetLeaderboard(0, Context.User.Username, level, exp, rank), components: new ComponentBuilder().AddRow(
             new ActionRowBuilder()
-                .WithButton(null, "lb_prev", ButtonStyle.Secondary, Emote.Parse("<:arrowpinkleft:1186017160410173500>")))
-                .WithButton(null, "lb_next", ButtonStyle.Secondary, Emote.Parse("<:arrowpink:1186017163404902481>")
+                .WithButton(ButtonHandler.LeaderboardPrevButton)
+                .WithButton(ButtonHandler.LeaderboardNextButton)
             ).Build());
     }
 
-    public static async Task<Embed> GetLeaderboard(int offset, string username, int level, int exp, int plyRank)
+    public static async Task<Embed> GetLeaderboard(int offset, string username = "", int level = 0, int exp = 0, int plyRank = 0)
     {
-        Console.WriteLine(level + " " + exp + " " + plyRank);
         EmbedBuilder builder = new()
         {
             Title = "Origins SL Leaderboard",
@@ -77,7 +76,7 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
             rank++;
         }
 
-        if (rank <= plyRank)
+        if (plyRank != 0 && rank <= plyRank)
         {
             usernames += $"`{plyRank.ToString().PadLeft(4, '0')}` | <:playerselected:1186012194098385116> | {username} **(YOU)**\n";
             levels += $"`{level}`\n";

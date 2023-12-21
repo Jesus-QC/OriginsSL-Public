@@ -25,9 +25,11 @@ internal static class Program
         InteractionService commands = services.GetRequiredService<InteractionService>();
         IConfiguration config = services.GetRequiredService<IConfiguration>();
         CommandHandler handler = services.GetRequiredService<CommandHandler>();
+        ButtonHandler btnHandler = services.GetRequiredService<ButtonHandler>();
         DatabaseHandler databaseHandler = services.GetRequiredService<DatabaseHandler>();
         
         databaseHandler.Initialize();
+        btnHandler.Initialize();
         
         await handler.InitializeAsync();
 
@@ -62,6 +64,7 @@ internal static class Program
             .AddSingleton<DiscordSocketClient>()
             .AddSingleton<InteractionService>()
             .AddSingleton<CommandHandler>()
+            .AddSingleton<ButtonHandler>()
             .AddSingleton<DatabaseHandler>()
             .BuildServiceProvider();
 }

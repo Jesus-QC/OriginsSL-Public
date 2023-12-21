@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using OriginsSL.Modules.Subclasses;
 
 namespace OriginsSL;
 
@@ -18,6 +19,8 @@ public static class ModuleLoader
             OriginsModule module = (OriginsModule) Activator.CreateInstance(type);
             module.OnLoaded();
         }
+        
+        new SubclassManager().OnLoaded(); // Load subclasses as the last one
     }
 }
 

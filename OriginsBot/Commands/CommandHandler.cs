@@ -1,7 +1,6 @@
 using System.Reflection;
 using Discord.Interactions;
 using Discord.WebSocket;
-using Microsoft.Extensions.Configuration;
 using IResult = Discord.Interactions.IResult;
 
 namespace OriginsBot.Commands;

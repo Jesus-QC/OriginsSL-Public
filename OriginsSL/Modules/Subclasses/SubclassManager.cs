@@ -20,6 +20,7 @@ using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
 
+[DisabledModule]
 public class SubclassManager : OriginsModule
 {
     public static readonly Dictionary<CursedPlayer, ISubclass> Subclasses = new ();
