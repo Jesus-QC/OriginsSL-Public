@@ -1,20 +1,15 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using OriginsBot.Commands;
-using OriginsBot.Security;
-using OriginsBot.Website;
+using OriginsHR.Commands;
 
-namespace OriginsBot;
+namespace OriginsHR;
 
 internal static class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
-#pragma warning disable CS4014
-        RunBotAsync();
-#pragma warning restore CS4014 
-        WebsiteBuilder.Run(args);
+        await RunBotAsync();
     }
 
     private static async Task RunBotAsync()
@@ -25,11 +20,10 @@ internal static class Program
         InteractionService commands = services.GetRequiredService<InteractionService>();
         IConfiguration config = services.GetRequiredService<IConfiguration>();
         CommandHandler handler = services.GetRequiredService<CommandHandler>();
-        DatabaseHandler databaseHandler = services.GetRequiredService<DatabaseHandler>();
-        
-        databaseHandler.Initialize();
+        ButtonHandler buttonHandler = services.GetRequiredService<ButtonHandler>();
         
         await handler.InitializeAsync();
+        buttonHandler.Initialize();
 
         await client.LoginAsync(TokenType.Bot, config["token"]);
 
@@ -62,6 +56,6 @@ internal static class Program
             .AddSingleton<DiscordSocketClient>()
             .AddSingleton<InteractionService>()
             .AddSingleton<CommandHandler>()
-            .AddSingleton<DatabaseHandler>()
+            .AddSingleton<ButtonHandler>()
             .BuildServiceProvider();
 }
