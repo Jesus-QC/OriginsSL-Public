@@ -24,12 +24,12 @@ public class EmoteCommand : ICommand
             return false;
         }
         
-        ply.Dance();
+        EmoteHandler.Dance(ply);
         response = "Dancing!";
         return true;
     }
 
     public string Command { get; } = "emote";
-    public string[] Aliases { get; } = Array.Empty<string>();
+    public string[] Aliases { get; } = ["dance"];
     public string Description { get; } = "Dances";
 }

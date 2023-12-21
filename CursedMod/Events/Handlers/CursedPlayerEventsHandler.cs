@@ -44,6 +44,8 @@ public static class CursedPlayerEventsHandler
     public static event CursedEventManager.CursedEventHandler<PlayerDisarmingEventArgs> Disarming;
     
     public static event CursedEventManager.CursedEventHandler<PlayerRemovingHandcuffEventArgs> RemovingHandcuff; 
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerReceivingDamageEventArgs> DummyReceivingDamage; 
 
     internal static void OnPlayerConnected(PlayerConnectedEventArgs args)
     {
@@ -91,6 +93,12 @@ public static class CursedPlayerEventsHandler
 
     internal static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
+        if (args.Player is not null && args.Player.IsDummy)
+        {
+            DummyReceivingDamage.InvokeEvent(args);
+            return;
+        }
+        
         if (!args.Player.CheckPlayer())
             return;
         

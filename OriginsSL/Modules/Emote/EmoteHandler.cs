@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CursedMod.Events.Arguments.Player;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
@@ -11,17 +13,37 @@ using UnityEngine;
 
 namespace OriginsSL.Modules.Emote;
 
-public static class EmoteHandler
+public class EmoteHandler : OriginsModule
 {
-    public static void Dance(this CursedPlayer player)
+    public override void OnLoaded()
     {
-        if (!EmoteDummyOwner.PlayersEmoting.Add(player))
+        CursedPlayerEventsHandler.DummyReceivingDamage += OnDummyReceivingDamage;
+    }
+
+    private static void OnDummyReceivingDamage(PlayerReceivingDamageEventArgs args)
+    {
+        foreach (EmoteDummyOwner emoteDummyOwner in EmoteDummyOwner.PlayersEmoting.Values)
+        {
+            if (emoteDummyOwner.Dummy != args.Player)
+                continue;
+            
+            if (emoteDummyOwner.Owner.Health < args.DamageAmount)
+                emoteDummyOwner.StopEmoting();
+                
+            emoteDummyOwner.Owner.Damage(args.DamageHandlerBase);
+            args.IsAllowed = false;
+        }
+    }
+    
+    public static void Dance(CursedPlayer player)
+    {
+        if (EmoteDummyOwner.PlayersEmoting.ContainsKey(player))
             return;
         
         Timing.RunCoroutine(SkeletonDance(player));
     }
 
-    private static IEnumerator<float> SkeletonDance(this CursedPlayer player)
+    private static IEnumerator<float> SkeletonDance(CursedPlayer player)
     {
         CursedPlayer dummy = CursedDummy.Create("Dance (" + player.DisplayNickname + ")");
         dummy.Role = RoleTypeId.Scp3114;
