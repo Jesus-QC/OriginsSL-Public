@@ -33,8 +33,8 @@ public class CursedThrowableItem : CursedItem
         return new CursedThrowableItem(item);
     }
 
-    public void PropelBody(Rigidbody rigidbody, Vector3 torque, Vector3 relativeVelocity, float forceAmount, float upwardFactor)
-        => ThrowableBase.PropelBody(rigidbody, torque, relativeVelocity);
+    public void PropelBody(Rigidbody rigidBody, Vector3 torque, Vector3 relativeVelocity)
+        => ThrowableBase.PropelBody(rigidBody, torque, relativeVelocity);
 
     public void Throw(float forceAmount, float upwardFactor, Vector3 torque, Vector3 startVel)
         => ThrowableBase.ServerThrow(forceAmount, upwardFactor, torque, startVel);
