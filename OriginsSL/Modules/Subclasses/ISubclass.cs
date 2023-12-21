@@ -47,4 +47,6 @@ public interface ISubclass
     public void OnSpawn(CursedPlayer player);
     
     public void OnDeath(CursedPlayer player);
+
+    public void OnDestroy(CursedPlayer player);
 }

@@ -25,8 +25,17 @@ public class JanitorSubclass : SubclassBase
     {
         public void OnLoaded()
         {
+            CursedHazardsEventHandler.EnteringHazard += OnPlayerEnteringHazard;
             CursedHazardsEventHandler.StayingOnHazard += OnPlayerStayingOnHazard;
             CursedHazardsEventHandler.ExitingHazard += OnPlayerExitingHazard;
+        }
+
+        private static void OnPlayerEnteringHazard(PlayerEnteringHazardEventArgs args)
+        {
+            if (args.Hazard.HazardType != EnvironmentalHazardType.Sinkhole)
+                return;
+
+            args.IsAllowed = false;
         }
         
         private static void OnPlayerStayingOnHazard(PlayerStayingOnHazardEventArgs args)

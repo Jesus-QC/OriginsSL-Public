@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CursedMod.Features.Wrappers.Player;
+using MEC;
 using PlayerRoles;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace OriginsSL.Modules.Subclasses;
 
 public abstract class SubclassBase : ISubclass
 {
+    public static readonly HashSet<CoroutineHandle> ActiveCoroutines = [];
+    
     public virtual string CodeName => string.Empty;
     public virtual bool Spoofed => false;
     public virtual string Name => string.Empty;
@@ -32,4 +35,18 @@ public abstract class SubclassBase : ISubclass
     public virtual void OnSpawn(CursedPlayer player) { }
 
     public virtual void OnDeath(CursedPlayer player) { }
+    public virtual void OnDestroy(CursedPlayer player) { }
+    
+    public CoroutineHandle RunCoroutine(IEnumerator<float> coroutine, CursedPlayer player)
+    {
+        CoroutineHandle coroutineHandle = Timing.RunCoroutine(coroutine.CancelWith(player.GameObject));
+        ActiveCoroutines.Add(coroutineHandle);
+        return coroutineHandle;
+    }
+
+    public void KillCoroutine(CoroutineHandle coroutineHandle)
+    {
+        ActiveCoroutines.Remove(coroutineHandle);
+        Timing.KillCoroutines(coroutineHandle);
+    }
 }

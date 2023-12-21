@@ -16,6 +16,7 @@ using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Guard;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
 using PlayerRoles;
+using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
@@ -35,7 +36,8 @@ public class SubclassManager : OriginsModule
             new NtfSpySubclass(),
             new LanternHolderSubclass(),
             new DrugDealerSubclass(),
-            new SignalIntruderSubclass()
+            new SignalIntruderSubclass(),
+            new MsSweetieSubclass()
         ],
         [RoleTypeId.Scientist] = 
         [
@@ -43,6 +45,7 @@ public class SubclassManager : OriginsModule
             new ChaosSpySubclass(),
             new DoctorSubclass(),
             new VigilantSubclass(),
+            new MidgetSubclass()
         ],
         [RoleTypeId.FacilityGuard] = 
         [
@@ -96,12 +99,18 @@ public class SubclassManager : OriginsModule
         CursedPlayerEventsHandler.ChangingRole += OnPlayerChangingRole;
         CursedPlayerEventsHandler.Dying += OnPlayerDying;
         CursedPlayerEventsHandler.Spawning += OnSpawning;
+        CursedPlayerEventsHandler.Disconnecting += OnPlayerDisconnecting;
         CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
     }
 
     private static void OnRestartingRound()
     {
         Subclasses.Clear();
+
+        foreach (CoroutineHandle coroutine in SubclassBase.ActiveCoroutines)
+            Timing.KillCoroutines(coroutine);
+        
+        SubclassBase.ActiveCoroutines.Clear();
     }
 
     private static void OnPlayerChangingRole(PlayerChangingRoleEventArgs args)
@@ -175,6 +184,14 @@ public class SubclassManager : OriginsModule
         args.Player.SetSubclass(null);
     }
 
+    private static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)
+    {
+        if (!args.Player.TryGetSubclass(out _))
+            return;
+        
+        args.Player.SetSubclass(null);
+    }
+    
     public static void SetSubclass(CursedPlayer player, ISubclass subclass)
     {
         if (subclass is null)
@@ -197,6 +214,8 @@ public class SubclassManager : OriginsModule
             
         if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
             player.Scale = Vector3.one;
+        
+        oldSubclass.OnDestroy(player);
     }
     
     private static void LoadEventsHandlers()
