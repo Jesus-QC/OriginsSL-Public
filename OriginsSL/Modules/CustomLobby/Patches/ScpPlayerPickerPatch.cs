@@ -14,7 +14,7 @@ public class ScpPlayerPickerPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-	    List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ScpPlayerPickerPatch>(67 , instructions);
+	    List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<ScpPlayerPickerPatch>(67, instructions);
 
 	    newInstructions.InsertRange(2, new CodeInstruction[]
 	    {
