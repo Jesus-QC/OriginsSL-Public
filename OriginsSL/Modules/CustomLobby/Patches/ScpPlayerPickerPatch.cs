@@ -34,7 +34,6 @@ public class ScpPlayerPickerPatch
 	    ListPool<CodeInstruction>.Shared.Return(newInstructions);
     }
 
-
     private static List<ReferenceHub> _hubs;
 
     private static void CleanTickets(ScpTicketsLoader ticketsLoader)
