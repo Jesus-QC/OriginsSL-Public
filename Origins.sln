@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CursedMod", "CursedMod\Curs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginsBot", "OriginsBot\OriginsBot.csproj", "{DB4C02AD-5422-4F98-A065-74A5AA8FF8CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginsHR", "OriginsHR\OriginsHR.csproj", "{3D596EC2-8A9D-4040-88A8-479C6804268F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{DB4C02AD-5422-4F98-A065-74A5AA8FF8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB4C02AD-5422-4F98-A065-74A5AA8FF8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB4C02AD-5422-4F98-A065-74A5AA8FF8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

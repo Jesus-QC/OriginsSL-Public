@@ -433,11 +433,8 @@
         <Compile Include="Features\Wrappers\Player\VoiceChat\CursedVoiceChat.cs" />
         <Compile Include="Features\Wrappers\Round\CursedRound.cs" />
         <Compile Include="Features\Wrappers\Server\CursedServer.cs" />
-        <Compile Include="Features\Wrappers\Server\Gamemodes\CursedGamemode.cs" />
-        <Compile Include="Features\Wrappers\Server\Gamemodes\CursedGamemodeLoader.cs" />
         <Compile Include="Loader\Commands\CursedCommandManager.cs" />
         <Compile Include="Loader\Commands\CursedCommandType.cs" />
-        <Compile Include="Loader\Commands\IntegratedCommands\GamemodeCommand.cs" />
         <Compile Include="Loader\Configurations\CursedModConfiguration.cs" />
         <Compile Include="Loader\Configurations\CursedModConfigurationManager.cs" />
         <Compile Include="Loader\CursedLoader.cs" />

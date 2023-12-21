@@ -8,7 +8,6 @@
 
 using CursedMod.Events;
 using CursedMod.Features.Logger;
-using CursedMod.Features.Wrappers.Server.Gamemodes;
 using CursedMod.Loader;
 using CursedMod.Loader.Configurations;
 using PluginAPI.Core.Attributes;
@@ -34,7 +33,5 @@ internal class EntryPoint
         CursedLoader.LoadAll();
         
         CursedEventManager.PatchEvents();
-        
-        CursedGamemodeLoader.LoadGamemodes();
     }
 }

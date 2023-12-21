@@ -3,7 +3,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using IResult = Discord.Interactions.IResult;
 
-namespace OriginsBot.Commands;
+namespace OriginsHR.Commands;
 
 public class CommandHandler(InteractionService commands, DiscordSocketClient discord, IConfiguration configuration, IServiceProvider services)
 {
