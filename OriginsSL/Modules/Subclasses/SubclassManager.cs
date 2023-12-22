@@ -1,3 +1,4 @@
+using MEC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
-using MEC;
 using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
@@ -16,7 +16,6 @@ using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Guard;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
 using PlayerRoles;
-using PluginAPI.Core;
 using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
@@ -158,6 +157,8 @@ public class SubclassManager : OriginsModule
                 args.Player.CustomInfo = $"{GetLevelingCustomInfo(args.Player)}\n<size=22><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
             if (subclass.Health > 0)
                 args.Player.Health = subclass.Health;
+            if (subclass.MaxHealth > 0)
+                args.Player.MaxHealth = subclass.MaxHealth;
             if (subclass.ArtificialHealth > 0)
                 args.Player.ArtificialHealth = subclass.ArtificialHealth;
             if (subclass.HumeShield > 0)

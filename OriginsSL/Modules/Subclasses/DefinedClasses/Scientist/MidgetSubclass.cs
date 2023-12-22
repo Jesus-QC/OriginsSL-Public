@@ -16,4 +16,6 @@ public class MidgetSubclass : PitchChangerSubclass
     public override bool KeepAfterEscaping => true;
 
     public override float Health { get; } = 50f;
+    
+    public override float MaxHealth { get; } = 50f;
 }

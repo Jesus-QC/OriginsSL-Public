@@ -20,6 +20,7 @@ public abstract class SubclassBase : ISubclass
     public virtual Vector3 PlayerSize { get; } = Vector3.zero;
     public virtual Vector3 FakeSize { get; } = Vector3.zero;
     public virtual float Health => -1;
+    public virtual float MaxHealth => -1;
     public virtual float ArtificialHealth => -1;
     public virtual float HumeShield => -1;
     public virtual List<ItemType> OverrideInventory => null;

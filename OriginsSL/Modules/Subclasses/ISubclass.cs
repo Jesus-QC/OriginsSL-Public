@@ -25,6 +25,7 @@ public interface ISubclass
     public Vector3 FakeSize { get; }
     
     public float Health { get; }
+    public float MaxHealth { get; }
     
     public float ArtificialHealth { get; }
     
