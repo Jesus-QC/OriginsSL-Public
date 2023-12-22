@@ -7,6 +7,7 @@ using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Round;
+using CursedMod.Features.Wrappers.Server;
 using InventorySystem;
 using MapGeneration;
 using Mirror;
@@ -47,6 +48,8 @@ public class LobbyHandler : OriginsModule
     {
         if (!IsEnabled)
             return;
+
+        CursedServer.DropPlayerItemsOnDisconnect = false;
         
         CursedRoom room = CursedRoom.Get(RoomName.Hcz049);
         
@@ -76,6 +79,8 @@ public class LobbyHandler : OriginsModule
     {
         if (!IsEnabled)
             return;
+        
+        CursedServer.DropPlayerItemsOnDisconnect = true;
         
         foreach (GameObject go in Map)
             NetworkServer.Destroy(go);
