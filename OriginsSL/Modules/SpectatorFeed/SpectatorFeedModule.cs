@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CursedMod.Events.Arguments.Facility.Warhead;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Arguments.Respawning;
@@ -12,21 +13,15 @@ namespace OriginsSL.Modules.SpectatorFeed;
 
 public class SpectatorFeedModule : OriginsModule
 {
-    private static readonly Notification[] Notifications = new Notification[5];
+    private static readonly List<Notification> Notifications = [];
     
     private record struct Notification(string Content,float Duration);
     
-    private static void AddNotification(string content, float duration = 4f)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Notifications[i + 1] = Notifications[i];
-        }
-        
-        Notifications[0] = new Notification(content, duration);
-    }
-    
-    public static string GetContent(int n) => Notifications[n].Content;
+    private static void AddNotification(string content, float duration = 4f) 
+        => Notifications.Add(new Notification(content, duration));
+
+    public static string GetContent(int n) 
+        => Notifications.Count > n ? Notifications[n].Content : string.Empty;
 
     public static string GetContentWithAlpha(int n, string alpha)
     {
@@ -115,13 +110,13 @@ public class SpectatorFeedModule : OriginsModule
 
     private static void OnUpdate()
     {
-        for (int i = 0; i < Notifications.Length; i++)
+        for (int i = 0; i < Notifications.Count; i++)
         {
             Notification notification = Notifications[i];
             float duration = notification.Duration - Time.deltaTime;
             
             if (duration <= 0)
-                Notifications[i] = new Notification(string.Empty, 0);
+                Notifications.RemoveAt(i);
             else
                 Notifications[i] = notification with { Duration = duration };
         }

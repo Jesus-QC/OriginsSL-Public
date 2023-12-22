@@ -173,6 +173,7 @@
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
         <Compile Include="Modules\BulletHoleCap\BulletHoleCapModule.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
+        <Compile Include="Modules\ChaosTargets\Patches\ChaosTargetPatch.cs" />
         <Compile Include="Modules\CustomLobby\Components\RotatePlayerComponent.cs" />
         <Compile Include="Modules\CustomLobby\Components\TeamTriggerComponent.cs" />
         <Compile Include="Modules\CustomLobby\LobbyHandler.cs" />
