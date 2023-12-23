@@ -46,7 +46,7 @@ public class ScpListModule : OriginsModule
         
         if (newRole != RoleTypeId.None)
         {
-            if (newRole != RoleTypeId.Scp0492)
+            if (newRole is not (RoleTypeId.Scp0492 or RoleTypeId.ZombieFlamingo))
                 SavedMessages.Add(Format(newRole, zombieCount));
             else
                 zombieCount++;
@@ -64,7 +64,7 @@ public class ScpListModule : OriginsModule
 
             switch (player.Role)
             {
-                case RoleTypeId.Scp0492:
+                case RoleTypeId.Scp0492 or RoleTypeId.ZombieFlamingo:
                     zombieCount++;
                     continue;
                 case RoleTypeId.Scp049:
