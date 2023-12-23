@@ -35,6 +35,9 @@ public class JanitorSubclass : SubclassBase
             if (args.Hazard.HazardType != EnvironmentalHazardType.Sinkhole)
                 return;
 
+            if (!args.Player.TryGetSubclass(out ISubclass subclass) || subclass is not JanitorSubclass)
+                return;
+            
             args.IsAllowed = false;
         }
         
