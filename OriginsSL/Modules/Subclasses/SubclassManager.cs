@@ -36,7 +36,8 @@ public class SubclassManager : OriginsModule
             new LanternHolderSubclass(),
             new DrugDealerSubclass(),
             new SignalIntruderSubclass(),
-            new MsSweetieSubclass()
+            new MsSweetieSubclass(),
+            new TestSubjectSubclass(),
         ],
         [RoleTypeId.Scientist] = 
         [
@@ -44,7 +45,8 @@ public class SubclassManager : OriginsModule
             new ChaosSpySubclass(),
             new DoctorSubclass(),
             new VigilantSubclass(),
-            new MidgetSubclass()
+            new MidgetSubclass(),
+            new TestSubjectSubclass(),
         ],
         [RoleTypeId.FacilityGuard] = 
         [
