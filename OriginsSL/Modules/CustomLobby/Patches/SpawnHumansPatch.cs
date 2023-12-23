@@ -15,7 +15,7 @@ public class SpawnHumansPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        CursedEventManager.CheckEvent<SpawnHumansPatch>(46, instructions);
+        CursedEventManager.CheckEvent<SpawnHumansPatch>(49, instructions);
         yield return new CodeInstruction(OpCodes.Ldarg_0);
         yield return new CodeInstruction(OpCodes.Ldarg_1);
         yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(SpawnHumansPatch), nameof(SpawnHumans)));
