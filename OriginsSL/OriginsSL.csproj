@@ -229,7 +229,7 @@
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\DrugDealerSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\JanitorSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\KidSubclass.cs" />
-        <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\LanternHolderSubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\PriestSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\MsSweetieSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\OrcSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\ClassD\SignalIntruderSubclass.cs" />

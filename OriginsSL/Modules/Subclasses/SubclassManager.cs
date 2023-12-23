@@ -33,7 +33,7 @@ public class SubclassManager : OriginsModule
             new OrcSubclass(),
             new KidSubclass(),
             new NtfSpySubclass(),
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new DrugDealerSubclass(),
             new SignalIntruderSubclass(),
             new MsSweetieSubclass(),
@@ -55,17 +55,17 @@ public class SubclassManager : OriginsModule
         ],
         [RoleTypeId.NtfSpecialist] =
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
         ],
         [RoleTypeId.NtfPrivate] = 
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new CandyLover(),
         ],
         [RoleTypeId.NtfSergeant] =
         [
             new CandyLover(),
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
         ],
         [RoleTypeId.NtfCaptain] = 
         [
@@ -73,23 +73,23 @@ public class SubclassManager : OriginsModule
         ],
         [RoleTypeId.ChaosConscript] =
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new ChaosSpySubclass(),
         ],
         [RoleTypeId.ChaosMarauder] = 
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new ChaosJuggernautSubclass(),
             new ChaosSupportSubclass(),
         ],
         [RoleTypeId.ChaosRepressor] = 
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new ChaosSupportSubclass(),
         ],
         [RoleTypeId.ChaosRifleman] = 
         [
-            new LanternHolderSubclass(),
+            new PriestSubclass(),
             new ChaosSupportSubclass(),
         ],
     };
