@@ -85,10 +85,10 @@ public class ScpProximityChatController : OriginsModule
             return;
 
         args.IsAllowed = false;
-        SendProximityMessage(args.VoiceMessage);
+        SendProximityMessage(args.VoiceMessage, args.Player.Role is not (RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo));
     }
 
-    private static void SendProximityMessage(VoiceMessage msg)
+    private static void SendProximityMessage(VoiceMessage msg, bool scp = true)
     {
         foreach (CursedPlayer player in CursedPlayer.Collection)
         {
@@ -103,13 +103,13 @@ public class ScpProximityChatController : OriginsModule
                 if (!msg.Speaker.IsSpectatedBy(player.ReferenceHub) && !ValidatePosition(msg, spectatorRole.SpectatedPlayer.Position, voiceRole2)) 
                     continue;
 
-                msg.Channel = VoiceChatChannel.ScpChat;
+                msg.Channel = scp ? VoiceChatChannel.ScpChat : VoiceChatChannel.Scp1507;
                 player.NetworkConnection.Send(msg);
                 continue;
             }
             
             if (!ValidatePosition(msg, player.Position, voiceRole2))
-                return;
+                continue;
             
             msg.Channel = VoiceChatChannel.Proximity;
             player.NetworkConnection.Send(msg);
