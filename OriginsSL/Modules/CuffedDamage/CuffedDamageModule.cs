@@ -1,5 +1,6 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
+using PlayerRoles;
 using PlayerStatsSystem;
 
 namespace OriginsSL.Modules.CuffedDamage;
@@ -13,7 +14,7 @@ public class CuffedDamageModule : OriginsModule
 
     private static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
-        if (!args.Player.IsCuffed || args.DamageHandlerBase is not AttackerDamageHandler)
+        if (!args.Player.IsCuffed || args.DamageHandlerBase is not AttackerDamageHandler attacker || !attacker.Attacker.Role.IsHuman())
             return;
 
         args.IsAllowed = false;

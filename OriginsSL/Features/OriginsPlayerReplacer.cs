@@ -3,6 +3,7 @@ using System.Linq;
 using CursedMod.Features.Wrappers.Inventory.Items;
 using CursedMod.Features.Wrappers.Inventory.Items.Firearms;
 using CursedMod.Features.Wrappers.Player;
+using CustomPlayerEffects;
 using InventorySystem.Items.Firearms;
 using MEC;
 using OriginsSL.Modules.Subclasses;
@@ -29,15 +30,21 @@ public static class OriginsPlayerReplacer
             
             target.Position = other.Position;
             target.SetRole(other.Role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
-            
+
+            bool pocketCorroding = other.TryGetEffect(out PocketCorroding pc) && pc.IsEnabled;
+                
             Timing.CallDelayed(0.8f, () =>
             {
                 subclass.IsLocked = false;
                 target.SetData(items, ammo, RoleTypeId.None, health, humeShield, Vector3.zero);
+                if (pocketCorroding)
+                    target.EnableEffect<PocketCorroding>();
             });
         }
         
         target.SetData(other.ClearItemsWithoutDestroying().ToList(), other.Ammo, other.Role, other.Health, other.HumeShield, other.Position);
+        if (other.TryGetEffect(out PocketCorroding pocketC) && pocketC.IsEnabled)
+            target.EnableEffect<PocketCorroding>();
     }
     
     private static void SetData(this CursedPlayer target, List<CursedItem> items, Dictionary<ItemType, ushort> ammo, RoleTypeId role, float health, float humeShield, Vector3 position)
