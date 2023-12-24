@@ -17,6 +17,8 @@ namespace OriginsSL.Modules.BetterVoiceChat;
 
 public class ScpProximityChatController : OriginsModule
 {
+    public override byte Priority { get; set; } = 215;
+    
     public override void OnLoaded()
     {
         CursedRoundEventsHandler.RestartingRound += ClearData;
@@ -36,7 +38,7 @@ public class ScpProximityChatController : OriginsModule
         if (args.Player.HasNoClipPermitted)
             return;
         
-        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939))
+        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.Scp3114))
             return;
 
         args.IsAllowed = false;
@@ -76,10 +78,10 @@ public class ScpProximityChatController : OriginsModule
             }
         }
         
-        if (args.VoiceMessage.Channel != VoiceChatChannel.ScpChat)
+        if (args.VoiceMessage.Channel is not (VoiceChatChannel.ScpChat or VoiceChatChannel.Scp1507))
             return;
         
-        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939) || !ToggledPlayers.Contains(args.Player))
+        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.Scp3114) || !ToggledPlayers.Contains(args.Player))
             return;
 
         args.IsAllowed = false;

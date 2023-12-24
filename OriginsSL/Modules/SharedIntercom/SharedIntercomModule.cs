@@ -9,10 +9,13 @@ namespace OriginsSL.Modules.SharedIntercom;
 
 public class SharedIntercomHandler : OriginsModule
 {
+    public override byte Priority { get; set; } = 220;
+    
     public override void OnLoaded()
     {
         CursedPlayerEventsHandler.UsingVoiceChat += OnUsingVoiceChat;
     }
+    
     private static void OnUsingVoiceChat(PlayerUsingVoiceChatEventArgs args)
     {
         if (Intercom.State is not IntercomState.InUse 

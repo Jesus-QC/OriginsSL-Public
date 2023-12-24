@@ -20,9 +20,10 @@ using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
 
-[DisabledModule]
 public class SubclassManager : OriginsModule
 {
+    public override byte Priority { get; set; } = 200;
+
     public static readonly Dictionary<CursedPlayer, ISubclass> Subclasses = new ();
 
     public static readonly Dictionary<RoleTypeId, ISubclass[]> AvailableSubclasses = new()
