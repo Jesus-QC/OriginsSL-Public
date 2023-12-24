@@ -10,12 +10,9 @@ public class KidSubclass : PitchChangerSubclass
     public override string Description => "you are small and your voice sounds high";
     public override float SpawnChance => 0.6f;
     public override Vector3 PlayerSize { get; } = new (0.6f, 0.6f, 0.6f);
-
-    public override float Pitch { get; } = 1.3f;
-
+    public override float Health => 50f;
+    public override float MaxHealth => 50f;
     public override bool KeepAfterEscaping => true;
-
-    public override float Health { get; } = 50f;
-
-    public override float MaxHealth { get; } = 50f;
+    
+    public override float Pitch => 1.3f;
 }
