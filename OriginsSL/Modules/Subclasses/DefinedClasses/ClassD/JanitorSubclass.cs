@@ -11,7 +11,7 @@ public class JanitorSubclass : SubclassBase
 {
     public override string CodeName => "janitor";
     public override string Name => "<color=#c0b2e6>J<lowercase>anitor</lowercase></color>";
-    public override string Description => "cleans up tantrums by standing on them";
+    public override string Description => "cleans up tantrums by standing on them, also immune to sinkholes";
     
     public override float SpawnChance => 0.7f;
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.KeycardJanitor];
