@@ -8,6 +8,7 @@ using OriginsSL.Features.Commands;
 using PlayerRoles;
 using UnityEngine;
 using NWAPIPermissionSystem;
+using OriginsSL.Modules.Subclasses;
 
 namespace OriginsSL.Modules.AdminTools.Moderation;
 
@@ -83,6 +84,10 @@ public class JailCommand : ICommand, IUsageProvider
             _position = player.Position;
             _role = player.Role;
             _ammo = new Dictionary<ItemType, ushort>(player.Ammo);
+            
+            if (player.TryGetSubclass(out _subclass))
+                _subclass.IsLocked = true;
+            
             player.SetRole(RoleTypeId.Tutorial);
             player.ShowBroadcast("<b>You have been detained by an administrator, please follow their instructions.</b>");
         }
@@ -96,6 +101,11 @@ public class JailCommand : ICommand, IUsageProvider
             player.HealthStat.CurValue = _health;
             player.HumeShieldStat.CurValue = _humeShield;
             JailedPlayers.Remove(player);
+            
+            if (_subclass is null)
+                return;
+
+            _subclass.IsLocked = false;
         }
 
         private readonly float _health;
@@ -104,6 +114,7 @@ public class JailCommand : ICommand, IUsageProvider
         private readonly RoleTypeId _role;
         private readonly IEnumerable<CursedItem> _items;
         private readonly Dictionary<ItemType, ushort> _ammo;
+        private readonly ISubclass _subclass;
     }
 
     private static readonly Dictionary<CursedPlayer, JailInfo> JailedPlayers = new ();
