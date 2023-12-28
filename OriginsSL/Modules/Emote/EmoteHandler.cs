@@ -27,11 +27,8 @@ public class EmoteHandler : OriginsModule
             if (emoteDummyOwner.Dummy != args.Player)
                 continue;
             
-            if (emoteDummyOwner.Owner.Health < args.DamageAmount)
-                emoteDummyOwner.StopEmoting();
-                
+            emoteDummyOwner.StopEmoting();
             emoteDummyOwner.Owner.Damage(args.DamageHandlerBase);
-            args.IsAllowed = false;
         }
     }
     
