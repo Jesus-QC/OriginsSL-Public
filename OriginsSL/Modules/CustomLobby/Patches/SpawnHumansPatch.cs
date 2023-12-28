@@ -5,6 +5,7 @@ using CursedMod.Events;
 using CursedMod.Features.Wrappers.Player;
 using HarmonyLib;
 using PlayerRoles;
+using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.RoleAssign;
 using PluginAPI.Core;
 
@@ -40,6 +41,7 @@ public class SpawnHumansPatch
         {
             scp3114 = scps.PullRandomItem();
             SetRole(scp3114.roleManager, RoleTypeId.Scp3114);
+            Scp3114Spawner.SpawnRagdolls(scp3114.nicknameSync.DisplayName);
         }
         
         foreach (ReferenceHub hub in ReferenceHub.AllHubs)
