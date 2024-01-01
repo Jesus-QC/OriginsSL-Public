@@ -30,16 +30,17 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
     [SlashCommand("leaderboard", "View the leveling leaderboard.")]
     public async Task LeaderboardCommand()
     {
-        (int level, int exp, int rank) = await GetLevelExpAndRank(Context.User.Id);
-        await RespondAsync(embed: await GetLeaderboard(0, Context.User.Username, level, exp, rank), components: new ComponentBuilder().AddRow(
+        await RespondAsync(embed: await GetLeaderboard(0), components: new ComponentBuilder().AddRow(
             new ActionRowBuilder()
                 .WithButton(ButtonHandler.LeaderboardPrevButton)
                 .WithButton(ButtonHandler.LeaderboardNextButton)
             ).Build());
     }
 
-    public static async Task<Embed> GetLeaderboard(int offset, string username = "", int level = 0, int exp = 0, int plyRank = 0)
+    public static async Task<Embed> GetLeaderboard(int offset)
     {
+        const int pageSize = 10;
+        
         EmbedBuilder builder = new()
         {
             Title = "Origins SL Leaderboard",
@@ -50,12 +51,12 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
         await connection.OpenAsync();
         
-        MySqlCommand cmd = new("SELECT Username, Level, Experience FROM LevelingSystem ORDER BY Experience DESC LIMIT 10 OFFSET @Offset", connection);
-        cmd.Parameters.AddWithValue("@Offset", offset * 10);
+        MySqlCommand cmd = new($"SELECT Username, Level, Experience FROM LevelingSystem ORDER BY Experience DESC LIMIT {pageSize} OFFSET @Offset", connection);
+        cmd.Parameters.AddWithValue("@Offset", offset * pageSize);
         
         DbDataReader reader = await cmd.ExecuteReaderAsync();
 
-        int rank = 1 + offset;
+        int rank = offset * pageSize + 1;
         while (await reader.ReadAsync())
         {
             string lbUsername = reader.GetString(0);
@@ -67,20 +68,13 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
                 1 => "<:trophy1:1186009506287722516>",
                 2 => "<:trophy2:1186009504719056987>",
                 3 => "<:trophy3:1186009502047285278>",
-                _ => rank != plyRank ? "<:player:1186012196552056913>" : "<:playerselected:1186012194098385116>",
+                _ => rank % 2 == 0 ? "<:player:1186012196552056913>" : "<:playerselected:1186012194098385116>",
             };
             
-            usernames += $"`{rank.ToString().PadLeft(4, '0')}` | {rankEmoji} | {lbUsername} {(rank == plyRank ? "**(YOU)**" : string.Empty)}\n";
+            usernames += $"`{rank.ToString().PadLeft(4, '0')}` | {rankEmoji} | {lbUsername}\n";
             levels += $"`{lbLevel}`\n";
             experiences += $"`{lbExp}`\n";
             rank++;
-        }
-
-        if (plyRank != 0 && rank <= plyRank)
-        {
-            usernames += $"`{plyRank.ToString().PadLeft(4, '0')}` | <:playerselected:1186012194098385116> | {username} **(YOU)**\n";
-            levels += $"`{level}`\n";
-            experiences += $"`{exp}`\n";
         }
         
         builder.AddField("Username", usernames, true);
@@ -91,8 +85,6 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
 
         return builder.Build();
     }
-    
-    
     
     private static (int, int) GetExpProgress(int exp)
     {

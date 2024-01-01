@@ -1,13 +1,14 @@
 using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
+using Microsoft.VisualBasic;
 
 namespace OriginsBot.Commands;
 
 public class ButtonHandler(DiscordSocketClient discord)
 {
-    public static readonly ButtonBuilder LeaderboardNextButton = ButtonBuilder.CreateSecondaryButton("Previous Page", "lb_prev", Emote.Parse("<:arrowpinkleft:1186017160410173500>"));
-    public static readonly ButtonBuilder LeaderboardPrevButton = ButtonBuilder.CreateSecondaryButton("Next Page", "lb_next", Emote.Parse("<:arrowpink:1186017163404902481>"));
+    public static readonly ButtonBuilder LeaderboardPrevButton = ButtonBuilder.CreateSecondaryButton("Previous Page", "lb_prev", Emote.Parse("<:arrowpinkleft:1186017160410173500>"));
+    public static readonly ButtonBuilder LeaderboardNextButton = ButtonBuilder.CreateSecondaryButton("Next Page", "lb_next", Emote.Parse("<:arrowpink:1186017163404902481>"));
     
     public void Initialize()
     {
@@ -26,13 +27,30 @@ public class ButtonHandler(DiscordSocketClient discord)
     private async Task HandleLeaderboardButton(SocketMessageComponent component, bool prev)
     {
         if (!int.TryParse(component.Message.Embeds.First().Footer?.Text.Replace("Page: ", "") ?? "0", out int page))
+        {
+            await component.RespondAsync("There has been an error while fetching the leaderboard.");
             return;
+        }
 
+        page--;
         page += prev ? -1 : 1;
 
+        page = Math.Max(0, page); // Clamp value to 0
+        
         Embed embed = await LevelingModule.GetLeaderboard(page);
-
+        
         await component.Message.ModifyAsync(x => x.Embed = embed);
+        
+        try
+        {
+            await component.RespondAsync();
+        }
+        catch
+        {
+            // It marks the message as handled and throws an exception
+            // Which means that the message content can't be null
+            // So we just ignore it
+        }
     }
 
     private Task HandleModal(SocketModal modal)
