@@ -24,7 +24,7 @@ public class ButtonHandler(DiscordSocketClient discord)
     
     private async Task HandleLeaderboardButton(SocketMessageComponent component, bool prev)
     {
-        if (!int.TryParse(component.Message.Embeds.First().Footer?.Text.Replace("Page: ", "") ?? "0", out int page))
+        if (!int.TryParse(component.Message.Embeds.First().Footer?.Text.Replace("Page: ", string.Empty) ?? "0", out int page))
         {
             await component.RespondAsync("There has been an error while fetching the leaderboard.");
             return;
