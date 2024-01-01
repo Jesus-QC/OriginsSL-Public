@@ -34,6 +34,7 @@ public class ShotReceivedPatch
         {
             new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[offset]),
             new (OpCodes.Ldarg_1),
+            new (OpCodes.Ldloc_1),
             new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(PlayerShootingEventArgs))[0]),
             new (OpCodes.Dup),
             new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnPlayerShooting))),
