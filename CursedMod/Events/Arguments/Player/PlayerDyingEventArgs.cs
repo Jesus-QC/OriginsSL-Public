@@ -8,7 +8,6 @@
 
 using System;
 using CursedMod.Features.Wrappers.Player;
-using CursedMod.Features.Wrappers.Server;
 using PlayerStatsSystem;
 
 namespace CursedMod.Events.Arguments.Player;

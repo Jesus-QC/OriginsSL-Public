@@ -13,8 +13,6 @@ using CursedMod.Events.Handlers;
 using HarmonyLib;
 using InventorySystem.Disarming;
 using NorthwoodLib.Pools;
-using PluginAPI.Core;
-using PluginAPI.Events;
 
 namespace CursedMod.Events.Patches.Player.Disarming;
 

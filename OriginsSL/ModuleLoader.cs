@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using CursedMod.Loader.Modules;
-using OriginsSL.Modules.LevelingSystem;
-using OriginsSL.Modules.Subclasses;
 
 namespace OriginsSL;
 

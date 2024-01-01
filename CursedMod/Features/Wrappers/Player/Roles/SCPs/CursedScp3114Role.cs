@@ -8,11 +8,8 @@
 
 using CursedMod.Features.Wrappers.Player.Ragdolls;
 using PlayerRoles.PlayableScps.HumeShield;
-using PlayerRoles.PlayableScps.Scp049.Zombies;
 using PlayerRoles.PlayableScps.Scp3114;
-using PlayerRoles.Ragdolls;
 using PlayerRoles.Subroutines;
-using PlayerStatsSystem;
 using RelativePositioning;
 
 namespace CursedMod.Features.Wrappers.Player.Roles.SCPs;
