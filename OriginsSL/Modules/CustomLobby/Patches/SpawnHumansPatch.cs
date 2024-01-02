@@ -8,6 +8,7 @@ using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.RoleAssign;
 using PluginAPI.Core;
+using Random = UnityEngine.Random;
 
 namespace OriginsSL.Modules.CustomLobby.Patches;
 
@@ -37,7 +38,7 @@ public class SpawnHumansPatch
         List<ReferenceHub> scps = RoleManager.GetTeam(Team.SCPs);
         ReferenceHub scp3114 = null;
         
-        if (CursedPlayer.Count > 15 && scps.Count > 0)
+        if (CursedPlayer.Count > 15 && scps.Count > 0 && Random.value < 0.2f)
         {
             scp3114 = scps.PullRandomItem();
             SetRole(scp3114.roleManager, RoleTypeId.Scp3114);
