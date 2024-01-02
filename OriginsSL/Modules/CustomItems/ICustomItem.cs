@@ -1,5 +1,4 @@
-using CursedMod.Features.Wrappers.Player;
-using UnityEngine;
+using CursedMod.Features.Wrappers.Inventory.Items;
 
 namespace OriginsSL.Modules.CustomItems;
 
@@ -11,19 +10,7 @@ public interface ICustomItem
     
     public float SpawnChance { get; }
     
-    public Vector3 SpawnLocation { get; }
+    public void OnPickedUp(CursedItem item);
     
-    public ushort ItemSerial { get; }
-    
-    public void OnPickedUp(CursedPlayer player);
-    
-    public void OnChangedItem(CursedPlayer player);
-    
-    public void OnDropped(CursedPlayer player);
-    
-    public void OnUsed(CursedPlayer player);
-    
-    public void OnShoot(CursedPlayer player);
-    
-    public void OnReload(CursedPlayer player);
+    public void OnDropped(CursedItem item);
 }

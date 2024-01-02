@@ -1,29 +1,16 @@
-using CursedMod.Features.Wrappers.Player;
-using UnityEngine;
+using CursedMod.Features.Wrappers.Inventory.Items;
 
 namespace OriginsSL.Modules.CustomItems;
 
 public abstract class CustomItemBase : ICustomItem
-{
-    public virtual ushort ItemSerial { get; }
+{ 
+    public virtual string Name => string.Empty;
     
-    public virtual string Name { get; }
+    public virtual string Description => string.Empty;
+
+    public virtual float SpawnChance => 0f;
     
-    public virtual string Description { get; }
-    
-    public virtual float SpawnChance { get; }
-    
-    public virtual Vector3 SpawnLocation { get; }
-    
-    public virtual void OnPickedUp(CursedPlayer player) { }
+    public virtual void OnPickedUp(CursedItem item) { }
 
-    public virtual void OnChangedItem(CursedPlayer player) { }
-
-    public virtual void OnDropped(CursedPlayer player) { }
-
-    public virtual void OnUsed(CursedPlayer player) { }
-
-    public virtual void OnShoot(CursedPlayer player) { }
-
-    public virtual void OnReload(CursedPlayer player) { }
+    public void OnDropped(CursedItem item) { }
 }
