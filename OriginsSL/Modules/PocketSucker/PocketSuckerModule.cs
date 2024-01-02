@@ -2,24 +2,32 @@ using System.Collections.Generic;
 using CursedMod.Events.Arguments.Facility.Hazards;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
+using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
 using CustomPlayerEffects;
+using MapGeneration;
 using MEC;
 using OriginsSL.Features.Display;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerStatsSystem;
 using PluginAPI.Core;
+using RelativePositioning;
 using UnityEngine;
 
 namespace OriginsSL.Modules.PocketSucker;
 
 public class PocketSuckerModule : OriginsModule
 {
+    private static RelativePosition _classDCells;
+    
     public override void OnLoaded()
     {
         CursedHazardsEventHandler.StayingOnHazard += OnStayingHazard;
+        CursedMapGenerationEventsHandler.MapGenerated += OnMapGenerated;
     }
-    
+
+    private static void OnMapGenerated() => _classDCells = new RelativePosition(CursedRoom.Get(RoomName.LczGlassroom).Position + Vector3.up);
+
     private static void OnStayingHazard(PlayerStayingOnHazardEventArgs args)
     {
         if (args.Hazard.HazardType != EnvironmentalHazardType.Sinkhole)
@@ -65,6 +73,6 @@ public class PocketSuckerModule : OriginsModule
         SuckingPlayers.Remove(player);
 
         yield return Timing.WaitForSeconds(0.2f);
-        player.EnableEffect<PocketCorroding>();
+        player.EnableEffect<PocketCorroding>().CapturePosition = _classDCells;
     }
 }

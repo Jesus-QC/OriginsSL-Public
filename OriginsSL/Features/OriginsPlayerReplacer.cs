@@ -14,37 +14,35 @@ namespace OriginsSL.Features;
 
 public static class OriginsPlayerReplacer
 {
-    public static void ReplacePlayer(CursedPlayer target, CursedPlayer other, bool checkSubclass = true)
+    public static void ReplacePlayer(CursedPlayer replacer, CursedPlayer oldPlayer, bool checkSubclass = true)
     {
-        if (checkSubclass && other.TryGetSubclass(out ISubclass subclass))
+        // If the old player is in pocket dimension, don't replace
+        if (oldPlayer.TryGetEffect(out PocketCorroding pc) && pc.IsEnabled)
+            return;
+        
+        if (checkSubclass && oldPlayer.TryGetSubclass(out ISubclass subclass))
         {
-            List<CursedItem> items = other.ClearItemsWithoutDestroying().ToList();
-            Dictionary<ItemType, ushort> ammo = other.Ammo.ToDictionary(x => x.Key, x => x.Value);
-            float health = other.Health;
-            float humeShield = other.HumeShield;
+            List<CursedItem> items = oldPlayer.ClearItemsWithoutDestroying().ToList();
+            Dictionary<ItemType, ushort> ammo = oldPlayer.Ammo.ToDictionary(x => x.Key, x => x.Value);
+            float health = oldPlayer.Health;
+            float humeShield = oldPlayer.HumeShield;
          
-            other.SetSubclass(null);
+            oldPlayer.SetSubclass(null);
             
             subclass.IsLocked = true;
-            target.ForceSubclass(subclass);
+            replacer.ForceSubclass(subclass);
             
-            target.Position = other.Position;
-            target.SetRole(other.Role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
-
-            bool pocketCorroding = other.TryGetEffect(out PocketCorroding pc) && pc.IsEnabled;
-                
+            replacer.Position = oldPlayer.Position;
+            replacer.SetRole(oldPlayer.Role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
+            
             Timing.CallDelayed(0.8f, () =>
             {
                 subclass.IsLocked = false;
-                target.SetData(items, ammo, RoleTypeId.None, health, humeShield, Vector3.zero);
-                if (pocketCorroding)
-                    target.EnableEffect<PocketCorroding>();
+                replacer.SetData(items, ammo, RoleTypeId.None, health, humeShield, Vector3.zero);
             });
         }
         
-        target.SetData(other.ClearItemsWithoutDestroying().ToList(), other.Ammo, other.Role, other.Health, other.HumeShield, other.Position);
-        if (other.TryGetEffect(out PocketCorroding pocketC) && pocketC.IsEnabled)
-            target.EnableEffect<PocketCorroding>();
+        replacer.SetData(oldPlayer.ClearItemsWithoutDestroying().ToList(), oldPlayer.Ammo, oldPlayer.Role, oldPlayer.Health, oldPlayer.HumeShield, oldPlayer.Position);
     }
     
     private static void SetData(this CursedPlayer target, List<CursedItem> items, Dictionary<ItemType, ushort> ammo, RoleTypeId role, float health, float humeShield, Vector3 position)
