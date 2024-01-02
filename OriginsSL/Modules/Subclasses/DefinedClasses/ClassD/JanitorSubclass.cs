@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using CursedMod.Events.Arguments.Facility.Hazards;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
@@ -9,14 +10,16 @@ namespace OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 
 public class JanitorSubclass : SubclassBase
 {
+    private const float TantrumCleaningTime = 3f;
+    
     public override string CodeName => "janitor";
     public override string Name => "<color=#c0b2e6>J<lowercase>anitor</lowercase></color>";
-    public override string Description => "cleans up tantrums by standing on them, also immune to sinkholes";
+    public override string Description => _counter > 0 ? $"cleaning sinkhole {(_counter/TantrumCleaningTime*100).ToString(CultureInfo.InvariantCulture).Substring(0, 2)}%" : "cleans up tantrums by standing on them, also immune to sinkholes";
     
     public override float SpawnChance => 0.7f;
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.KeycardJanitor];
 
-    public override bool KeepAfterEscaping { get; } = true;
+    public override bool KeepAfterEscaping => true;
 
     // Counter for the tantrum cleaning
     private float _counter;
@@ -51,7 +54,7 @@ public class JanitorSubclass : SubclassBase
             
             janitorSubclass._counter += Time.deltaTime;
             
-            if (janitorSubclass._counter < 3)
+            if (janitorSubclass._counter < TantrumCleaningTime)
                 return;
             
             janitorSubclass._counter = 0;
