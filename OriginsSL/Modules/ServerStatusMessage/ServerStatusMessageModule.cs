@@ -23,8 +23,14 @@ public class ServerStatusMessageModule : OriginsModule
     
     private static void Start()
     {
+        foreach (CancellationTokenSource token in CancellationTokenSources)
+            token.Cancel();
+        
+        CancellationTokenSources.Clear();
+        
         CancellationTokenSource cancellationTokenSource = new();
         Task.Run(() => Timer(cancellationTokenSource), cancellationTokenSource.Token);
+        
         CancellationTokenSources.Add(cancellationTokenSource);
     }
     
@@ -35,9 +41,7 @@ public class ServerStatusMessageModule : OriginsModule
         
         RestGuild restGuild = await _discordRestClient.GetGuildAsync(Config.GuildId);
         RestTextChannel restTextChannel = await restGuild.GetTextChannelAsync(Config.ChannelId);
-
-        await restTextChannel.DeleteMessagesAsync((await restTextChannel.GetMessagesAsync(5).FlattenAsync()).Where(x => x.Author.IsBot));
-        RestUserMessage newMessage = await restTextChannel.SendMessageAsync(GetTimestamp());
+        RestUserMessage newMessage = await GetMessageToEditAsync(_discordRestClient, restTextChannel);
         
         while (!cancellationTokenSource.IsCancellationRequested)
         {
@@ -50,6 +54,19 @@ public class ServerStatusMessageModule : OriginsModule
         }
     }
 
+    private static async Task<RestUserMessage> GetMessageToEditAsync(DiscordRestClient client, IRestMessageChannel restTextChannel)
+    {
+        foreach (RestMessage msg in await restTextChannel.GetMessagesAsync(5).FlattenAsync())
+        {
+            if (msg.Author.Id != client.CurrentUser.Id)
+                continue;
+            
+            return (RestUserMessage) msg;
+        }
+        
+        return await restTextChannel.SendMessageAsync(GetTimestamp());
+    }
+    
     private static string GetTimestamp()
     {
         return "Refreshing <t:" + DateTimeOffset.UtcNow.AddSeconds(5).ToUnixTimeSeconds() + ":R>";
