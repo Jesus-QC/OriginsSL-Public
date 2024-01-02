@@ -6,6 +6,7 @@ using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Features.Display;
 using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
+using PlayerRoles;
 using PlayerRoles.Spectating;
 
 namespace OriginsSL.Modules.SpectatorCount;
@@ -45,7 +46,7 @@ public class SpectatorCountManager : OriginsModule
         {
             foreach (CursedPlayer player in CursedPlayer.Collection)
             {
-                if (player.RoleBase is not SpectatorRole spectatorRole)
+                if (player.RoleBase is not SpectatorRole spectatorRole || player.Role == RoleTypeId.Overwatch || player.IsGlobalModerator)
                     continue;
 
                 uint id = spectatorRole.SyncedSpectatedNetId;
