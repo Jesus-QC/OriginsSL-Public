@@ -2,4 +2,4 @@
 Offical Origins Development Project
 
 > [!IMPORTANT]  
-> DEADLINE: 1st January 2024
+> In Development - Any unauthorized use of this code will be severely punished.
