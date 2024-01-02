@@ -173,6 +173,7 @@
         <Compile Include="Modules\AdminTools\Fun\TpsCommand.cs" />
         <Compile Include="Modules\AdminTools\Moderation\JailCommand.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
+        <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
         <Compile Include="Modules\BulletHoleCap\BulletHoleCapModule.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
