@@ -15,7 +15,7 @@ public class CuffedDamageModule : OriginsModule
 
     private static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
     {
-        if (!args.Player.IsCuffed || args.DamageHandlerBase is not AttackerDamageHandler attacker || !attacker.Attacker.Role.IsHuman())
+        if (!args.Player.IsCuffed || !args.Player.IsHuman || args.DamageHandlerBase is not AttackerDamageHandler attacker || !attacker.Attacker.Role.IsHuman())
             return;
 
         args.IsAllowed = false;
