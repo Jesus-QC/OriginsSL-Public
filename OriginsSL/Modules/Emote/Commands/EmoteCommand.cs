@@ -1,6 +1,7 @@
 ﻿using System;
 using CommandSystem;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Server;
 using NWAPIPermissionSystem;
 
 namespace OriginsSL.Modules.Emote.Commands;
@@ -12,7 +13,7 @@ public class EmoteCommand : ICommand
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
         CursedPlayer ply = CursedPlayer.Get(sender);
-        if (!sender.CheckPermission("origins.fun.emote") && !ply.IsHost)
+        if ((CursedServer.Port == 7778 && !sender.CheckPermission("origins.fun.emote")) || !ply.IsHost)
         {
             response = "Not enough perms.";
             return false;
