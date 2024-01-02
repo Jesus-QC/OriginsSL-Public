@@ -6,6 +6,7 @@ using CursedMod.Features.Wrappers.Player.Dummies;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
 using CursedMod.Features.Wrappers.Player.Roles.SCPs;
 using MEC;
+using OriginsSL.Loader;
 using OriginsSL.Modules.Emote.Components;
 using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp3114;

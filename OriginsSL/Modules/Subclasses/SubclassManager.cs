@@ -9,6 +9,7 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
+using OriginsSL.Loader;
 using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;

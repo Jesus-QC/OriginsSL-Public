@@ -5,6 +5,7 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Round;
+using OriginsSL.Loader;
 using PlayerStatsSystem;
 
 namespace OriginsSL.Modules.EndScreen;

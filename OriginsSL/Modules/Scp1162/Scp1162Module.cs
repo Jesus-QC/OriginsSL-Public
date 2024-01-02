@@ -8,6 +8,7 @@ using Hazards;
 using MapGeneration;
 using MEC;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
 using UnityEngine;
 

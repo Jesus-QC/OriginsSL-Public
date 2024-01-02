@@ -1,5 +1,6 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
+using OriginsSL.Loader;
 using PlayerRoles;
 using Utils;
 

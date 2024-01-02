@@ -1,3 +1,5 @@
+using OriginsSL.Loader;
+
 namespace OriginsSL.Modules.LevelingSystem;
 
 public class LevelingSystemModule : OriginsModule

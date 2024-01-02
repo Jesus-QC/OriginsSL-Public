@@ -1,3 +1,5 @@
+using OriginsSL.Loader;
+
 namespace OriginsSL.Modules.GameModes;
 
 public class GameModesModule : OriginsModule

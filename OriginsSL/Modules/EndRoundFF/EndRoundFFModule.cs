@@ -1,5 +1,6 @@
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Server;
+using OriginsSL.Loader;
 
 namespace OriginsSL.Modules.EndRoundFF;
 

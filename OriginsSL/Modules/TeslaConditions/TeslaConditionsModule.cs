@@ -3,6 +3,7 @@ using System.Linq;
 using CursedMod.Events.Arguments.Facility.Tesla;
 using CursedMod.Events.Handlers;
 using InventorySystem.Items;
+using OriginsSL.Loader;
 
 namespace OriginsSL.Modules.TeslaConditions;
 
@@ -13,14 +14,14 @@ public class TeslaConditionsModule : OriginsModule
         CursedTeslaEventHandler.PlayerTriggerTesla += OnTriggerTesla;
     }
 
-    private static readonly HashSet<ItemType> KeyCards = new()
-    {
+    private static readonly HashSet<ItemType> KeyCards =
+    [
         ItemType.KeycardO5,
         ItemType.KeycardMTFCaptain,
         ItemType.KeycardMTFOperative,
         ItemType.KeycardMTFPrivate,
-        ItemType.KeycardGuard,
-    };
+        ItemType.KeycardGuard
+    ];
 
     private static void OnTriggerTesla(PlayerTriggerTeslaEventArgs args)
     {

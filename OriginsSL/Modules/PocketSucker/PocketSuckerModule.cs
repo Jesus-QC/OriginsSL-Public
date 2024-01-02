@@ -8,6 +8,7 @@ using CustomPlayerEffects;
 using MapGeneration;
 using MEC;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerStatsSystem;
 using PluginAPI.Core;

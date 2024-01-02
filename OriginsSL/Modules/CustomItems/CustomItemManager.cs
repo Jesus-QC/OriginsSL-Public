@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OriginsSL.Loader;
 
 namespace OriginsSL.Modules.CustomItems;
 

@@ -7,6 +7,7 @@ using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using Discord;
 using Discord.Rest;
+using OriginsSL.Loader;
 
 namespace OriginsSL.Modules.ServerStatusMessage;
 

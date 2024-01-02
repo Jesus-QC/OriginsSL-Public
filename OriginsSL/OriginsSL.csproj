@@ -155,6 +155,9 @@
         <Compile Include="Features\Display\HudNotification.cs" />
         <Compile Include="Features\Display\ScreenZone.cs" />
         <Compile Include="Features\OriginsPlayerReplacer.cs" />
+        <Compile Include="Loader\ModuleLoader.cs" />
+        <Compile Include="Loader\OriginsLoaderConfig.cs" />
+        <Compile Include="Loader\OriginsModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceCheckerModule.cs" />
         <Compile Include="Modules\AbsenceChecker\AbsenceComponent.cs" />
         <Compile Include="Modules\AdminTools\Fun\AliveGrenadeCommand.cs" />
@@ -256,8 +259,6 @@
         <Compile Include="Modules\Subclasses\SubclassManager.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
         <Compile Include="Modules\WelcomeMessage\WelcomeMessageModule.cs" />
-        <Compile Include="OriginsModule.cs" />
-        <Compile Include="ModuleLoader.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

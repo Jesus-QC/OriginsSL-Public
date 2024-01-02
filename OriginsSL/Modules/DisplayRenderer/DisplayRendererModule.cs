@@ -6,6 +6,7 @@ using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Round;
 using Hints;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using PlayerRoles.RoleAssign;
 using UnityEngine;
 

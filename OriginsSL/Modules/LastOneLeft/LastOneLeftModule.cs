@@ -2,6 +2,7 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
 

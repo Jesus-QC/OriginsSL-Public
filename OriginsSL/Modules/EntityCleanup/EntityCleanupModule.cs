@@ -3,14 +3,16 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Ragdolls;
 using MEC;
+using OriginsSL.Loader;
 using PlayerRoles.PlayableScps.Scp3114;
 using PlayerRoles.Ragdolls;
 
 namespace OriginsSL.Modules.EntityCleanup;
 
-[DisabledModule]
 public class EntityCleanupModule : OriginsModule
 {
+    public override bool Disabled => true;
+
     public override void OnLoaded()
     {
         CursedRoundEventsHandler.RoundStarted += OnRoundStarted;

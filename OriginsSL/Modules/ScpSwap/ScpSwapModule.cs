@@ -1,4 +1,5 @@
 using CursedMod.Events.Handlers;
+using OriginsSL.Loader;
 
 namespace OriginsSL.Modules.ScpSwap;
 

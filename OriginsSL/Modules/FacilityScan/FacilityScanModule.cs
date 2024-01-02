@@ -3,6 +3,7 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
 using MEC;
+using OriginsSL.Loader;
 using PlayerRoles;
 using UnityEngine;
 

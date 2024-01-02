@@ -12,6 +12,7 @@ using InventorySystem;
 using MapGeneration;
 using Mirror;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.CustomLobby.Components;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;

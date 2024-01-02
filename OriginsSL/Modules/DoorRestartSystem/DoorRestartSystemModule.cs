@@ -4,6 +4,7 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility.Doors;
 using MEC;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
 using UnityEngine;
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
+using OriginsSL.Loader;
 using PluginAPI.Core;
 using Respawning;
 using UnityEngine;

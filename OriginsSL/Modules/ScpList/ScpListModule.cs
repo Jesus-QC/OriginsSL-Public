@@ -3,6 +3,7 @@ using System.Linq;
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using OriginsSL.Loader;
 using PlayerRoles;
 
 namespace OriginsSL.Modules.ScpList;

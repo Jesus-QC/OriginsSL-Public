@@ -4,6 +4,7 @@ using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Arguments.Respawning;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
+using OriginsSL.Loader;
 using PlayerRoles;
 using PlayerStatsSystem;
 using Respawning;

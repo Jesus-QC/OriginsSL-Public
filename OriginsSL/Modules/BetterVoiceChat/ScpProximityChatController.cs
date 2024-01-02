@@ -5,6 +5,7 @@ using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using CursedMod.Features.Wrappers.Round;
 using OriginsSL.Features.Display;
+using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
 using PlayerRoles;
 using PlayerRoles.Spectating;
