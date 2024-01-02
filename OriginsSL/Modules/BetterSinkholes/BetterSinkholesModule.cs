@@ -5,7 +5,6 @@ using Hazards;
 using MapGeneration;
 using MEC;
 using OriginsSL.Loader;
-using OriginsSL.Modules.Scp1162;
 using UnityEngine;
 
 namespace OriginsSL.Modules.BetterSinkholes;
