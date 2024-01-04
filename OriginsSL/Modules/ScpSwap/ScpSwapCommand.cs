@@ -146,6 +146,8 @@ public class ScpSwapCommand : ICommand
         {"shyguy", RoleTypeId.Scp096},
         {"049", RoleTypeId.Scp049},
         {"doctor", RoleTypeId.Scp049},
+        {"3114", RoleTypeId.Scp3114},
+        {"skeleton", RoleTypeId.Scp3114}
     };
 
     public string Command { get; } = "scpswap";
