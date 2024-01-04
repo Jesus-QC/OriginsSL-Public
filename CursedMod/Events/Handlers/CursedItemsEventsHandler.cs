@@ -44,7 +44,9 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon;
     
-    public static event CursedEventManager.CursedEventHandler<CreatedPickupEventArgs> CreatedPickup; 
+    public static event CursedEventManager.CursedEventHandler<CreatedPickupEventArgs> CreatedPickup;
+    
+    public static event CursedEventManager.CursedEventHandler<PlayerFlippingCoinEventArgs> PlayerFlippingCoin; 
     
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {
@@ -177,5 +179,13 @@ public static class CursedItemsEventsHandler
     internal static void OnCreatedPickup(CreatedPickupEventArgs args)
     {
         CreatedPickup.InvokeEvent(args);
+    }
+    
+    internal static void OnPlayerFlippingCoin(PlayerFlippingCoinEventArgs args)
+    {
+        if (!args.Player.CheckPlayer())
+            return;
+        
+        PlayerFlippingCoin.InvokeEvent(args);
     }
 }

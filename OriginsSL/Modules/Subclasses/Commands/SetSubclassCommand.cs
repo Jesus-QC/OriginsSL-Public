@@ -81,5 +81,5 @@ public class SetSubclassCommand : ICommand, IUsageProvider
     public string Command { get; } = "setsubclass";
     public string[] Aliases { get; } = Array.Empty<string>();
     public string Description { get; } = "Sets a player certain subclass.";
-    public string[] Usage { get; } = {"%player%"};
+    public string[] Usage { get; } = ["%player%", "subclass"];
 }

@@ -190,6 +190,8 @@ public class CursedPlayer
         set => SetHoldingItem(value);
     }
 
+    public ItemIdentifier HoldingItem => Inventory.CurItem;
+
     public ItemType CurrentItemType => Inventory.GetSelectedItemType();
 
     public ItemIdentifier PreviousHoldingItem => Inventory._prevCurItem;
@@ -1095,15 +1097,7 @@ public class CursedPlayer
     }
 
     public void AddCandy(CandyKindID candyKindID)
-    {
-        if (!Scp330Bag.TryGetBag(ReferenceHub, out var bag)) 
-            return;
-        
-        var flag = bag.TryAddSpecific(candyKindID);
-
-        if (flag)
-            bag.ServerRefreshBag();
-    }
+     => ReferenceHub.GrantCandy(candyKindID);
     
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarkerDirectly(ReferenceHub, size);
 

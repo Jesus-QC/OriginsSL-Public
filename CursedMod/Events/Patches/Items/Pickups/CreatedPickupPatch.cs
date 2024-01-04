@@ -17,7 +17,7 @@ using NorthwoodLib.Pools;
 namespace CursedMod.Events.Patches.Items.Pickups;
 
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.CreatedPickup))]
-[HarmonyPatch(typeof(PickupSyncInfo), MethodType.Constructor)]
+[HarmonyPatch(typeof(PickupSyncInfo), MethodType.Constructor, typeof(ItemType), typeof(float), typeof(ushort))]
 public class CreatedPickupPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
@@ -26,7 +26,6 @@ public class CreatedPickupPatch
         
         newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
         {
-            new (OpCodes.Ldarg_0),
             new (OpCodes.Ldarg_1),
             new (OpCodes.Ldarg_2),
             new (OpCodes.Ldarg_3),

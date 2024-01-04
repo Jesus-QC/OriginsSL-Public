@@ -1,9 +1,12 @@
 using CursedMod.Features.Wrappers.Inventory.Items;
+using CursedMod.Features.Wrappers.Inventory.Pickups;
 
 namespace OriginsSL.Modules.CustomItems;
 
 public interface ICustomItem
 {
+    public string CodeName { get; }
+    
     public string Name { get; }
     
     public string Description { get; }
@@ -12,7 +15,9 @@ public interface ICustomItem
 
     public bool FilterItem();
     
+    public void OnRegistered();
+    
     public void OnPickedUp(CursedItem item);
     
-    public void OnDropped(CursedItem item);
+    public void OnDropped(CursedPickup item);
 }

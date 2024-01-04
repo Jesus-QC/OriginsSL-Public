@@ -7,14 +7,12 @@
 // -----------------------------------------------------------------------
 
 using System;
-using InventorySystem.Items.Pickups;
 
 namespace CursedMod.Events.Arguments.Items;
 
-public class CreatedPickupEventArgs(PickupSyncInfo syncInfo, ItemType id, float weight, ushort serial) : EventArgs
+public class CreatedPickupEventArgs(ItemType id, float weight, ushort serial)
+    : EventArgs
 {
-    public PickupSyncInfo SyncInfo { get; } = syncInfo;
-    
     public ItemType ItemType { get; } = id;
     
     public float Weight { get; } = weight;

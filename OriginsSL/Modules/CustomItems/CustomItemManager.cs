@@ -4,25 +4,29 @@ using System.Linq;
 using System.Reflection;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
+using CursedMod.Features.Wrappers.Player;
 using OriginsSL.Loader;
+using OriginsSL.Modules.CustomItems.Items.Coins;
 
 namespace OriginsSL.Modules.CustomItems;
 
 public class CustomItemManager : OriginsModule
 {
-    private static readonly HashSet<ushort> AlreadyRegisteredSerials = [];
+    public static readonly HashSet<ushort> AlreadyRegisteredSerials = [];
     
     private static readonly Dictionary<ushort, ICustomItem> CustomItems = new();
 
-    private static readonly Dictionary<ItemType, ICustomItem[]> NaturallySpawnedItems = new()
+    public static readonly Dictionary<ItemType, ICustomItem[]> NaturallySpawnedItems = new()
     {
-        [ItemType.Coin] = []
+        [ItemType.Coin] = [new SpecialCoin()]
     };
     
     public static bool TryGetCustomItem(ushort itemId, out ICustomItem customItem) => CustomItems.TryGetValue(itemId, out customItem);
-    
+
+    public static bool TryGetCurrentCustomItem(CursedPlayer player, out ICustomItem item) => TryGetCustomItem(player.HoldingItem.SerialNumber, out item);
+
     public static void RegisterCustomItem(ushort itemId, ICustomItem customItem) => CustomItems.Add(itemId, customItem);
-    
+
     public override void OnLoaded()
     {
         LoadEventsHandlers();
