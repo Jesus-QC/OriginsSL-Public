@@ -50,6 +50,11 @@ public class ServerStatusMessageModule : OriginsModule
                 x.Content = GetTimestamp();
                 x.Embed = BuildEmbed();
             });
+
+            while (CursedServer.IsInIdleMode)
+            {
+                await Task.Delay(1000, cancellationTokenSource.Token);
+            }
         }
     }
 
@@ -68,6 +73,9 @@ public class ServerStatusMessageModule : OriginsModule
     
     private static string GetTimestamp()
     {
+        if (CursedServer.IsInIdleMode)
+            return "Refreshing when players connect.";
+        
         return "Refreshing <t:" + DateTimeOffset.UtcNow.AddSeconds(5).ToUnixTimeSeconds() + ":R>";
     }
 
