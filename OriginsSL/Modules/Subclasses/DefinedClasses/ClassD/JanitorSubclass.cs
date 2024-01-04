@@ -14,7 +14,7 @@ public class JanitorSubclass : SubclassBase
     
     public override string CodeName => "janitor";
     public override string Name => "<color=#c0b2e6>J<lowercase>anitor</lowercase></color>";
-    public override string Description => _counter > 0 ? $"cleaning sinkhole {(_counter/TantrumCleaningTime*100).ToString(CultureInfo.InvariantCulture).Substring(0, 2)}%" : "cleans up tantrums by standing on them, also immune to sinkholes";
+    public override string Description => _counter > 0 ? $"cleaning tantrum {(_counter/TantrumCleaningTime*100).ToString(CultureInfo.InvariantCulture).Substring(0, 2)}%" : "cleans up tantrums by standing on them, also immune to sinkholes";
     
     public override float SpawnChance => 0.7f;
     public override List<ItemType> AdditiveInventory { get; } = [ItemType.KeycardJanitor];
