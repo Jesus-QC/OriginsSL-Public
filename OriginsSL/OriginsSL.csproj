@@ -172,6 +172,7 @@
         <Compile Include="Modules\AdminTools\Fun\SuicideCommand.cs" />
         <Compile Include="Modules\AdminTools\Fun\TpsCommand.cs" />
         <Compile Include="Modules\AdminTools\Moderation\JailCommand.cs" />
+        <Compile Include="Modules\AutoRestartTool\AutoRestartToolModule.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
