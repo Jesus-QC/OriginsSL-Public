@@ -64,8 +64,8 @@ public class ServerStatusMessageModule : OriginsModule
         {
             if (msg.Author.Id != client.CurrentUser.Id)
                 continue;
-            
-            return (RestUserMessage) msg;
+
+            await msg.DeleteAsync();
         }
         
         return await restTextChannel.SendMessageAsync(GetTimestamp());

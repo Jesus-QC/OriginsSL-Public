@@ -4,12 +4,14 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Enums;
 using CursedMod.Features.Wrappers.Facility.Rooms;
 using CursedMod.Features.Wrappers.Player;
+using CursedMod.Features.Wrappers.Player.Roles;
 using CustomPlayerEffects;
 using MapGeneration;
 using MEC;
 using OriginsSL.Features.Display;
 using OriginsSL.Loader;
 using OriginsSL.Modules.DisplayRenderer;
+using PlayerRoles;
 using PlayerStatsSystem;
 using PluginAPI.Core;
 using RelativePositioning;
@@ -27,7 +29,7 @@ public class PocketSuckerModule : OriginsModule
         CursedMapGenerationEventsHandler.MapGenerated += OnMapGenerated;
     }
 
-    private static void OnMapGenerated() => _classDCells = new RelativePosition(CursedRoom.Get(RoomName.LczGlassroom).Position + Vector3.up);
+    private static void OnMapGenerated() => _classDCells = new RelativePosition(CursedRoleManager.GetRoleSpawnPosition(RoleTypeId.Scientist));
 
     private static void OnStayingHazard(PlayerStayingOnHazardEventArgs args)
     {
@@ -67,7 +69,7 @@ public class PocketSuckerModule : OriginsModule
         }
         
         player.Damage(10, "Pocket Suck");
-        player.EnableEffect<PocketCorroding>();
+        player.EnableEffect<PocketCorroding>().CapturePosition = _classDCells;
         player.EnableEffect<Sinkhole>();
         
         player.SendOriginsHint("<b>Y<lowercase>ou have been sucked by a sinkhole</lowercase></b>", ScreenZone.Environment);
