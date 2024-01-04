@@ -9,6 +9,8 @@ public interface ICustomItem
     public string Description { get; }
     
     public float SpawnChance { get; }
+
+    public bool FilterItem();
     
     public void OnPickedUp(CursedItem item);
     

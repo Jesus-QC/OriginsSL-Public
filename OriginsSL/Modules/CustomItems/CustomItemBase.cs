@@ -9,7 +9,9 @@ public abstract class CustomItemBase : ICustomItem
     public virtual string Description => string.Empty;
 
     public virtual float SpawnChance => 0f;
-    
+
+    public bool FilterItem() => true;
+
     public virtual void OnPickedUp(CursedItem item) { }
 
     public void OnDropped(CursedItem item) { }
