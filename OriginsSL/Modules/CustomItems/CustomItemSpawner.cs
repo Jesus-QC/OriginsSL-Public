@@ -12,6 +12,6 @@ public class CustomItemSpawner : OriginsModule
 
     private static void OnMapGenerated()
     {
-        
+        // Spawn naturally spawned custom items.
     }
 }

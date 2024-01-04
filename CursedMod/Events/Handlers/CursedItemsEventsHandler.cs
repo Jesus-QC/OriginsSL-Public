@@ -42,7 +42,9 @@ public static class CursedItemsEventsHandler
     
     public static event CursedEventManager.CursedEventHandler<PlayerTogglingWeaponFlashlightEventArgs> PlayerTogglingWeaponFlashlight;
     
-    public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon; 
+    public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon;
+    
+    public static event CursedEventManager.CursedEventHandler<CreatedPickupEventArgs> CreatedPickup; 
     
     internal static void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs args)
     {
@@ -170,5 +172,10 @@ public static class CursedItemsEventsHandler
             return;
         
         PlayerInspectingWeapon.InvokeEvent(args);
+    }
+
+    internal static void OnCreatedPickup(CreatedPickupEventArgs args)
+    {
+        CreatedPickup.InvokeEvent(args);
     }
 }

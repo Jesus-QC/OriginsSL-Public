@@ -116,6 +116,7 @@
         <Compile Include="Events\Arguments\ICursedPlayerEvent.cs" />
         <Compile Include="Events\Arguments\ICursedRagdollEvent.cs" />
         <Compile Include="Events\Arguments\ICursedTeslaEvent.cs" />
+        <Compile Include="Events\Arguments\Items\CreatedPickupEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancelledUsableEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerTogglingAimEventArgs.cs" />
         <Compile Include="Events\Arguments\Items\PlayerCancellingThrowEventArgs.cs" />
@@ -258,6 +259,7 @@
         <Compile Include="Events\Patches\Items\DropItemPatch.cs" />
         <Compile Include="Events\Patches\Items\FirearmRequestPatch.cs" />
         <Compile Include="Events\Patches\Items\ItemSearchCompletePatch.cs" />
+        <Compile Include="Events\Patches\Items\Pickups\CreatedPickupPatch.cs" />
         <Compile Include="Events\Patches\Items\PlaceBloodDecalPatch.cs" />
         <Compile Include="Events\Patches\Items\PlaceBulletHolePatch.cs" />
         <Compile Include="Events\Patches\Items\Scp244SearchCompletePatch.cs" />
