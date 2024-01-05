@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="CreatedPickupPatch.cs" company="CursedMod">
+// <copyright file="CreatedNewItemPatch.cs" company="CursedMod">
 // Copyright (c) CursedMod. All rights reserved.
 // Licensed under the GPLv3 license.
 // See LICENSE file in the project root for full license information.
@@ -11,27 +11,28 @@ using System.Reflection.Emit;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
 using HarmonyLib;
-using InventorySystem.Items.Pickups;
+using InventorySystem;
 using NorthwoodLib.Pools;
 
 namespace CursedMod.Events.Patches.Items.Pickups;
 
-[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.CreatedPickup))]
+[DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.CreatedItem))]
 [DynamicEventPatch(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.SpawnedItem))]
-[HarmonyPatch(typeof(PickupSyncInfo), MethodType.Constructor, typeof(ItemType), typeof(float), typeof(ushort))]
-public class CreatedPickupPatch
+[HarmonyPatch(typeof(InventoryExtensions), nameof(InventoryExtensions.ServerAddItem))]
+public class CreatedNewItemPatch
 {
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CreatedPickupEventArgs>(17, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<CreatedPickupEventArgs>(81, instructions);
+
+        int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Starg_S);
         
-        newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
+        newInstructions.InsertRange(index, new CodeInstruction[]
         {
+            new (OpCodes.Dup),
             new (OpCodes.Ldarg_1),
-            new (OpCodes.Ldarg_2),
-            new (OpCodes.Ldarg_3),
-            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(CreatedPickupEventArgs))[0]),
-            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnCreatedPickup))),
+            new (OpCodes.Newobj, AccessTools.GetDeclaredConstructors(typeof(CreatedItemEventArgs))[0]),
+            new (OpCodes.Call, AccessTools.Method(typeof(CursedItemsEventsHandler), nameof(CursedItemsEventsHandler.OnCreatedItem))),
         });
         
         foreach (CodeInstruction instruction in newInstructions)

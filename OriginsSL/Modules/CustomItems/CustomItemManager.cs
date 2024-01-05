@@ -30,10 +30,10 @@ public class CustomItemManager : OriginsModule
     public override void OnLoaded()
     {
         LoadEventsHandlers();
-        CursedItemsEventsHandler.CreatedPickup += OnPickupCreated;
+        CursedItemsEventsHandler.SpawnedItem += OnSpawnedItem;
     }
     
-    private static void OnPickupCreated(CreatedPickupEventArgs args)
+    private static void OnSpawnedItem(SpawnedItemEventArgs args)
     {
         // We only create custom items on newly spawned pickups.
         if (!AlreadyRegisteredSerials.Add(args.Serial))

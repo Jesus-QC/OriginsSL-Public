@@ -18,7 +18,7 @@ public static class CursedRound
     
     public static bool HasStarted => RoundStart.RoundStarted;
 
-    public static bool HasEnded => RoundSummary.singleton._roundEnded;
+    public static bool HasEnded => RoundSummary._singletonSet && RoundSummary.singleton._roundEnded;
     
     public static bool IsRoundLocked
     {

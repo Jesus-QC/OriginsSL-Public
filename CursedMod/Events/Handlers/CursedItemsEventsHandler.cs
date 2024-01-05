@@ -7,6 +7,7 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events.Arguments.Items;
+using PluginAPI.Core;
 
 namespace CursedMod.Events.Handlers;
 
@@ -45,6 +46,10 @@ public static class CursedItemsEventsHandler
     public static event CursedEventManager.CursedEventHandler<PlayerInspectingWeaponEventArgs> PlayerInspectingWeapon;
     
     public static event CursedEventManager.CursedEventHandler<CreatedPickupEventArgs> CreatedPickup;
+    
+    public static event CursedEventManager.CursedEventHandler<CreatedItemEventArgs> CreatedItem;
+    
+    public static event CursedEventManager.CursedEventHandler<SpawnedItemEventArgs> SpawnedItem;
     
     public static event CursedEventManager.CursedEventHandler<PlayerFlippingCoinEventArgs> PlayerFlippingCoin; 
     
@@ -179,6 +184,13 @@ public static class CursedItemsEventsHandler
     internal static void OnCreatedPickup(CreatedPickupEventArgs args)
     {
         CreatedPickup.InvokeEvent(args);
+        SpawnedItem.InvokeEvent(new SpawnedItemEventArgs(args.ItemType, args.Serial));
+    }
+
+    internal static void OnCreatedItem(CreatedItemEventArgs args)
+    {
+        CreatedItem.InvokeEvent(args);
+        SpawnedItem.InvokeEvent(new SpawnedItemEventArgs(args.ItemType, args.Serial));
     }
     
     internal static void OnPlayerFlippingCoin(PlayerFlippingCoinEventArgs args)
