@@ -17,8 +17,8 @@ public class CursedDisplayBuilder(CursedPlayer player)
 {
     private const string Header = "<size=65%><line-height=87%><voffset=12.9em>";
     private const string Footer = "<line-height=0><size=55%><b><color=#E2E0A6>o</color><color=#D8D4AC>r</color><color=#CEC8B2>i</color><color=#C4BCB8>g</color><color=#BAB0BE>i</color><color=#B0A4C4>n</color><color=#A698CA>s</color><align=right><size=40%>";
-    private const string Discord = "<lowercase><b><color=#E5DCA9>d</color><color=#E3D6AC>i</color><color=#E1D0AF>s</color><color=#DFCAB2>c</color><color=#DDC4B5>o</color><color=#DBBEB8>r</color><color=#D9B8BB>d</color><color=#D7B2BE>.</color><color=#D5ACC1>o</color><color=#D3A6C4>r</color><color=#D1A0C7>i</color><color=#CF9ACA>g</color><color=#CD94CD>i</color><color=#CB8ED0>n</color><color=#C988D3>s</color><color=#C782D6>.</color><color=#C57CD9>i</color><color=#C376DC>n</color><color=#C170DF>k</color></b></lowercase>";
-    private const string DiscordFooter = "<line-height=0><size=50%><b><color=#E5DCA9>d</color><color=#E3D6AC>i</color><color=#E1D0AF>s</color><color=#DFCAB2>c</color><color=#DDC4B5>o</color><color=#DBBEB8>r</color><color=#D9B8BB>d</color><color=#D7B2BE>.</color><color=#D5ACC1>o</color><color=#D3A6C4>r</color><color=#D1A0C7>i</color><color=#CF9ACA>g</color><color=#CD94CD>i</color><color=#CB8ED0>n</color><color=#C988D3>s</color><color=#C782D6>.</color><color=#C57CD9>i</color><color=#C376DC>n</color><color=#C170DF>k</color></b><align=right><size=40%>";
+    private const string Discord = "<lowercase><b><color=#EEEAA1>d</color><color=#E4E2A1>i</color><color=#DADAA1>s</color><color=#D0D2A1>c</color><color=#C6CAA1>o</color><color=#BCC2A1>r</color><color=#B2BAA1>d</color><color=#A8B2A1>.</color><color=#9EAAA1>g</color><color=#94A2A1>g</color><color=#8A9AA1>/</color><color=#8092A1>s</color><color=#768AA1>c</color><color=#6C82A1>p</color><color=#627AA1>o</color><color=#5872A1>r</color><color=#4E6AA1>i</color><color=#4462A1>g</color><color=#3A5AA1>i</color><color=#3052A1>n</color><color=#264AA1>s</color></b></lowercase>";
+    private const string DiscordFooter = "<line-height=0><size=50%><b><color=#EEEAA1>d</color><color=#E4E2A1>i</color><color=#DADAA1>s</color><color=#D0D2A1>c</color><color=#C6CAA1>o</color><color=#BCC2A1>r</color><color=#B2BAA1>d</color><color=#A8B2A1>.</color><color=#9EAAA1>g</color><color=#94A2A1>g</color><color=#8A9AA1>/</color><color=#8092A1>s</color><color=#768AA1>c</color><color=#6C82A1>p</color><color=#627AA1>o</color><color=#5872A1>r</color><color=#4E6AA1>i</color><color=#4462A1>g</color><color=#3A5AA1>i</color><color=#3052A1>n</color><color=#264AA1>s</color></b><align=right><size=40%>";
 
     private readonly Dictionary<ScreenZone, HudNotification> _savedZones = new()
     {
@@ -246,7 +246,14 @@ public class CursedDisplayBuilder(CursedPlayer player)
         _stringBuilder.Append(spectatedPlayer.GetSubclassName());
         _stringBuilder.AppendLine("</size>");
         _stringBuilder.AppendLine(spectatedPlayer.GetSubclassDescription());
-        _stringBuilder.Append("\n\n\n\n");
+        
+        _stringBuilder.Append("\n<size=35>");
+        _stringBuilder.AppendLine(spectatedPlayer.GetCustomItemName());
+        _stringBuilder.Append("</size>");
+        _stringBuilder.AppendLine(spectatedPlayer.GetCustomItemDescription());
+        _stringBuilder.AppendLine();
+        
+        
         _stringBuilder.AppendLine(DiscordFooter);
         
         if (player.DoNotTrack)

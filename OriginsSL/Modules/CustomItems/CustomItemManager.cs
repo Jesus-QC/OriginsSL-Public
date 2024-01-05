@@ -26,6 +26,8 @@ public class CustomItemManager : OriginsModule
     public static bool TryGetCurrentCustomItem(CursedPlayer player, out ICustomItem item) => TryGetCustomItem(player.HoldingItem.SerialNumber, out item);
 
     public static void RegisterCustomItem(ushort itemId, ICustomItem customItem) => CustomItems.Add(itemId, customItem);
+    
+    public static void ForceCustomItem(ushort itemId, ICustomItem customItem) => CustomItems[itemId] = customItem;
 
     public override void OnLoaded()
     {

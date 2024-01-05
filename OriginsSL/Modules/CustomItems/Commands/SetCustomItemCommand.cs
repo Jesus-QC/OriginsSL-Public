@@ -70,8 +70,8 @@ public class SetCustomItemCommand : ICommand, IUsageProvider
         foreach (CursedPlayer player in players)
         {
             ushort serial = player.AddItem(itemType).Serial;
-            CustomItemManager.AlreadyRegisteredSerials.Add(serial);
-            CustomItemManager.RegisterCustomItem(serial, Activator.CreateInstance(item.GetType()) as ICustomItem);
+            
+            CustomItemManager.ForceCustomItem(serial, Activator.CreateInstance(item.GetType()) as ICustomItem);
         }
 
         response = $"Done for {players.Count} players";

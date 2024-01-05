@@ -19,7 +19,7 @@ namespace OriginsSL.Modules.PocketSucker;
 
 public class PocketSuckerModule : OriginsModule
 {
-    private static RelativePosition _classDCells;
+    private static RelativePosition _randomSpawn;
     
     public override void OnLoaded()
     {
@@ -27,7 +27,7 @@ public class PocketSuckerModule : OriginsModule
         CursedMapGenerationEventsHandler.MapGenerated += OnMapGenerated;
     }
 
-    private static void OnMapGenerated() => _classDCells = new RelativePosition(CursedRoleManager.GetRoleSpawnPosition(RoleTypeId.Scientist));
+    private static void OnMapGenerated() => _randomSpawn = new RelativePosition(CursedRoleManager.GetRoleSpawnPosition(RoleTypeId.Scientist) + Vector3.up);
 
     private static void OnStayingHazard(PlayerStayingOnHazardEventArgs args)
     {
@@ -67,13 +67,9 @@ public class PocketSuckerModule : OriginsModule
         }
         
         player.Damage(10, "Pocket Suck");
-        player.EnableEffect<PocketCorroding>().CapturePosition = _classDCells;
-        player.EnableEffect<Sinkhole>();
-        
         player.SendOriginsHint("<b>Y<lowercase>ou have been sucked by a sinkhole</lowercase></b>", ScreenZone.Environment);
+        yield return Timing.WaitForSeconds(0.1f);
+        player.EnableEffect<PocketCorroding>().CapturePosition = new RelativePosition(CursedRoleManager.GetRoleSpawnPosition(RoleTypeId.Scientist));
         SuckingPlayers.Remove(player);
-
-        yield return Timing.WaitForSeconds(0.2f);
-        player.EnableEffect<PocketCorroding>().CapturePosition = _classDCells;
     }
 }
