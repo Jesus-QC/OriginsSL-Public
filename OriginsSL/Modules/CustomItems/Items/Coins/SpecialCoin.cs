@@ -1,4 +1,3 @@
-using System;
 using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility;

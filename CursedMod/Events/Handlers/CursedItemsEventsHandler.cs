@@ -7,7 +7,6 @@
 // -----------------------------------------------------------------------
 
 using CursedMod.Events.Arguments.Items;
-using PluginAPI.Core;
 
 namespace CursedMod.Events.Handlers;
 
