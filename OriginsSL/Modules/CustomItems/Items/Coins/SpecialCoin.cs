@@ -2,6 +2,7 @@ using CursedMod.Events.Arguments.Items;
 using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player.Roles;
+using CursedMod.Features.Wrappers.Round;
 using CustomPlayerEffects;
 using InventorySystem.Items.Usables.Scp330;
 using OriginsSL.Features.Display;
@@ -31,6 +32,9 @@ public class SpecialCoin : CustomItemBase
         
         private static void OnPlayerFlippingCoin(PlayerFlippingCoinEventArgs args)
         {
+            if (!CursedRound.HasStarted)
+                return;
+                
             if (!args.Player.TryGetCurrentCustomItem(out ICustomItem item) || item is not SpecialCoin)
                 return;
 
