@@ -1097,7 +1097,29 @@ public class CursedPlayer
     }
 
     public void AddCandy(CandyKindID candyKindID)
-     => ReferenceHub.GrantCandy(candyKindID);
+    {
+        bool newBag = false;
+        if (!Scp330Bag.TryGetBag(ReferenceHub, out Scp330Bag scp330Bag))
+        {
+            scp330Bag = AddItemBase(ItemType.SCP330) as Scp330Bag;
+            newBag = true;
+        }
+        
+        if (scp330Bag == null)
+            return;
+        
+        if (newBag)
+        {
+            scp330Bag.Candies = [candyKindID];
+            scp330Bag.ServerRefreshBag();
+            return;
+        }
+
+        if (!scp330Bag.TryAddSpecific(candyKindID)) 
+            return;
+        
+        scp330Bag.ServerRefreshBag();
+    }
     
     public void SendHitMarker(float size = 2.55f) => Hitmarker.SendHitmarkerDirectly(ReferenceHub, size);
 

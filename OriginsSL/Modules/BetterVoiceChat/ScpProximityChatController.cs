@@ -39,7 +39,7 @@ public class ScpProximityChatController : OriginsModule
         if (args.Player.HasNoClipPermitted)
             return;
         
-        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.Scp3114))
+        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Scp3114))
             return;
 
         args.IsAllowed = false;
@@ -79,17 +79,17 @@ public class ScpProximityChatController : OriginsModule
             }
         }
         
-        if (args.VoiceMessage.Channel is not (VoiceChatChannel.ScpChat or VoiceChatChannel.Scp1507))
+        if (args.VoiceMessage.Channel is not (VoiceChatChannel.ScpChat))
             return;
         
-        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo or RoleTypeId.Scp3114) || !ToggledPlayers.Contains(args.Player))
+        if (args.Player.Role is not (RoleTypeId.Scp049 or RoleTypeId.Scp096 or RoleTypeId.Scp106 or RoleTypeId.Scp173 or RoleTypeId.Scp0492 or RoleTypeId.Scp939 or RoleTypeId.Scp3114) || !ToggledPlayers.Contains(args.Player))
             return;
 
         args.IsAllowed = false;
-        SendProximityMessage(args.VoiceMessage, args.Player.Role is not (RoleTypeId.Flamingo or RoleTypeId.AlphaFlamingo or RoleTypeId.ZombieFlamingo));
+        SendProximityMessage(args.VoiceMessage);
     }
 
-    private static void SendProximityMessage(VoiceMessage msg, bool scp = true)
+    private static void SendProximityMessage(VoiceMessage msg)
     {
         foreach (CursedPlayer player in CursedPlayer.Collection)
         {
@@ -104,7 +104,7 @@ public class ScpProximityChatController : OriginsModule
                 if (!msg.Speaker.IsSpectatedBy(player.ReferenceHub) && !ValidatePosition(msg, spectatorRole.SpectatedPlayer.Position, voiceRole2)) 
                     continue;
 
-                msg.Channel = scp ? VoiceChatChannel.ScpChat : VoiceChatChannel.Scp1507;
+                msg.Channel = VoiceChatChannel.ScpChat;
                 player.NetworkConnection.Send(msg);
                 continue;
             }
