@@ -19,8 +19,12 @@ public class EntryPoint : CursedModule
 
     private Harmony _harmony;
     
+    public static EntryPoint Instance { get; private set; }
+    
     public override void OnLoaded()
     {
+        Instance = this;
+        
         ModuleLoader.Config = GetConfig<OriginsLoaderConfig>("loader");
         LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
         ServerStatusMessageModule.Config = GetConfig<ServerStatusMessageConfig>("serverstatusmessage");

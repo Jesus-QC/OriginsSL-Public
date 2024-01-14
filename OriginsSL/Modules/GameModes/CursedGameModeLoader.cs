@@ -8,9 +8,12 @@
 
 using System;
 using System.Collections.Generic;
-using CursedMod.Events.Handlers;
-using CursedMod.Loader;
-using CursedMod.Loader.Modules;
+using System.IO;
+using System.Reflection;
+using CursedMod.Features.Wrappers.Player.Dummies;
+using OriginsSL.Modules.AudioPlayer;
+using OriginsSL.Modules.GameModes.Misc;
+using PlayerRoles;
 using PluginAPI.Core;
 
 namespace OriginsSL.Modules.GameModes;
@@ -19,89 +22,40 @@ public static class CursedGameModeLoader
 {
     public static ICursedGameMode CurrentGameMode;
     
-    public static readonly Queue<ICursedGameMode> GameModeQueue = [];
-    
     public static readonly HashSet<ICursedGameMode> AvailableGameModes = [];
     
     public static void RegisterGameMode(ICursedGameMode gameMode) => AvailableGameModes.Add(gameMode);
     
     public static void UnRegisterGameMode(ICursedGameMode gameMode) => AvailableGameModes.Remove(gameMode);
-    
-    public static void AddGameModeToQueue(ICursedGameMode gameMode) => GameModeQueue.Enqueue(gameMode);
 
     internal static void InitGameModes()
     {
         Log.Info("Loading GameModes...");
-        
         LoadGameModes();
-        
-        CursedRoundEventsHandler.WaitingForPlayers += OnWaitingForPlayers;
-        CursedRoundEventsHandler.RestartingRound += OnRestartingRound;
-        CursedRoundEventsHandler.RoundEnded += OnRoundEnded;
     }
     
     private static void LoadGameModes()
     {
-        foreach (ICursedModule module in CursedLoader.EnabledModules)
+        foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
         {
-            foreach (Type type in module.ModuleAssembly.GetTypes())
-            {
-                if (type.IsInterface || !typeof(ICursedGameMode).IsAssignableFrom(type)) 
-                    continue;
+            if (type.IsInterface || !typeof(ICursedGameMode).IsAssignableFrom(type)) 
+                continue;
             
-                ICursedGameMode gameMode = (ICursedGameMode)Activator.CreateInstance(type);
-                RegisterGameMode(gameMode);
-                Log.Warning("Loaded GameMode from plugin: " + module.ModuleName + $" | GameMode Name: {gameMode.GameModeName}");
-            }
+            ICursedGameMode gameMode = (ICursedGameMode)Activator.CreateInstance(type);
+            RegisterGameMode(gameMode);
+            Log.Warning($"Loaded GameMode Name: {gameMode.Name}");
         }
     }
-    
-    private static void OnWaitingForPlayers()
-    {
-        CurrentGameMode = null;
-        
-        if (GameModeQueue.Count > 0)
-            CurrentGameMode = GameModeQueue.Dequeue();
 
-        if (CurrentGameMode is null) 
-            return;
-        
-        if (CurrentGameMode.IsCustomLobbyEnabled)
-            CustomLobby.LobbyHandler.IsEnabled = false;
-        
-        CurrentGameMode.PrepareGameMode();
-        
-        Log.Info("Enabled GameMode: " + CurrentGameMode.GameModeName + " | GameMode Description: " + CurrentGameMode.GameModeDescription + " For this round");
-    }
-    
-    private static void DisableGameModes()
+    public static void RunGameMode(ICursedGameMode gameMode)
     {
-        AvailableGameModes.Clear();
-        GameModeQueue.Clear();
-        CurrentGameMode = null;
-    }
-    
-    private static void OnRestartingRound()
-    {
-        DisableCurrentGameMode();
+        CurrentGameMode = gameMode;
+        gameMode.PrepareGameMode();
     }
 
-    private static void OnRoundEnded()
+    public static void StopGameMode()
     {
-        DisableCurrentGameMode();
-    }
-
-    private static void DisableCurrentGameMode()
-    {
-        if (CurrentGameMode is null)
-            return;
-        
-        if (!CurrentGameMode.IsCustomLobbyEnabled)
-            CustomLobby.LobbyHandler.IsEnabled = true;
-            
         CurrentGameMode.StopGameMode();
         CurrentGameMode = null;
-        
-        Log.Info("Disabled GameMode: " + CurrentGameMode.GameModeName + " Due to a round end");
     }
 }

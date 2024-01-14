@@ -41,17 +41,17 @@ public class GameModeCommand : ICommand, IUsageProvider
                     return false;
                 }
 
-                response = CursedGameModeLoader.AvailableGameModes.Aggregate("Available Gamemodes:\n", (current, gm) => current + $"- {gm.GameModeName} ({gm.GameModeDescription})\n");
+                response = CursedGameModeLoader.AvailableGameModes.Aggregate("Available Gamemodes:\n", (current, gm) => current + $"- {gm.Name} ({gm.Description})\n");
                 return true;
             
-            case "enable":
+            case "run":
                 if (arguments.Count < 2)
                 {
                     response = "Usage: gamemode enable <gamemode>";
                     return false;
                 }
 
-                ICursedGameMode gameModeToEnable = CursedGameModeLoader.AvailableGameModes.FirstOrDefault(gm => gm.GameModeName.Equals(arguments.At(1), StringComparison.OrdinalIgnoreCase));
+                ICursedGameMode gameModeToEnable = CursedGameModeLoader.AvailableGameModes.FirstOrDefault(gm => gm.Name.Equals(arguments.At(1), StringComparison.OrdinalIgnoreCase));
 
                 if (gameModeToEnable is null)
                 {
@@ -59,18 +59,17 @@ public class GameModeCommand : ICommand, IUsageProvider
                     return false;
                 }
                 
-                CursedGameModeLoader.AddGameModeToQueue(Activator.CreateInstance(gameModeToEnable.GetType()) as ICursedGameMode);
-            
+                CursedGameModeLoader.RunGameMode(Activator.CreateInstance(gameModeToEnable.GetType()) as ICursedGameMode);
                 response = "Done";
                 return true;
             
-            case "queue":
-                response = "Game mode Queue:\n";
-                response += CursedGameModeLoader.GameModeQueue.Count > 0 ? CursedGameModeLoader.GameModeQueue.Aggregate(" ", (current, gm) => current + $"- {gm.GameModeName} ({gm.GameModeDescription})\n") : "The Gamemode Queue is empty";
+            case "stop":
+                CursedGameModeLoader.StopGameMode();
+                response = "Done";
                 return true;
         }
         
-        response = "Usage: gamemode <list|enable|disable|queue> [gamemode]";
+        response = "Usage: gamemode <list|run|stop> [gamemode]";
         return false;
     }
 }

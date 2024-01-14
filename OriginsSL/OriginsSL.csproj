@@ -83,6 +83,9 @@
         <Reference Include="NorthwoodLib">
           <HintPath>$(SL_REFERENCES)\NorthwoodLib.dll</HintPath>
         </Reference>
+        <Reference Include="NVorbis, Version=0.10.5.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\NVorbis.0.10.5\lib\net45\NVorbis.dll</HintPath>
+        </Reference>
         <Reference Include="NWAPIPermissionSystem">
           <HintPath>$(SL_REFERENCES)\NWAPIPermissionSystem.dll</HintPath>
         </Reference>
@@ -143,6 +146,9 @@
         <Reference Include="UnityEngine.PhysicsModule">
           <HintPath>$(SL_REFERENCES)\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestModule">
+          <HintPath>D:\_Coding\SCPSL\Dependencies\UnityEngine.UnityWebRequestModule.dll</HintPath>
+        </Reference>
         <Reference Include="ZstdSharp, Version=0.7.4.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
           <HintPath>..\packages\ZstdSharp.Port.0.7.4\lib\net462\ZstdSharp.dll</HintPath>
         </Reference>
@@ -172,6 +178,7 @@
         <Compile Include="Modules\AdminTools\Fun\SuicideCommand.cs" />
         <Compile Include="Modules\AdminTools\Fun\TpsCommand.cs" />
         <Compile Include="Modules\AdminTools\Moderation\JailCommand.cs" />
+        <Compile Include="Modules\AudioPlayer\AudioPlayerBase.cs" />
         <Compile Include="Modules\AutoRestartTool\AutoRestartToolModule.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
@@ -211,9 +218,11 @@
         <Compile Include="Modules\GameModes\CursedGameModeBase.cs" />
         <Compile Include="Modules\GameModes\CursedGameModeLoader.cs" />
         <Compile Include="Modules\GameModes\GameModesModule.cs" />
-        <Compile Include="Modules\GameModes\GameModes\RainbowRunGameMode.cs" />
+        <Compile Include="Modules\GameModes\GameModes\RainbowRun\RainbowRunLoopedGameMode.cs" />
         <Compile Include="Modules\GameModes\ICursedGameMode.cs" />
         <Compile Include="Modules\GameModes\Commands\GameModeCommand.cs" />
+        <Compile Include="Modules\GameModes\Misc\CursedLoopedGameMode.cs" />
+        <Compile Include="Modules\GameModes\Misc\CursedMusicLoopedGameMode.cs" />
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingConfig.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingRateLimiter.cs" />
