@@ -23,7 +23,7 @@ public class RoundSummaryPatch
 
     private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
-        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(634, instructions);
+        List<CodeInstruction> newInstructions = CursedEventManager.CheckEvent<RoundSummaryPatch>(600, instructions);
 
         int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Call && x.operand is MethodInfo mi && mi == AccessTools.Method(typeof(GameCore.Console), nameof(GameCore.Console.AddLog))) + 1;
         
