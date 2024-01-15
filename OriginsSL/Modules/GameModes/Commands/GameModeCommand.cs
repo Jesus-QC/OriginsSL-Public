@@ -14,21 +14,19 @@ using CommandSystem;
 namespace OriginsSL.Modules.GameModes.Commands;
 
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
-public class GameModeCommand : ICommand, IUsageProvider
+public class GameModeCommand : ICommand
 {
     public string Command { get; } = "gamemode";
     
-    public string[] Aliases { get; } = { "gm" };
+    public string[] Aliases { get; } = ["gm"];
     
     public string Description { get; } = "Manage the game modes installed.";
-    
-    public string[] Usage { get; } = { "%list%", "%enable%", "%disable%", "%queue%" };
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
     {
         if (arguments.Count < 1)
         {
-            response = "Usage: gamemode <list|enable|disable|queue> [gamemode]";
+            response = "Usage: gamemode <list|run|stop> [gamemode]";
             return false;
         }
 
@@ -47,11 +45,11 @@ public class GameModeCommand : ICommand, IUsageProvider
             case "run":
                 if (arguments.Count < 2)
                 {
-                    response = "Usage: gamemode enable <gamemode>";
+                    response = "Usage: gamemode run <gamemode>";
                     return false;
                 }
 
-                ICursedGameMode gameModeToEnable = CursedGameModeLoader.AvailableGameModes.FirstOrDefault(gm => gm.Name.Equals(arguments.At(1), StringComparison.OrdinalIgnoreCase));
+                CursedGameModeBase gameModeToEnable = CursedGameModeLoader.AvailableGameModes.FirstOrDefault(gm => gm.CodeName.Equals(arguments.At(1), StringComparison.OrdinalIgnoreCase));
 
                 if (gameModeToEnable is null)
                 {
@@ -59,7 +57,7 @@ public class GameModeCommand : ICommand, IUsageProvider
                     return false;
                 }
                 
-                CursedGameModeLoader.RunGameMode(Activator.CreateInstance(gameModeToEnable.GetType()) as ICursedGameMode);
+                CursedGameModeLoader.RunGameMode(Activator.CreateInstance(gameModeToEnable.GetType()) as CursedGameModeBase);
                 response = "Done";
                 return true;
             

@@ -9,6 +9,5 @@ public class GameModesModule : OriginsModule
     {
         Directory.CreateDirectory(Path.Combine(EntryPoint.Instance.ModuleDirectory.FullName, "GameModes", "Music"));
         Directory.CreateDirectory(Path.Combine(EntryPoint.Instance.ModuleDirectory.FullName, "GameModes", "Schematics"));
-        CursedGameModeLoader.InitGameModes();
     }
 }

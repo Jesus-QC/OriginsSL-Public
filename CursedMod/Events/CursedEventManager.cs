@@ -25,7 +25,10 @@ namespace CursedMod.Events;
 
 public static class CursedEventManager
 {
+    private const string DynamicPatcherId = "com.dynamic.jesusqc.cursedmod";
+    
     private static readonly Harmony Harmony = new ("com.jesusqc.cursedmod");
+    private static readonly Harmony DynamicPatcher = new (DynamicPatcherId);
     
     public delegate void CursedEventHandler<in T>(T ev)
         where T : EventArgs;
@@ -34,6 +37,7 @@ public static class CursedEventManager
     
     public static void PatchEvents()
     {
+        DynamicPatcher.UnpatchAll(DynamicPatcherId);
         Stopwatch watch = Stopwatch.StartNew();
 
         if (CursedModConfigurationManager.LoadedConfiguration.UseDynamicPatching)
@@ -186,7 +190,7 @@ public static class CursedEventManager
             if (dynamicEventAttribute.EventInfo.GetValue(null) is null)
                 continue;
 
-            Harmony.CreateClassProcessor(type).Patch();
+            DynamicPatcher.CreateClassProcessor(type).Patch();
             return true;
         }
 

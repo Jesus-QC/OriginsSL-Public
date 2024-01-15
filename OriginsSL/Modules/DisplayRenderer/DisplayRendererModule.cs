@@ -7,6 +7,7 @@ using CursedMod.Features.Wrappers.Round;
 using Hints;
 using OriginsSL.Features.Display;
 using OriginsSL.Loader;
+using OriginsSL.Modules.GameModes;
 using PlayerRoles.RoleAssign;
 using UnityEngine;
 
@@ -74,6 +75,14 @@ public class DisplayRendererModule : OriginsModule
             return;
         }
 
+        if (CursedGameModeLoader.EventRunning)
+        {
+            foreach (KeyValuePair<CursedPlayer, CursedDisplayBuilder> value in DisplayBuilders)
+                RenderEvent(value.Key, value.Value);
+            
+            return;
+        }
+
         foreach (KeyValuePair<CursedPlayer, CursedDisplayBuilder> value in DisplayBuilders)
         {
             Render(value.Key, value.Value);
@@ -88,6 +97,11 @@ public class DisplayRendererModule : OriginsModule
     private static void RenderEndScreen(CursedPlayer player, CursedDisplayBuilder displayBuilder)
     {
         player.NetworkConnection?.Send(new HintMessage(new TextHint(displayBuilder.BuildEndScreen(), new HintParameter[] { new StringHintParameter(string.Empty) }, null ,4)));
+    }
+    
+    private static void RenderEvent(CursedPlayer player, CursedDisplayBuilder displayBuilder)
+    {
+        player.NetworkConnection?.Send(new HintMessage(new TextHint(displayBuilder.BuildForEvent(), new HintParameter[] { new StringHintParameter(string.Empty) }, null ,4)));
     }
     
     private static void Render(CursedPlayer player, CursedDisplayBuilder displayBuilder)

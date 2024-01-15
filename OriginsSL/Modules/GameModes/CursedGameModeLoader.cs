@@ -7,55 +7,44 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using CursedMod.Features.Wrappers.Player.Dummies;
-using OriginsSL.Modules.AudioPlayer;
-using OriginsSL.Modules.GameModes.Misc;
-using PlayerRoles;
-using PluginAPI.Core;
+using OriginsSL.Modules.GameModes.GameModes.RainbowRun;
 
 namespace OriginsSL.Modules.GameModes;
 
 public static class CursedGameModeLoader
 {
-    public static ICursedGameMode CurrentGameMode;
+    private static CursedGameModeBase _currentGameMode;
     
-    public static readonly HashSet<ICursedGameMode> AvailableGameModes = [];
+    public static readonly CursedGameModeBase[] AvailableGameModes = 
+    [
+        new RainbowRunGameMode(),
+    ];
     
-    public static void RegisterGameMode(ICursedGameMode gameMode) => AvailableGameModes.Add(gameMode);
-    
-    public static void UnRegisterGameMode(ICursedGameMode gameMode) => AvailableGameModes.Remove(gameMode);
-
-    internal static void InitGameModes()
+    public static void RunGameMode(CursedGameModeBase gameMode)
     {
-        Log.Info("Loading GameModes...");
-        LoadGameModes();
-    }
-    
-    private static void LoadGameModes()
-    {
-        foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
-        {
-            if (type.IsInterface || !typeof(ICursedGameMode).IsAssignableFrom(type)) 
-                continue;
-            
-            ICursedGameMode gameMode = (ICursedGameMode)Activator.CreateInstance(type);
-            RegisterGameMode(gameMode);
-            Log.Warning($"Loaded GameMode Name: {gameMode.Name}");
-        }
-    }
-
-    public static void RunGameMode(ICursedGameMode gameMode)
-    {
-        CurrentGameMode = gameMode;
-        gameMode.PrepareGameMode();
+        _currentGameMode = gameMode;
+        gameMode.StartGameMode();
     }
 
     public static void StopGameMode()
     {
-        CurrentGameMode.StopGameMode();
-        CurrentGameMode = null;
+        _currentGameMode.StopGameMode();
+        _currentGameMode = null;
     }
+    
+    public static string GetEventName() => _currentGameMode == null ? string.Empty : _currentGameMode.Name;
+
+    public static string GetEventDescription() => _currentGameMode == null ? string.Empty : _currentGameMode.Description;
+    
+    public static TimeSpan GetEventTimer()
+    {
+        if (_currentGameMode == null)
+            return new TimeSpan(0);
+        
+        return _currentGameMode.OverrideTimer == TimeSpan.Zero 
+            ? new TimeSpan(DateTime.Now.Ticks - _currentGameMode.StartTime) 
+            : _currentGameMode.OverrideTimer;
+    }
+    
+    public static bool EventRunning => _currentGameMode != null;
 }

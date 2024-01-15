@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
-using CursedMod.Features.Wrappers.Facility;
-using MEC;
+using OriginsSL.Modules.GameModes.Misc.GameModeComponents;
+using PluginAPI.Core;
 
 namespace OriginsSL.Modules.GameModes;
 
-public abstract class CursedGameModeBase : ICursedGameMode
+public abstract class CursedGameModeBase
 {
     public bool IsPreparing { get; set; } = true;
     
@@ -14,18 +15,39 @@ public abstract class CursedGameModeBase : ICursedGameMode
     
     public virtual string Description => string.Empty;
     
-    public float StartDuration => 15f;
+    public long StartTime { get; set; }
 
-    public virtual void PrepareGameMode()
-    {
-        IsPreparing = true;
-        StartGameMode();
-    }
+    protected virtual GameModeComponent[] Components { get; } = [];
 
+    public TimeSpan OverrideTimer { get; set; } = TimeSpan.Zero;
+    
     public virtual void StartGameMode()
     {
-        IsPreparing = false;
+        StartTime = DateTime.Now.Ticks;
+        
+        foreach (GameModeComponent component in Components)
+        {
+            component.OnStarting(this);
+        }
+        
+        StaticUnityMethods.OnUpdate += OnUpdate;
     }
 
-    public virtual void StopGameMode() { }
+    public virtual void StopGameMode()
+    {
+        StaticUnityMethods.OnUpdate -= OnUpdate;
+        
+        foreach (GameModeComponent component in Components)
+        {
+            component.OnStopping();
+        }
+    }
+
+    public virtual void OnUpdate()
+    {
+        foreach (GameModeComponent component in Components)
+        {
+            component.OnUpdate();
+        }
+    }
 }

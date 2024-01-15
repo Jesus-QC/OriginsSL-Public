@@ -218,11 +218,12 @@
         <Compile Include="Modules\GameModes\CursedGameModeBase.cs" />
         <Compile Include="Modules\GameModes\CursedGameModeLoader.cs" />
         <Compile Include="Modules\GameModes\GameModesModule.cs" />
-        <Compile Include="Modules\GameModes\GameModes\RainbowRun\RainbowRunLoopedGameMode.cs" />
-        <Compile Include="Modules\GameModes\ICursedGameMode.cs" />
+        <Compile Include="Modules\GameModes\GameModes\RainbowRun\RainbowRunGameMode.cs" />
         <Compile Include="Modules\GameModes\Commands\GameModeCommand.cs" />
-        <Compile Include="Modules\GameModes\Misc\CursedLoopedGameMode.cs" />
-        <Compile Include="Modules\GameModes\Misc\CursedMusicLoopedGameMode.cs" />
+        <Compile Include="Modules\GameModes\Misc\GameModeComponents\GameModeMaxTimeComponent.cs" />
+        <Compile Include="Modules\GameModes\Misc\GameModeComponents\GameModeMusicComponent.cs" />
+        <Compile Include="Modules\GameModes\Misc\GameModeComponents\GameModeComponent.cs" />
+        <Compile Include="Modules\GameModes\Misc\GameModeComponents\GameModeSpawnerComponent.cs" />
         <Compile Include="Modules\LastOneLeft\LastOneLeftModule.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingConfig.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingRateLimiter.cs" />
