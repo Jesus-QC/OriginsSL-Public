@@ -4,5 +4,7 @@ public enum ScreenZone
 {
     Environment,
     Important,
-    Center
+    Center,
+    EventImportant,
+    EventCenter,
 }

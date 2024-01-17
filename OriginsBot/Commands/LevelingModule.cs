@@ -48,13 +48,13 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
 
         string usernames = string.Empty, experiences = string.Empty, levels = string.Empty; 
         
-        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await using MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
         await connection.OpenAsync();
         
-        MySqlCommand cmd = new($"SELECT Username, Level, Experience FROM LevelingSystem ORDER BY Experience DESC LIMIT {pageSize} OFFSET @Offset", connection);
+        await using MySqlCommand cmd = new($"SELECT Username, Level, Experience FROM LevelingSystem ORDER BY Experience DESC LIMIT {pageSize} OFFSET @Offset", connection);
         cmd.Parameters.AddWithValue("@Offset", offset * pageSize);
         
-        DbDataReader reader = await cmd.ExecuteReaderAsync();
+        await using DbDataReader reader = await cmd.ExecuteReaderAsync();
 
         int rank = offset * pageSize + 1;
         while (await reader.ReadAsync())
@@ -109,13 +109,13 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
     
     private static async Task<(int, int, int)> GetLevelExpAndRank(ulong discordId)
     {
-        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await using MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
         await connection.OpenAsync();
         
-        MySqlCommand cmd = new("IF (EXISTS(SELECT * FROM LevelingSystem WHERE DiscordId=@DiscordId)) THEN WITH cte AS ( SELECT Level, Experience, DiscordId, RANK() OVER (ORDER BY Experience DESC) AS rank FROM LevelingSystem) SELECT Level, Experience, rank FROM cte WHERE DiscordId=@DiscordId;ELSE SELECT 0,0,0;END IF;", connection);
+        await using MySqlCommand cmd = new("IF (EXISTS(SELECT * FROM LevelingSystem WHERE DiscordId=@DiscordId)) THEN WITH cte AS ( SELECT Level, Experience, DiscordId, RANK() OVER (ORDER BY Experience DESC) AS rank FROM LevelingSystem) SELECT Level, Experience, rank FROM cte WHERE DiscordId=@DiscordId;ELSE SELECT 0,0,0;END IF;", connection);
         cmd.Parameters.AddWithValue("@DiscordId", discordId);
         
-        DbDataReader reader = await cmd.ExecuteReaderAsync();
+        await using DbDataReader reader = await cmd.ExecuteReaderAsync();
         if (!reader.HasRows)
             return (0, 0, 0);
 
@@ -165,10 +165,10 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         if (AlreadySyncedIds.Contains(id))
             return true;
 
-        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await using MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
         await connection.OpenAsync();
         
-        MySqlCommand cmd = new("SELECT EXISTS(SELECT * FROM LevelingSystem WHERE DiscordId=@DiscordId)", connection);
+        await using MySqlCommand cmd = new("SELECT EXISTS(SELECT * FROM LevelingSystem WHERE DiscordId=@DiscordId)", connection);
         cmd.Parameters.AddWithValue("@DiscordId", id);
 
         object? t = await cmd.ExecuteScalarAsync();
@@ -182,10 +182,10 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
     
     private static async Task DeSyncAccount(ulong id)
     {
-        MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
+        await using MySqlConnection connection = (MySqlConnection)DatabaseHandler.Connection.Clone();
         await connection.OpenAsync();
         
-        MySqlCommand cmd = new("UPDATE LevelingSystem SET DiscordId=NULL WHERE DiscordId=@DiscordId", connection);
+        await using MySqlCommand cmd = new("UPDATE LevelingSystem SET DiscordId=NULL WHERE DiscordId=@DiscordId", connection);
         cmd.Parameters.AddWithValue("@DiscordId", id);
 
         await cmd.ExecuteNonQueryAsync();

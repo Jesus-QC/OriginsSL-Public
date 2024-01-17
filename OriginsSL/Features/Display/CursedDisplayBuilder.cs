@@ -27,6 +27,8 @@ public class CursedDisplayBuilder(CursedPlayer player)
         [ScreenZone.Environment] = new HudNotification(string.Empty),
         [ScreenZone.Important] = new HudNotification(string.Empty),
         [ScreenZone.Center] = new HudNotification(string.Empty),
+        [ScreenZone.EventImportant] = new HudNotification(string.Empty),
+        [ScreenZone.EventCenter] = new HudNotification(string.Empty),
     };
 
     private readonly List<HudNotification> _notifications = [];
@@ -302,7 +304,10 @@ public class CursedDisplayBuilder(CursedPlayer player)
 
     public string BuildForEvent()
     {
+        UpdateZone(ScreenZone.EventCenter);
+        UpdateZone(ScreenZone.EventImportant);
         UpdateZones();
+        
         StringBuilder.Clear();
         StringBuilder.AppendLine(Header);
         StringBuilder.AppendLine();
@@ -312,12 +317,16 @@ public class CursedDisplayBuilder(CursedPlayer player)
         StringBuilder.AppendLine();
         StringBuilder.AppendLine(CursedGameModeLoader.GetEventName());
         StringBuilder.AppendLine(CursedGameModeLoader.GetEventDescription());
-        StringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
         StringBuilder.Append("\n\n<size=40>");
         StringBuilder.Append(GetZone(ScreenZone.Important));
+        StringBuilder.Append("\n\n</size>");
+        StringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
+        StringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
+        StringBuilder.Append("\n\n<size=40>");
+        StringBuilder.Append(GetZone(ScreenZone.EventImportant));
         StringBuilder.AppendLine("</size>");
-        StringBuilder.AppendLine();
+        StringBuilder.AppendLine(GetZone(ScreenZone.EventCenter));
         StringBuilder.AppendLine();
         StringBuilder.AppendLine();
         StringBuilder.AppendLine();

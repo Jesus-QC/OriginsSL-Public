@@ -204,7 +204,7 @@ public static partial class LevelingSystemEventsHandler
         if (attackerDamageHandler.IsSuicide)
             return;
         
-        if (attackerDamageHandler.Attacker.Hub.IsHost)
+        if (attackerDamageHandler.Attacker.Hub is null || attackerDamageHandler.Attacker.Hub.IsHost)
             return;
         
         if (!CursedPlayer.TryGet(attackerDamageHandler.Attacker.Hub, out CursedPlayer attacker))

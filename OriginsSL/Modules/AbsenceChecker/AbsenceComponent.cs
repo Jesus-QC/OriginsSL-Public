@@ -62,7 +62,7 @@ public class AbsenceComponent : MonoBehaviour
                 target.SendOriginsHint("R<lowercase>eplaced a player that was afk for too long</lowercase>", ScreenZone.Important, 5f);
             }
 
-            if (CursedPlayer.Count > 25)
+            if (CursedPlayer.Count > 20)
             {
                 Destroy(this);
                 _player.Disconnect("Kicked for being AFK.\n[KICKED BY A SERVER MODIFICATION]");
