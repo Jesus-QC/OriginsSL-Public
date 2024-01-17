@@ -14,6 +14,8 @@ public class ChaosJuggernautSubclass : SubclassBase
 
     public override float Health { get; } = 150f;
 
+    public override float MaxHealth { get; } = 150f;
+
     public override Vector3 FakeSize { get; } = new (1.5f, 1, 1.5f);
     
     public override Dictionary<ItemType, ushort> AdditiveAmmo { get; } = new (){ [ItemType.Ammo556x45] = 50 };
