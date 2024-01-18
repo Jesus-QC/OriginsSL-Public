@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CursedMod.Features.Wrappers.Player;
@@ -62,7 +63,7 @@ public class ServerStatusMessageModule : OriginsModule
     {
         foreach (RestMessage msg in await restTextChannel.GetMessagesAsync(5).FlattenAsync())
         {
-            if (msg.Author.Id != client.CurrentUser.Id)
+            if (msg.Author.Id != client.CurrentUser.Id || msg.Embeds.All(x => x.Title != Config.EmbedTitle))
                 continue;
 
             await msg.DeleteAsync();
@@ -82,7 +83,7 @@ public class ServerStatusMessageModule : OriginsModule
     private static Embed BuildEmbed()
     {
         return new EmbedBuilder()
-            .WithTitle("**Main Server **")
+            .WithTitle(Config.EmbedTitle)
             .AddField("Status", "```yml\n+ Online```", true)
             .AddField("Players", $"```cs\n- {CursedPlayer.Count} / {CursedServer.MaxPlayerSlots}```", true)
             .AddField("Version", $"```cs\n- {GameCore.Version.VersionString}```", true)

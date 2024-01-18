@@ -7,4 +7,6 @@ public class ServerStatusMessageConfig
     public ulong GuildId { get; set; } = 1182825720750297118;
     
     public ulong ChannelId { get; set; } = 1182858226933444709;
+    
+    public string EmbedTitle { get; set; } = "Main Server";
 }
