@@ -44,6 +44,7 @@ public class LevelingModule : InteractionModuleBase<SocketInteractionContext>
         EmbedBuilder builder = new()
         {
             Title = "Origins SL Leaderboard",
+            Color = new Color(0xfcaded)
         };
 
         string usernames = string.Empty, experiences = string.Empty, levels = string.Empty; 
