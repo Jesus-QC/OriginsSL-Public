@@ -11,7 +11,7 @@ public static class CursedPollManager
     public static string Description = string.Empty;
     public static byte AffirmativeVotes;
     public static byte NegativeVotes;
-    public static short TimeLeft;
+    public static byte TimeLeft;
 
     private static readonly HashSet<CursedPlayer> Votes = new ();
 

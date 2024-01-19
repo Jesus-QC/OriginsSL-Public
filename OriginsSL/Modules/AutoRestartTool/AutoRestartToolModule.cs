@@ -5,6 +5,8 @@ namespace OriginsSL.Modules.AutoRestartTool;
 
 public class AutoRestartToolModule : OriginsModule
 {
+    public override bool Disabled => true;
+
     public override void OnLoaded()
     {
         ServerLogs.AddLog(ServerLogs.Modules.Administrative, "Scheduled server restart after the round end.", ServerLogs.ServerLogType.RemoteAdminActivity_GameChanging);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Server;
 using Discord;
@@ -18,8 +19,11 @@ public class ServerStatusMessageModule : OriginsModule
     private static readonly List<CancellationTokenSource> CancellationTokenSources = [];
 
     private static DiscordRestClient _discordRestClient;
-    
-    public override void OnLoaded() => Start();
+
+    public override void OnLoaded()
+    {
+        CursedRoundEventsHandler.WaitingForPlayers += Start;
+    }
     
     private static void Start()
     {
@@ -84,6 +88,7 @@ public class ServerStatusMessageModule : OriginsModule
     {
         return new EmbedBuilder()
             .WithTitle(Config.EmbedTitle)
+            .WithColor(Config.EmbedColor)
             .AddField("Status", "```yml\n+ Online```", true)
             .AddField("Players", $"```cs\n- {CursedPlayer.Count} / {CursedServer.MaxPlayerSlots}```", true)
             .AddField("Version", $"```cs\n- {GameCore.Version.VersionString}```", true)

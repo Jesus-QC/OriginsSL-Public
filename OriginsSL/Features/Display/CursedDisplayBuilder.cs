@@ -105,7 +105,9 @@ public class CursedDisplayBuilder(CursedPlayer player)
             StringBuilder.AppendLine(GetNotification(i));
 
         StringBuilder.AppendLine("</align></size>");
-        StringBuilder.Append("\n\n\n\n\n\n");
+        
+        RenderPolls();
+        
         StringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         StringBuilder.Append("\n\n\n\n\n\n\n");
         StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
@@ -166,9 +168,11 @@ public class CursedDisplayBuilder(CursedPlayer player)
         StringBuilder.Append(ScpListModule.GetContent(7));
         StringBuilder.AppendLine("</align></size></color>");
         StringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
-        StringBuilder.Append("\n\n\n\n\n");
+        StringBuilder.Append("\n\n\n");
         StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
-        StringBuilder.Append("\n\n\n\n");
+
+        RenderPolls();
+        
         StringBuilder.Append("<size=40>");
         StringBuilder.Append(GetZone(ScreenZone.Important));
         StringBuilder.AppendLine("</size>\n");
@@ -202,13 +206,21 @@ public class CursedDisplayBuilder(CursedPlayer player)
         UpdateZones();
         StringBuilder.Clear();
         StringBuilder.AppendLine(Header);
-        StringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        StringBuilder.AppendLine(GetZone(ScreenZone.Important));
+        
         StringBuilder.Append("\n\n");
-        StringBuilder.AppendLine(GetZone(ScreenZone.Environment));
-        StringBuilder.Append("\n\n\n\n\n\n\n");
+        StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
+        StringBuilder.Append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        
+        RenderPolls();
+        
+        StringBuilder.AppendLine();
+        StringBuilder.AppendLine(GetZone(ScreenZone.Important));
+        StringBuilder.AppendLine();
+        StringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         StringBuilder.AppendLine("<size=20>join our discord");
         StringBuilder.AppendLine(Discord);
+        StringBuilder.AppendLine();
+        StringBuilder.AppendLine(Footer);
         
         return StringBuilder.ToString();
     }
@@ -235,7 +247,11 @@ public class CursedDisplayBuilder(CursedPlayer player)
         StringBuilder.Append("\n\n\n\n\n");
         StringBuilder.AppendLine(RenderZone(ScreenZone.Environment));
         StringBuilder.AppendLine(RenderZone(ScreenZone.Center));
-        StringBuilder.Append("\n\n\n\n\n\n\n\n\n<size=40>");
+        StringBuilder.Append("\n\n\n");
+        
+        RenderPolls();
+
+        StringBuilder.Append("<size=40>");
         StringBuilder.Append(GetZone(ScreenZone.Important));
         StringBuilder.AppendLine("</size>\n");
         
@@ -332,6 +348,21 @@ public class CursedDisplayBuilder(CursedPlayer player)
         StringBuilder.AppendLine();
         StringBuilder.AppendLine(Footer);
         return StringBuilder.ToString();
+    }
+
+    private void RenderPolls()
+    {
+        if (CursedPollManager.InUse)
+        {
+            StringBuilder.AppendLine($"<size=40><b><color=#ffd875>P<lowercase>oll by {CursedPollManager.Author}</lowercase></color></b></size>\n");
+            StringBuilder.AppendLine(CursedPollManager.Description);
+            StringBuilder.AppendLine($"<size=50%>{CursedPollManager.TimeLeft} seconds left</size>");
+            StringBuilder.AppendLine("to vote open the console and write <color=#61ff69>.vote yes</color> or <color=#ff61a0> .vote no</color>");
+            StringBuilder.AppendLine($"<color=#61ff69>\u2705 {CursedPollManager.AffirmativeVotes}</color> - <color=#ff61a0>{CursedPollManager.NegativeVotes} \u274c</color>");
+            return;
+        }
+
+        StringBuilder.Append("\n\n\n\n\n\n");
     }
 
     private string GetZone(ScreenZone zone) => _savedZones[zone].Message;

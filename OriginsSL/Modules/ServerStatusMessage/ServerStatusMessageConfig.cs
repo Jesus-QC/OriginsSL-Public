@@ -9,4 +9,6 @@ public class ServerStatusMessageConfig
     public ulong ChannelId { get; set; } = 1182858226933444709;
     
     public string EmbedTitle { get; set; } = "Main Server";
+    
+    public uint EmbedColor { get; set; } = 0xA2E8EC;
 }

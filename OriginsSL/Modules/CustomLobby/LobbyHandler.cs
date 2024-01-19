@@ -22,8 +22,6 @@ namespace OriginsSL.Modules.CustomLobby;
 
 public class LobbyHandler : OriginsModule
 {
-    public static bool IsEnabled = true;
-    
     private static readonly HashSet<GameObject> Map = [];
     private static Vector3 _spawnPos = Vector3.zero;
 
@@ -39,7 +37,7 @@ public class LobbyHandler : OriginsModule
 
     private static void OnInteractingWithItem(ICursedCancellableEvent args)
     {
-        if (!CursedRound.IsInLobby || !IsEnabled)
+        if (!CursedRound.IsInLobby)
             return;
 
         args.IsAllowed = false;
@@ -47,9 +45,6 @@ public class LobbyHandler : OriginsModule
     
     private static void OnMapGenerated()
     {
-        if (!IsEnabled)
-            return;
-
         CursedServer.DropPlayerItemsOnDisconnect = false;
         
         CursedRoom room = CursedRoom.Get(RoomName.Hcz049);
@@ -78,9 +73,6 @@ public class LobbyHandler : OriginsModule
     
     private static void HandleStart()
     {
-        if (!IsEnabled)
-            return;
-        
         CursedServer.DropPlayerItemsOnDisconnect = true;
         
         foreach (GameObject go in Map)
@@ -97,7 +89,7 @@ public class LobbyHandler : OriginsModule
     
     private static void HandleDisconnection(PlayerDisconnectingEventArgs args)
     {
-        if (!CursedRound.IsInLobby || !IsEnabled)
+        if (!CursedRound.IsInLobby)
             return;
         
         RoleManager.RemoveFromQueue(args.Player.ReferenceHub, Team.SCPs);
@@ -108,7 +100,7 @@ public class LobbyHandler : OriginsModule
 
     private static void HandleConnection(PlayerConnectedEventArgs args)
     {
-        if (!CursedRound.IsInLobby || !IsEnabled)
+        if (!CursedRound.IsInLobby)
             return;
         
         args.Player.Role = RoleTypeId.Tutorial;
