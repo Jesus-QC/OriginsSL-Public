@@ -7,7 +7,7 @@ public class MidgetSubclass : PitchChangerSubclass
 { 
     public override string CodeName => "midget";
     public override string Name => "<color=#c74cb0>M<lowercase>idget</lowercase></color>";
-    public override string Description => "you are known by ghost, a female midget scientist";
+    public override string Description => "you are a midget scientist";
     public override float SpawnChance => 0.5f;
     public override Vector3 PlayerSize { get; } = new (0.6f, 0.6f, 0.6f);
 
