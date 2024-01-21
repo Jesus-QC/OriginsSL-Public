@@ -69,7 +69,7 @@ public class EndScreenModule : OriginsModule
         if (!CursedPlayer.TryGet(attackerDamageHandler.Attacker.Hub, out CursedPlayer attacker))
             return;
         
-        if (attacker == args.Player || attacker.IsHost)
+        if (attacker == args.Player || attacker.IsHost || attacker.IsScp)
             return;
         
         if (!Damage.ContainsKey(attacker))
