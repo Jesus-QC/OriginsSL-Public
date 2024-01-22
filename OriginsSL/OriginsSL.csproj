@@ -178,6 +178,7 @@
         <Compile Include="Modules\AdminTools\Fun\TpsCommand.cs" />
         <Compile Include="Modules\AdminTools\Moderation\JailCommand.cs" />
         <Compile Include="Modules\AudioPlayer\AudioPlayerBase.cs" />
+        <Compile Include="Modules\AudioPlayer\AudioPlayerUtils.cs" />
         <Compile Include="Modules\AutoRestartTool\AutoRestartToolModule.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
@@ -251,6 +252,7 @@
         <Compile Include="Modules\SharedIntercom\SharedIntercomModule.cs" />
         <Compile Include="Modules\SpectatorCount\SpectatorCountManager.cs" />
         <Compile Include="Modules\SpectatorFeed\SpectatorFeedModule.cs" />
+        <Compile Include="Modules\StuckElevators\StuckElevatorsModule.cs" />
         <Compile Include="Modules\Subclasses\Commands\SetSubclassCommand.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosJuggernautSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Chaos\ChaosSpySubclass.cs" />
