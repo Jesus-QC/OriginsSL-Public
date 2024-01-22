@@ -4,15 +4,16 @@ using CursedMod.Events.Handlers;
 using CursedMod.Features.Wrappers.AdminToys;
 using CursedMod.Features.Wrappers.Facility.Elevators;
 using Interactables.Interobjects;
-using Mirror;
 using OriginsSL.Loader;
 using UnityEngine;
+using Mirror;
 
 namespace OriginsSL.Modules.StuckElevators;
 
 public class StuckElevatorsModule : OriginsModule
 {
-    private const float StuckTime = 10f; 
+    private const float StuckTime = 10f;
+    private const float StuckChance = 0.01F;
     
     public override void OnLoaded()
     {
@@ -35,6 +36,9 @@ public class StuckElevatorsModule : OriginsModule
     private static void OnPlayerInteractingElevator(PlayerInteractingElevatorEventArgs args)
     {
         if (!args.IsAllowed)
+            return;
+        
+        if (Random.value < 1 - StuckChance)
             return;
         
         ActiveStuckElevators.Add(new StuckElevators(args.ElevatorChamber, Time.timeSinceLevelLoad + StuckTime, args.TargetLevel));
