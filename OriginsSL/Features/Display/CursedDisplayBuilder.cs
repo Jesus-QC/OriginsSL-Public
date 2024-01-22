@@ -8,6 +8,7 @@ using OriginsSL.Modules.CustomItems;
 using OriginsSL.Modules.EndScreen;
 using OriginsSL.Modules.GameModes;
 using OriginsSL.Modules.LevelingSystem;
+using OriginsSL.Modules.PollManager;
 using OriginsSL.Modules.RespawnTimer;
 using OriginsSL.Modules.ScpList;
 using OriginsSL.Modules.SpectatorFeed;
@@ -352,13 +353,13 @@ public class CursedDisplayBuilder(CursedPlayer player)
 
     private void RenderPolls()
     {
-        if (CursedPollManager.InUse)
+        if (PollManager.InUse)
         {
-            StringBuilder.AppendLine($"<size=40><b><color=#ffd875>P<lowercase>oll by {CursedPollManager.Author}</lowercase></color></b></size>\n");
-            StringBuilder.AppendLine(CursedPollManager.Description);
-            StringBuilder.AppendLine($"<size=50%>{CursedPollManager.TimeLeft} seconds left</size>");
+            StringBuilder.AppendLine($"\n<b><size=25><color=#ffd875>poll by {PollManager.Author}</color></size>");
+            StringBuilder.AppendLine(PollManager.Description);
+            StringBuilder.AppendLine($"<size=50%><color=#ffd875>{PollManager.TimeLeft} seconds left</color></size>");
             StringBuilder.AppendLine("to vote open the console and write <color=#61ff69>.vote yes</color> or <color=#ff61a0> .vote no</color>");
-            StringBuilder.AppendLine($"<color=#61ff69>\u2705 {CursedPollManager.AffirmativeVotes}</color> - <color=#ff61a0>{CursedPollManager.NegativeVotes} \u274c</color>");
+            StringBuilder.AppendLine($"<color=#61ff69>\u2705 {PollManager.AffirmativeVotes}</color> - <color=#ff61a0>{PollManager.NegativeVotes} \u274c</color></b>");
             return;
         }
 

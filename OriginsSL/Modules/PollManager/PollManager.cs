@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CursedMod.Features.Wrappers.Facility;
 using CursedMod.Features.Wrappers.Player;
 
-namespace OriginsSL.Features.Display;
+namespace OriginsSL.Modules.PollManager;
 
-public static class CursedPollManager
+public static class PollManager
 {
     public static bool InUse;
     public static string Author = string.Empty;
@@ -13,15 +14,13 @@ public static class CursedPollManager
     public static byte NegativeVotes;
     public static byte TimeLeft;
 
-    private static readonly HashSet<CursedPlayer> Votes = new ();
+    private static readonly HashSet<CursedPlayer> Votes = [];
 
     public static bool AddVote(CursedPlayer player, bool pos)
     {
-        if (Votes.Contains(player))
+        if (!Votes.Add(player))
             return false;
 
-        Votes.Add(player);
-        
         if (pos)
             AffirmativeVotes++;
         else
@@ -30,7 +29,7 @@ public static class CursedPollManager
         return true;
     }
 
-    public static async Task<bool> RunPoll(string author, string description)
+    public static async Task RunPoll(string author, string description)
     {
         Author = author;
         Description = description;
@@ -47,9 +46,9 @@ public static class CursedPollManager
         }
         
         if (Description != description)
-            return false;
+            return;
 
         InUse = false;
-        return AffirmativeVotes > NegativeVotes;
+        CursedFacility.ShowBroadcast($"<size=50%>Poll Ended!</size>\n<color=#61ff69>\u2705 {AffirmativeVotes}</color> - <color=#ff61a0>{NegativeVotes} \u274c</color>", 10);
     }
 }

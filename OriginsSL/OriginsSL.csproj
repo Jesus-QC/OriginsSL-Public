@@ -157,7 +157,6 @@
         <Compile Include="EntryPoint.cs" />
         <Compile Include="Features\Commands\CursedCommandUtils.cs" />
         <Compile Include="Features\Display\CursedDisplayBuilder.cs" />
-        <Compile Include="Features\Display\CursedPollManager.cs" />
         <Compile Include="Features\Display\HudNotification.cs" />
         <Compile Include="Features\Display\ScreenZone.cs" />
         <Compile Include="Features\OriginsPlayerReplacer.cs" />
@@ -235,6 +234,10 @@
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
         <Compile Include="Modules\PocketSucker\PocketSuckerModule.cs" />
+        <Compile Include="Modules\PollManager\EndPollCommand.cs" />
+        <Compile Include="Modules\PollManager\PollCommand.cs" />
+        <Compile Include="Modules\PollManager\PollManager.cs" />
+        <Compile Include="Modules\PollManager\PollVoteCommand.cs" />
         <Compile Include="Modules\RemoteKeyCard\CheckPermissionsPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\GeneratorCheckPermissionsPatch.cs" />
         <Compile Include="Modules\RemoteKeyCard\LockerCheckPermissionsPatch.cs" />
