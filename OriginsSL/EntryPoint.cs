@@ -32,7 +32,7 @@ public class EntryPoint : CursedModule
         ModuleLoader.LoadModules();
         Log.Info("Loaded all modules");
         
-        _harmony = new Harmony("cursed.jesusqc.com");
+        _harmony = new Harmony("origins.jesusqc.com");
         _harmony.PatchAll();
         
         base.OnLoaded();
