@@ -8,6 +8,7 @@
 
 using System;
 using OriginsSL.Modules.GameModes.GameModes.RainbowRun;
+using OriginsSL.Modules.GameModes.Misc.GameModeComponents;
 
 namespace OriginsSL.Modules.GameModes;
 
@@ -39,11 +40,12 @@ public static class CursedGameModeLoader
     public static TimeSpan GetEventTimer()
     {
         if (_currentGameMode == null)
-            return new TimeSpan(0);
+            return TimeSpan.Zero;
+
+        if (_currentGameMode.TryGetComponent(out GameModeMaxTimeComponent maxTimeComponent))
+            return maxTimeComponent.OverrideTimer;
         
-        return _currentGameMode.OverrideTimer == TimeSpan.Zero 
-            ? new TimeSpan(DateTime.Now.Ticks - _currentGameMode.StartTime) 
-            : _currentGameMode.OverrideTimer;
+        return new TimeSpan(DateTime.Now.Ticks - _currentGameMode.StartTime);
     }
     
     public static bool EventRunning => _currentGameMode != null;

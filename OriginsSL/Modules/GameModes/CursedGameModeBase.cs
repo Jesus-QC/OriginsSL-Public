@@ -18,8 +18,6 @@ public abstract class CursedGameModeBase
     public long StartTime { get; set; }
 
     protected virtual IEnumerable<GameModeComponent> Components { get; } = [];
-
-    public TimeSpan OverrideTimer { get; set; } = TimeSpan.Zero;
     
     public virtual void StartGameMode()
     {
@@ -49,5 +47,20 @@ public abstract class CursedGameModeBase
         {
             component.OnUpdate();
         }
+    }
+    
+    public bool TryGetComponent<T>(out T comp) where T : GameModeComponent
+    {
+        foreach (GameModeComponent component in Components)
+        {
+            if (component is not T t)
+                continue;
+            
+            comp = t;
+            return true;
+        }
+
+        comp = default;
+        return false;
     }
 }

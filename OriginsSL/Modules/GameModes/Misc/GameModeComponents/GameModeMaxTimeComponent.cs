@@ -5,6 +5,8 @@ namespace OriginsSL.Modules.GameModes.Misc.GameModeComponents;
 public class GameModeMaxTimeComponent(TimeSpan maxDuration) : GameModeComponent
 {
     private CursedGameModeBase _gameModeBase;
+    
+    public TimeSpan OverrideTimer = TimeSpan.Zero;
 
     public override void OnStarting(CursedGameModeBase gameModeBase)
     {
@@ -14,9 +16,9 @@ public class GameModeMaxTimeComponent(TimeSpan maxDuration) : GameModeComponent
 
     public override void OnUpdate()
     {
-        _gameModeBase.OverrideTimer = maxDuration - new TimeSpan(DateTime.Now.Ticks - _gameModeBase.StartTime);
+        OverrideTimer = maxDuration - new TimeSpan(DateTime.Now.Ticks - _gameModeBase.StartTime);
         
-        if (_gameModeBase.OverrideTimer <= TimeSpan.Zero)
+        if (OverrideTimer <= TimeSpan.Zero)
             _gameModeBase.StopGameMode();
         
         base.OnUpdate();
