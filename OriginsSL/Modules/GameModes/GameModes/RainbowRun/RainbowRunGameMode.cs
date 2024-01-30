@@ -106,15 +106,10 @@ public class RainbowRunGameMode : CursedGameModeBase
 
         foreach (CursedPlayer player in CursedPlayer.Collection)
         {
-            if (_waiting)
-            {
-                player.SendOriginsHint($"<size=60><b><color={_color.ToHex()}>{_definedColors[_color]}</color> - {_counter}s</b>", ScreenZone.Important);
-            }
-            else
-            {
-                player.SendOriginsHint(
-                    $"<size=60>{_counter}s</size>", ScreenZone.Important);
-            }
+            player.SendOriginsHint(
+                _waiting
+                    ? $"<size=60><b><color={_color.ToHex()}>{_definedColors[_color]}</color> - {_counter}s</b>"
+                    : $"<size=60>{_counter}s</size>", ScreenZone.Important);
         }
             
         
