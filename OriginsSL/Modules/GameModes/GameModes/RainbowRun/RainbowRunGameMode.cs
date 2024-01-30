@@ -18,7 +18,7 @@ public class RainbowRunGameMode : CursedGameModeBase
     public override string Name => "R<lowercase>ainbow</lowercase> R<lowercase>un</lowercase>";
     public override string Description => "Run through the colors and pass the finish line!";
 
-    protected override GameModeComponent[] Components { get; } =
+    protected override IEnumerable<GameModeComponent> Components { get; } =
     [
         new GameModeMusicComponent("Fun.ogg"),
         new GameModeMaxTimeComponent(TimeSpan.FromMinutes(3)),
@@ -98,7 +98,7 @@ public class RainbowRunGameMode : CursedGameModeBase
     private float _counter = 7;
     private Color _color;
     
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         base.OnUpdate();
         
