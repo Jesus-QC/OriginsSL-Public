@@ -28,6 +28,8 @@ public class CustomItemManager : OriginsModule
     public static void RegisterCustomItem(ushort itemId, ICustomItem customItem) => CustomItems.Add(itemId, customItem);
     
     public static void ForceCustomItem(ushort itemId, ICustomItem customItem) => CustomItems[itemId] = customItem;
+    
+    public static bool RemoveCustomItem(ushort itemId) => CustomItems.Remove(itemId);
 
     public override void OnLoaded()
     {

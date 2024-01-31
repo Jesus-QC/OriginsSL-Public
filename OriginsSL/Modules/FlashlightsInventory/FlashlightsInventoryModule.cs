@@ -1,6 +1,7 @@
 using CursedMod.Events.Arguments.Player;
 using CursedMod.Events.Handlers;
 using OriginsSL.Loader;
+using OriginsSL.Modules.CustomItems;
 using PlayerRoles;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class FlashlightsInventoryModule : OriginsModule
 
         if (Random.value > 0.5f) // 50% chance
         {
-            args.Player.AddItem(ItemType.Coin);
+            CustomItemManager.RemoveCustomItem(args.Player.AddItem(ItemType.Coin).Serial);
             return;
         }
         

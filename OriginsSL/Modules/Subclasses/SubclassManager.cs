@@ -10,6 +10,7 @@ using CursedMod.Features.Extensions;
 using CursedMod.Features.Wrappers.Player;
 using CursedMod.Features.Wrappers.Player.Roles;
 using OriginsSL.Loader;
+using OriginsSL.Modules.CustomItems;
 using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Chaos;
 using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
@@ -175,7 +176,9 @@ public class SubclassManager : OriginsModule
                 args.Player.AddItems(subclass.AdditiveInventory);
             if (subclass.AdditiveAmmo != null)
                 args.Player.AddAmmo(subclass.AdditiveAmmo);
-
+            if (!subclass.AllowCustomItems)
+                foreach (ushort serial in args.Player.Items.Keys) CustomItemManager.RemoveCustomItem(serial);
+            
             subclass.OnSpawn(args.Player);
         });
     }

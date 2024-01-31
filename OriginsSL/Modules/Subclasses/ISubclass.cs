@@ -35,6 +35,8 @@ public interface ISubclass
     
     public List<ItemType> AdditiveInventory { get; }
     
+    public bool AllowCustomItems { get; }
+    
     public Dictionary<ItemType, ushort> OverrideAmmo { get; }
     
     public Dictionary<ItemType, ushort> AdditiveAmmo { get; }

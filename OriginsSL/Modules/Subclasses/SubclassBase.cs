@@ -25,6 +25,7 @@ public abstract class SubclassBase : ISubclass
     public virtual float HumeShield => -1;
     public virtual List<ItemType> OverrideInventory => null;
     public virtual List<ItemType> AdditiveInventory => null;
+    public bool AllowCustomItems => true;
     public virtual Dictionary<ItemType, ushort> OverrideAmmo => null;
     public virtual Dictionary<ItemType, ushort> AdditiveAmmo => null;
     public virtual bool KeepAfterEscaping => false;
