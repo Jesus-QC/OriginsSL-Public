@@ -182,6 +182,7 @@
         <Compile Include="Modules\AutoRestartTool\AutoRestartToolModule.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
         <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
+        <Compile Include="Modules\BetterStartingInventories\BetterStartingInventoriesModule.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
         <Compile Include="Modules\BulletHoleCap\BulletHoleCapModule.cs" />
         <Compile Include="Modules\ChaosReplaceFacilityGuards\ChaosReplaceFacilityGuardsModule.cs" />
@@ -215,7 +216,6 @@
         <Compile Include="Modules\EndScreen\EndScreenModule.cs" />
         <Compile Include="Modules\EntityCleanup\EntityCleanupModule.cs" />
         <Compile Include="Modules\FacilityScan\FacilityScanModule.cs" />
-        <Compile Include="Modules\FlashlightsInventory\FlashlightsInventoryModule.cs" />
         <Compile Include="Modules\GameModes\CursedGameModeBase.cs" />
         <Compile Include="Modules\GameModes\CursedGameModeLoader.cs" />
         <Compile Include="Modules\GameModes\GameModesModule.cs" />

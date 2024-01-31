@@ -14,10 +14,4 @@ public interface ICustomItem
     public float SpawnChance { get; }
 
     public bool FilterItem();
-    
-    public void OnRegistered();
-    
-    public void OnPickedUp(CursedItem item);
-    
-    public void OnDropped(CursedPickup item);
 }

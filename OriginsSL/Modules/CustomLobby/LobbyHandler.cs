@@ -57,8 +57,6 @@ public class LobbyHandler : OriginsModule
             .Spawn().AddComponent<TeamTriggerComponent>().Init(Team.FoundationForces));
         Map.Add(CursedPrimitiveObject.Create(PrimitiveType.Cube, room.GetLocalPoint(new Vector3(1.9f, 196.83f, 13.15f)), new Vector3(1.7f, 0.1f, 1.7f), color: new Color(0.93f, 0.13f, 0.13f))
             .Spawn().AddComponent<TeamTriggerComponent>().Init(Team.SCPs));
-        
-        CursedRoleManager.SetDefaultInventory(RoleTypeId.Tutorial, new InventoryRoleInfo([ItemType.Flashlight, ItemType.Coin], []));
 
         Vector3 eulerAngles = room.Transform.eulerAngles;
         Map.Add(CursedPrimitiveObject.Create(PrimitiveType.Cube, room.GetLocalPoint(new Vector3(7, 194.74f, 0.6f)),
