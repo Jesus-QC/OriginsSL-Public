@@ -21,7 +21,7 @@ public class FlashlightsInventoryModule : OriginsModule
 
         if (Random.value > 0.5f) // 50% chance
         {
-            CustomItemManager.RemoveCustomItem(args.Player.AddItem(ItemType.Coin).Serial);
+            args.Player.AddItem(ItemType.Coin);
             return;
         }
         
