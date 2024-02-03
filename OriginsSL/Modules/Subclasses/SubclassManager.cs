@@ -153,7 +153,8 @@ public class SubclassManager : OriginsModule
         if (subclass.FakeSize != Vector3.zero)
             args.Player.FakeScale = subclass.FakeSize;
         
-        if (args.NewRole is not RoleTypeId.Scp0492)
+        // If the player is revived then spawning isn't called
+        if (args.NewRole is not RoleTypeId.Scp0492 && args.ChangeReason == RoleChangeReason.Revived)
             return;
 
         Timing.CallDelayed(0.1f, () =>
