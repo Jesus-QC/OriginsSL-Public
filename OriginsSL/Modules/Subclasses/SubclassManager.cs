@@ -99,6 +99,7 @@ public class SubclassManager : OriginsModule
         [RoleTypeId.Scp0492] = 
         [
             new VampireSubclass(),
+            new BabyZombieSubclass()
         ],
     };
     
