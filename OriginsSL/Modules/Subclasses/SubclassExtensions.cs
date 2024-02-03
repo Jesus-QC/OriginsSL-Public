@@ -14,8 +14,16 @@ public static class SubclassExtensions
         => SubclassManager.SetSubclass(player, subclass);
 
     public static void ForceSavedSubclass(this CursedPlayer player, SubclassBase subclass)
-        => SubclassManager.Subclasses.SetOrAddElement(player, subclass);
-
+    {
+        if (subclass is null)
+        {
+            SubclassManager.Subclasses.Remove(player);
+            return;
+        }
+        
+        SubclassManager.Subclasses.SetOrAddElement(player, subclass);
+    }
+    
     public static string GetSubclassName(this CursedPlayer player) 
         => TryGetSubclass(player, out SubclassBase subclass) ? subclass.Name : string.Empty;
     

@@ -32,10 +32,10 @@ public class BabyZombieSubclass : SubclassBase
         
         private static void OnPlayerReceivingDamage(PlayerReceivingDamageEventArgs args)
         {
-            if (args.Attacker == args.Player)
+            if (args.Attacker is null || args.Attacker == args.Player)
                 return;
             
-            if (args.Attacker.Role != RoleTypeId.Scp0492 || !args.Attacker.TryGetSubclass(out SubclassBase attackerSubclass) || attackerSubclass is not BabyZombieSubclass babyZombieSubclass)
+            if (args.Attacker.Role != RoleTypeId.Scp0492 || !args.Attacker.TryGetSubclass(out SubclassBase attackerSubclass) || attackerSubclass is not BabyZombieSubclass)
                 return;
 
             args.DamageAmount = 20;
