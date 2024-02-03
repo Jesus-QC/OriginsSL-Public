@@ -32,7 +32,7 @@ public class DoorRestartSystemModule : OriginsModule
     private static IEnumerator<float> LockDoor(CursedDoor door)
     {
         door.Lock();
-        yield return Timing.WaitForSeconds(5f);
+        yield return Timing.WaitForSeconds(10f);
         door.Unlock();
     }
 }
