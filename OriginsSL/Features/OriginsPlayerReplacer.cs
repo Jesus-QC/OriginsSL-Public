@@ -20,7 +20,7 @@ public static class OriginsPlayerReplacer
         if (oldPlayer.TryGetEffect(out PocketCorroding pc) && pc.IsEnabled)
             return;
         
-        if (checkSubclass && oldPlayer.TryGetSubclass(out ISubclass subclass))
+        if (checkSubclass && oldPlayer.TryGetSubclass(out SubclassBase subclass))
         {
             List<CursedItem> items = oldPlayer.ClearItemsWithoutDestroying().ToList();
             Dictionary<ItemType, ushort> ammo = oldPlayer.Ammo.ToDictionary(x => x.Key, x => x.Value);

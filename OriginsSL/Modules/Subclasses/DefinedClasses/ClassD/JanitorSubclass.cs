@@ -38,7 +38,7 @@ public class JanitorSubclass : SubclassBase
             if (args.Hazard.HazardType != EnvironmentalHazardType.Sinkhole)
                 return;
 
-            if (!args.Player.TryGetSubclass(out ISubclass subclass) || subclass is not JanitorSubclass)
+            if (!args.Player.TryGetSubclass(out SubclassBase subclass) || subclass is not JanitorSubclass)
                 return;
             
             args.IsAllowed = false;
@@ -49,7 +49,7 @@ public class JanitorSubclass : SubclassBase
             if (args.Hazard.HazardType != EnvironmentalHazardType.Tantrum)
                 return;
             
-            if (!args.Player.TryGetSubclass(out ISubclass subclass) || subclass is not JanitorSubclass janitorSubclass)
+            if (!args.Player.TryGetSubclass(out SubclassBase subclass) || subclass is not JanitorSubclass janitorSubclass)
                 return;
             
             janitorSubclass._counter += Time.deltaTime;
@@ -66,7 +66,7 @@ public class JanitorSubclass : SubclassBase
             if (args.Hazard.HazardType != EnvironmentalHazardType.Tantrum)
                 return;
             
-            if (!args.Player.TryGetSubclass(out ISubclass subclass) || subclass is not JanitorSubclass janitorSubclass)
+            if (!args.Player.TryGetSubclass(out SubclassBase subclass) || subclass is not JanitorSubclass janitorSubclass)
                 return;
             
             janitorSubclass._counter = 0;

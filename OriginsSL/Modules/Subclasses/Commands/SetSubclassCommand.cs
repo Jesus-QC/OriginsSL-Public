@@ -36,12 +36,12 @@ public class SetSubclassCommand : ICommand, IUsageProvider
             return false;
         }
 
-        ISubclass subclass = null;
+        SubclassBase subclass = null;
         string args = arguments.At(1).ToLower();
         
-        foreach (KeyValuePair<RoleTypeId, ISubclass[]> roleSubclass in SubclassManager.AvailableSubclasses)
+        foreach (KeyValuePair<RoleTypeId, SubclassBase[]> roleSubclass in SubclassManager.AvailableSubclasses)
         {
-            foreach (ISubclass availableSubclass in roleSubclass.Value)
+            foreach (SubclassBase availableSubclass in roleSubclass.Value)
             {
                 if (availableSubclass.CodeName.ToLower() != args) 
                     continue;
@@ -58,7 +58,7 @@ public class SetSubclassCommand : ICommand, IUsageProvider
         {
             response = "Subclass not found. Available subclasses:";
             
-            foreach (KeyValuePair<RoleTypeId, ISubclass[]> roleSubclass in SubclassManager.AvailableSubclasses)
+            foreach (KeyValuePair<RoleTypeId, SubclassBase[]> roleSubclass in SubclassManager.AvailableSubclasses)
             {
                 response += $"\n{roleSubclass.Key}:";
                 response = roleSubclass.Value.Aggregate(response, (current, availableSubclass) => current + $"\n\t{availableSubclass.CodeName}");
@@ -68,10 +68,10 @@ public class SetSubclassCommand : ICommand, IUsageProvider
         
         foreach (CursedPlayer player in players)
         {
-            if (player.TryGetSubclass(out ISubclass oldSubclass) && subclass.GetType() == oldSubclass.GetType())
+            if (player.TryGetSubclass(out SubclassBase oldSubclass) && subclass.GetType() == oldSubclass.GetType())
                 continue;
             
-            player.ForceSubclass(Activator.CreateInstance(subclass.GetType()) as ISubclass);
+            player.ForceSubclass(Activator.CreateInstance(subclass.GetType()) as SubclassBase);
         }
 
         response = $"Done for {players.Count} players";

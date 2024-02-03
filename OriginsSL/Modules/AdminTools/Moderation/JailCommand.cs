@@ -89,6 +89,7 @@ public class JailCommand : ICommand, IUsageProvider
                 _subclass.IsLocked = true;
             
             player.SetRole(RoleTypeId.Tutorial);
+            player.ForceSavedSubclass(null);
             player.ShowBroadcast("<b>You have been detained by an administrator, please follow their instructions.</b>");
         }
 
@@ -105,6 +106,7 @@ public class JailCommand : ICommand, IUsageProvider
             if (_subclass is null)
                 return;
 
+            player.ForceSavedSubclass(_subclass);
             _subclass.IsLocked = false;
         }
 
@@ -114,7 +116,7 @@ public class JailCommand : ICommand, IUsageProvider
         private readonly RoleTypeId _role;
         private readonly IEnumerable<CursedItem> _items;
         private readonly Dictionary<ItemType, ushort> _ammo;
-        private readonly ISubclass _subclass;
+        private readonly SubclassBase _subclass;
     }
 
     private static readonly Dictionary<CursedPlayer, JailInfo> JailedPlayers = new ();

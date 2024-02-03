@@ -12,8 +12,8 @@ namespace OriginsSL.Modules.StuckElevators;
 
 public class StuckElevatorsModule : OriginsModule
 {
-    private const float StuckTime = 10f;
-    private const float StuckChance = 0.01F;
+    private const float StuckTime = 5f;
+    private const float StuckChance = 0.01f;
     
     public override void OnLoaded()
     {

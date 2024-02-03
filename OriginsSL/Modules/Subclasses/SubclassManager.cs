@@ -17,6 +17,7 @@ using OriginsSL.Modules.Subclasses.DefinedClasses.ClassD;
 using OriginsSL.Modules.Subclasses.DefinedClasses.FoundationForces;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Guard;
 using OriginsSL.Modules.Subclasses.DefinedClasses.Scientist;
+using OriginsSL.Modules.Subclasses.DefinedClasses.Zombie;
 using PlayerRoles;
 using UnityEngine;
 
@@ -26,9 +27,9 @@ public class SubclassManager : OriginsModule
 {
     public override byte Priority { get; set; } = 200;
 
-    public static readonly Dictionary<CursedPlayer, ISubclass> Subclasses = new ();
+    public static readonly Dictionary<CursedPlayer, SubclassBase> Subclasses = new ();
 
-    public static readonly Dictionary<RoleTypeId, ISubclass[]> AvailableSubclasses = new()
+    public static readonly Dictionary<RoleTypeId, SubclassBase[]> AvailableSubclasses = new()
     {
         [RoleTypeId.ClassD] = 
         [
@@ -95,6 +96,10 @@ public class SubclassManager : OriginsModule
             new PriestSubclass(),
             new ChaosSupportSubclass(),
         ],
+        [RoleTypeId.Scp0492] = 
+        [
+            new VampireSubclass(),
+        ],
     };
     
     public override void OnLoaded()
@@ -125,7 +130,7 @@ public class SubclassManager : OriginsModule
             return;
         }
         
-        if (args.Player.TryGetSubclass(out ISubclass oldSubclass))
+        if (args.Player.TryGetSubclass(out SubclassBase oldSubclass))
         {
             if (oldSubclass.IsLocked)
                 return;
@@ -134,7 +139,7 @@ public class SubclassManager : OriginsModule
                 return;
         }
         
-        ISubclass subclass = GetRandomSubclass(args.NewRole, args.Player);
+        SubclassBase subclass = GetRandomSubclass(args.NewRole, args.Player);
         args.Player.SetSubclass(subclass);
         
         if (subclass is null)
@@ -150,7 +155,7 @@ public class SubclassManager : OriginsModule
 
     public static void OnSpawning(PlayerSpawningEventArgs args)
     {
-        if (!args.Player.TryGetSubclass(out ISubclass subclass))
+        if (!args.Player.TryGetSubclass(out SubclassBase subclass))
             return;
         
         if (subclass.SpawnLocation != RoleTypeId.None)
@@ -185,7 +190,7 @@ public class SubclassManager : OriginsModule
 
     private static void OnPlayerDying(ICursedPlayerEvent args)
     {
-        if (!args.Player.TryGetSubclass(out ISubclass subclass))
+        if (!args.Player.TryGetSubclass(out SubclassBase subclass))
             return;
         
         subclass.OnDeath(args.Player);
@@ -200,7 +205,7 @@ public class SubclassManager : OriginsModule
         args.Player.SetSubclass(null);
     }
     
-    public static void SetSubclass(CursedPlayer player, ISubclass subclass)
+    public static void SetSubclass(CursedPlayer player, SubclassBase subclass)
     {
         if (subclass is null)
         {
@@ -217,7 +222,7 @@ public class SubclassManager : OriginsModule
     {
         player.CustomInfo = GetLevelingCustomInfo(player);
         
-        if (!Subclasses.TryGetValue(player, out ISubclass oldSubclass))
+        if (!Subclasses.TryGetValue(player, out SubclassBase oldSubclass))
             return;
             
         if (oldSubclass.PlayerSize != Vector3.zero || oldSubclass.FakeSize != Vector3.zero)
@@ -238,20 +243,20 @@ public class SubclassManager : OriginsModule
         }
     }
 
-    private static ISubclass GetRandomSubclass(RoleTypeId roleTypeId, CursedPlayer player)
+    private static SubclassBase GetRandomSubclass(RoleTypeId roleTypeId, CursedPlayer player)
     {
-        if (!AvailableSubclasses.TryGetValue(roleTypeId, out ISubclass[] subclasses) || subclasses.Length == 0)
+        if (!AvailableSubclasses.TryGetValue(roleTypeId, out SubclassBase[] subclasses) || subclasses.Length == 0)
             return null;
         
         float totalChance = subclasses.Sum(subclass => subclass.FilterSubclass(player) ? subclass.SpawnChance : 0) + 1;
         float finalChance = UnityEngine.Random.Range(0f, totalChance);
         
-        foreach (ISubclass subclass in subclasses)
+        foreach (SubclassBase subclass in subclasses)
         {
             finalChance -= subclass.FilterSubclass(player) ? subclass.SpawnChance : 0;
             
             if (finalChance <= 0f)
-                return Activator.CreateInstance(subclass.GetType()) as ISubclass;
+                return Activator.CreateInstance(subclass.GetType()) as SubclassBase;
         }
         
         return null;

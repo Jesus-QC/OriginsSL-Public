@@ -6,16 +6,16 @@ public class PitchShifter
 {
 	#region Private Static Memebers
 	private const int MaxFrameLength = 16000;
-	private readonly float[] GInFifo = new float[MaxFrameLength];
-	private readonly float[] GOutFifo = new float[MaxFrameLength];
-	private readonly float[] GFfTworksp = new float[2 * MaxFrameLength];
-	private readonly float[] GLastPhase = new float[MaxFrameLength / 2 + 1];
-	private readonly float[] GSumPhase = new float[MaxFrameLength / 2 + 1];
-	private readonly float[] GOutputAccum = new float[2 * MaxFrameLength];
-	private readonly float[] GAnaFreq = new float[MaxFrameLength];
-	private readonly float[] GAnaMagn = new float[MaxFrameLength];
-	private readonly float[] GSynFreq = new float[MaxFrameLength];
-	private readonly float[] GSynMagn = new float[MaxFrameLength];
+	private readonly float[] _gInFifo = new float[MaxFrameLength];
+	private readonly float[] _gOutFifo = new float[MaxFrameLength];
+	private readonly float[] _gFfTWorkSpace = new float[2 * MaxFrameLength];
+	private readonly float[] _gLastPhase = new float[MaxFrameLength / 2 + 1];
+	private readonly float[] _gSumPhase = new float[MaxFrameLength / 2 + 1];
+	private readonly float[] _gOutputAccum = new float[2 * MaxFrameLength];
+	private readonly float[] _gAnaFrequency = new float[MaxFrameLength];
+	private readonly float[] _gAnaMagnitude = new float[MaxFrameLength];
+	private readonly float[] _gSynFrequency = new float[MaxFrameLength];
+	private readonly float[] _gSynMagnitude = new float[MaxFrameLength];
 	private long _gRover;
 	#endregion
 
@@ -51,8 +51,8 @@ public class PitchShifter
 		for (i = 0; i < numSampsToProcess; i++)
 		{
 			/* As long as we have not yet collected enough data just read in */
-			GInFifo[_gRover] = indata[i];
-			outdata[i] = GOutFifo[_gRover - inFifoLatency];
+			_gInFifo[_gRover] = indata[i];
+			outdata[i] = _gOutFifo[_gRover - inFifoLatency];
 			_gRover++;
 
 			/* now we have enough data for processing */
@@ -64,28 +64,28 @@ public class PitchShifter
 				for (k = 0; k < fftFrameSize; k++)
 				{
 					window = -.5 * Math.Cos(2.0 * Math.PI * k / fftFrameSize) + .5;
-					GFfTworksp[2 * k] = (float) (GInFifo[k] * window);
-					GFfTworksp[2 * k + 1] = 0.0F;
+					_gFfTWorkSpace[2 * k] = (float) (_gInFifo[k] * window);
+					_gFfTWorkSpace[2 * k + 1] = 0.0F;
 				}
 
 				/* ***************** ANALYSIS ******************* */
 				/* do transform */
-				ShortTimeFourierTransform(GFfTworksp, fftFrameSize, -1);
+				ShortTimeFourierTransform(_gFfTWorkSpace, fftFrameSize, -1);
 
 				/* this is the analysis step */
 				for (k = 0; k <= fftFrameSize2; k++)
 				{
 					/* de-interlace FFT buffer */
-					real = GFfTworksp[2 * k];
-					imag = GFfTworksp[2 * k + 1];
+					real = _gFfTWorkSpace[2 * k];
+					imag = _gFfTWorkSpace[2 * k + 1];
 
 					/* compute magnitude and phase */
 					magn = 2.0 * Math.Sqrt(real * real + imag * imag);
 					phase = Math.Atan2(imag, real);
 
 					/* compute phase difference */
-					tmp = phase - GLastPhase[k];
-					GLastPhase[k] = (float) phase;
+					tmp = phase - _gLastPhase[k];
+					_gLastPhase[k] = (float) phase;
 
 					/* subtract expected phase difference */
 					tmp -= k * expct;
@@ -103,8 +103,8 @@ public class PitchShifter
 					tmp = k * freqPerBin + tmp * freqPerBin;
 
 					/* store magnitude and true frequency in analysis arrays */
-					GAnaMagn[k] = (float) magn;
-					GAnaFreq[k] = (float) tmp;
+					_gAnaMagnitude[k] = (float) magn;
+					_gAnaFrequency[k] = (float) tmp;
 
 				}
 
@@ -112,8 +112,8 @@ public class PitchShifter
 				/* this does the actual pitch shifting */
 				for (int zero = 0; zero < fftFrameSize; zero++)
 				{
-					GSynMagn[zero] = 0;
-					GSynFreq[zero] = 0;
+					_gSynMagnitude[zero] = 0;
+					_gSynFrequency[zero] = 0;
 				}
 
 				for (k = 0; k <= fftFrameSize2; k++)
@@ -121,8 +121,8 @@ public class PitchShifter
 					index = (long) (k * pitchShift);
 					if (index <= fftFrameSize2)
 					{
-						GSynMagn[index] += GAnaMagn[k];
-						GSynFreq[index] = GAnaFreq[k] * pitchShift;
+						_gSynMagnitude[index] += _gAnaMagnitude[k];
+						_gSynFrequency[index] = _gAnaFrequency[k] * pitchShift;
 					}
 				}
 
@@ -131,8 +131,8 @@ public class PitchShifter
 				for (k = 0; k <= fftFrameSize2; k++)
 				{
 					/* get magnitude and true frequency from synthesis arrays */
-					magn = GSynMagn[k];
-					tmp = GSynFreq[k];
+					magn = _gSynMagnitude[k];
+					tmp = _gSynFrequency[k];
 
 					/* subtract bin mid frequency */
 					tmp -= k * freqPerBin;
@@ -147,37 +147,37 @@ public class PitchShifter
 					tmp += k * expct;
 
 					/* accumulate delta phase to get bin phase */
-					GSumPhase[k] += (float) tmp;
-					phase = GSumPhase[k];
+					_gSumPhase[k] += (float) tmp;
+					phase = _gSumPhase[k];
 
 					/* get real and imag part and re-interleave */
-					GFfTworksp[2 * k] = (float) (magn * Math.Cos(phase));
-					GFfTworksp[2 * k + 1] = (float) (magn * Math.Sin(phase));
+					_gFfTWorkSpace[2 * k] = (float) (magn * Math.Cos(phase));
+					_gFfTWorkSpace[2 * k + 1] = (float) (magn * Math.Sin(phase));
 				}
 
 				/* zero negative frequencies */
-				for (k = fftFrameSize + 2; k < 2 * fftFrameSize; k++) GFfTworksp[k] = 0.0F;
+				for (k = fftFrameSize + 2; k < 2 * fftFrameSize; k++) _gFfTWorkSpace[k] = 0.0F;
 
 				/* do inverse transform */
-				ShortTimeFourierTransform(GFfTworksp, fftFrameSize, 1);
+				ShortTimeFourierTransform(_gFfTWorkSpace, fftFrameSize, 1);
 
 				/* do windowing and add to output accumulator */
 				for (k = 0; k < fftFrameSize; k++)
 				{
 					window = -.5 * Math.Cos(2.0 * Math.PI * k / fftFrameSize) + .5;
-					GOutputAccum[k] += (float) (2.0 * window * GFfTworksp[2 * k] / (fftFrameSize2 * osamp));
+					_gOutputAccum[k] += (float) (2.0 * window * _gFfTWorkSpace[2 * k] / (fftFrameSize2 * osamp));
 				}
-				for (k = 0; k < stepSize; k++) GOutFifo[k] = GOutputAccum[k];
+				for (k = 0; k < stepSize; k++) _gOutFifo[k] = _gOutputAccum[k];
 
 				/* shift accumulator */
 				//memmove(gOutputAccum, gOutputAccum + stepSize, fftFrameSize * sizeof(float));
 				for (k = 0; k < fftFrameSize; k++)
 				{
-					GOutputAccum[k] = GOutputAccum[k + stepSize];
+					_gOutputAccum[k] = _gOutputAccum[k + stepSize];
 				}
 
 				/* move input FIFO */
-				for (k = 0; k < inFifoLatency; k++) GInFifo[k] = GInFifo[k + stepSize];
+				for (k = 0; k < inFifoLatency; k++) _gInFifo[k] = _gInFifo[k + stepSize];
 			}
 		}
 	}

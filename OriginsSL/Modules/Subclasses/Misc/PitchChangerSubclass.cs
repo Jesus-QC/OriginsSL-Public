@@ -43,7 +43,7 @@ public abstract class PitchChangerSubclass  : SubclassBase
         
         private static void OnPlayerUsingVoiceChat(PlayerUsingVoiceChatEventArgs args)
         {
-            if (!args.Player.TryGetSubclass(out ISubclass subclass) || subclass is not PitchChangerSubclass { _enabled: true } pitchChangerSubclass)
+            if (!args.Player.TryGetSubclass(out SubclassBase subclass) || subclass is not PitchChangerSubclass { _enabled: true } pitchChangerSubclass)
                 return;
 
             args.VoiceMessage = args.VoiceMessage.SetPitch(pitchChangerSubclass);

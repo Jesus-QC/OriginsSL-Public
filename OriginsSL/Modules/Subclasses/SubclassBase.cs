@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace OriginsSL.Modules.Subclasses;
 
-public abstract class SubclassBase : ISubclass
+public abstract class SubclassBase
 {
     public static readonly HashSet<CoroutineHandle> ActiveCoroutines = [];
     
-    public virtual string CodeName => string.Empty;
+    public abstract string CodeName { get; }
     public virtual bool Spoofed => false;
-    public virtual string Name => string.Empty;
-    public virtual string Description => string.Empty;
+    public abstract string Name { get; }
+    public abstract string Description  { get; }
     public virtual float SpawnChance => 0;
     public virtual RoleTypeId SpawnRole => RoleTypeId.None;
     public virtual RoleTypeId SpawnLocation => RoleTypeId.None;

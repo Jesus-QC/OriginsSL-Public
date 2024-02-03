@@ -272,7 +272,8 @@
         <Compile Include="Modules\Subclasses\DefinedClasses\Scientist\HeadResearcherSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Scientist\MidgetSubclass.cs" />
         <Compile Include="Modules\Subclasses\DefinedClasses\Scientist\VigilantSubclass.cs" />
-        <Compile Include="Modules\Subclasses\ISubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\Zombie\BabyZombieSubclass.cs" />
+        <Compile Include="Modules\Subclasses\DefinedClasses\Zombie\VampireSubclass.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChanger.cs" />
         <Compile Include="Modules\Subclasses\Misc\PitchChangerSubclass.cs" />
         <Compile Include="Modules\Subclasses\Misc\PlayerVoiceExtensions.cs" />
