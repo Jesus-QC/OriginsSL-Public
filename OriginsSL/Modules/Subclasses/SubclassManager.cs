@@ -152,6 +152,14 @@ public class SubclassManager : OriginsModule
             args.Player.Scale = subclass.PlayerSize;
         if (subclass.FakeSize != Vector3.zero)
             args.Player.FakeScale = subclass.FakeSize;
+        
+        if (args.NewRole is not RoleTypeId.Scp0492)
+            return;
+
+        Timing.CallDelayed(0.1f, () =>
+        {
+            SetSpawningProperties(args.Player, subclass);
+        });
     }
 
     public static void OnSpawning(PlayerSpawningEventArgs args)
@@ -162,33 +170,37 @@ public class SubclassManager : OriginsModule
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
-        Timing.CallDelayed(0.4f, () =>
+        Timing.CallDelayed(0.1f, () =>
         {
-            if (!subclass.Spoofed)
-                args.Player.CustomInfo = $"{GetLevelingCustomInfo(args.Player)}\n<size=22><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
-            if (subclass.Health > 0)
-                args.Player.Health = subclass.Health;
-            if (subclass.MaxHealth > 0)
-                args.Player.MaxHealth = subclass.MaxHealth;
-            if (subclass.ArtificialHealth > 0)
-                args.Player.ArtificialHealth = subclass.ArtificialHealth;
-            if (subclass.HumeShield > 0)
-                args.Player.HumeShield = subclass.HumeShield;
-            if (subclass.OverrideInventory != null)
-                args.Player.SetItems(subclass.OverrideInventory);
-            if (subclass.OverrideAmmo != null)
-                args.Player.SetAmmo(subclass.OverrideAmmo);
-            if (subclass.AdditiveInventory != null)
-                args.Player.AddItems(subclass.AdditiveInventory);
-            if (subclass.AdditiveAmmo != null)
-                args.Player.AddAmmo(subclass.AdditiveAmmo);
-            if (!subclass.AllowCustomItems)
-                foreach (ushort serial in args.Player.Items.Keys) CustomItemManager.RemoveCustomItem(serial);
-            
-            subclass.OnSpawn(args.Player);
+            SetSpawningProperties(args.Player, subclass);
         });
     }
 
+    private static void SetSpawningProperties(CursedPlayer player, SubclassBase subclass)
+    {
+        if (!subclass.Spoofed)
+            player.CustomInfo = $"{GetLevelingCustomInfo(player)}\n<size=22><color=#50C878>{subclass.CodeName}\n(Custom Class)</color></size>";
+        if (subclass.Health > 0)
+            player.Health = subclass.Health;
+        if (subclass.MaxHealth > 0)
+            player.MaxHealth = subclass.MaxHealth;
+        if (subclass.ArtificialHealth > 0)
+            player.ArtificialHealth = subclass.ArtificialHealth;
+        if (subclass.HumeShield > 0)
+            player.HumeShield = subclass.HumeShield;
+        if (subclass.OverrideInventory != null)
+            player.SetItems(subclass.OverrideInventory);
+        if (subclass.OverrideAmmo != null)
+            player.SetAmmo(subclass.OverrideAmmo);
+        if (subclass.AdditiveInventory != null)
+            player.AddItems(subclass.AdditiveInventory);
+        if (subclass.AdditiveAmmo != null)
+            player.AddAmmo(subclass.AdditiveAmmo);
+        if (!subclass.AllowCustomItems)
+            foreach (ushort serial in player.Items.Keys) CustomItemManager.RemoveCustomItem(serial);
+            
+        subclass.OnSpawn(player);
+    }
     private static void OnPlayerDying(ICursedPlayerEvent args)
     {
         if (!args.Player.TryGetSubclass(out SubclassBase subclass))
