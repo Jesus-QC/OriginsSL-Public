@@ -154,10 +154,10 @@ public class SubclassManager : OriginsModule
             args.Player.FakeScale = subclass.FakeSize;
         
         // If the player is revived then spawning isn't called
-        if (args.NewRole is not RoleTypeId.Scp0492 && args.ChangeReason == RoleChangeReason.Revived)
+        if (args.ChangeReason != RoleChangeReason.Revived)
             return;
 
-        Timing.CallDelayed(0.1f, () =>
+        Timing.CallDelayed(0.4f, () =>
         {
             SetSpawningProperties(args.Player, subclass);
         });
@@ -171,7 +171,7 @@ public class SubclassManager : OriginsModule
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
         
-        Timing.CallDelayed(0.1f, () =>
+        Timing.CallDelayed(0.4f, () =>
         {
             SetSpawningProperties(args.Player, subclass);
         });

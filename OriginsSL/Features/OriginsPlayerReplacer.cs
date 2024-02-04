@@ -20,29 +20,17 @@ public static class OriginsPlayerReplacer
         if (oldPlayer.TryGetEffect(out PocketCorroding pc) && pc.IsEnabled)
             return;
         
-        if (checkSubclass && oldPlayer.TryGetSubclass(out SubclassBase subclass))
-        {
-            List<CursedItem> items = oldPlayer.ClearItemsWithoutDestroying().ToList();
-            Dictionary<ItemType, ushort> ammo = oldPlayer.Ammo.ToDictionary(x => x.Key, x => x.Value);
-            float health = oldPlayer.Health;
-            float humeShield = oldPlayer.HumeShield;
-         
-            oldPlayer.SetSubclass(null);
-            
-            subclass.IsLocked = true;
-            replacer.ForceSubclass(subclass);
-            
-            replacer.Position = oldPlayer.Position;
-            replacer.SetRole(oldPlayer.Role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
-            
-            Timing.CallDelayed(0.8f, () =>
-            {
-                subclass.IsLocked = false;
-                replacer.SetData(items, ammo, RoleTypeId.None, health, humeShield, Vector3.zero);
-            });
-        }
-        
         replacer.SetData(oldPlayer.ClearItemsWithoutDestroying().ToList(), oldPlayer.Ammo, oldPlayer.Role, oldPlayer.Health, oldPlayer.HumeShield, oldPlayer.Position);
+        
+        if (!checkSubclass || oldPlayer.TryGetSubclass(out SubclassBase subclass))
+            return;
+        
+        oldPlayer.ForceSavedSubclass(subclass);
+
+        Timing.CallDelayed(0.4f, () =>
+        {
+            replacer.ForceSubclass(subclass);
+        });
     }
     
     private static void SetData(this CursedPlayer target, List<CursedItem> items, Dictionary<ItemType, ushort> ammo, RoleTypeId role, float health, float humeShield, Vector3 position)
@@ -52,9 +40,9 @@ public static class OriginsPlayerReplacer
         
         if (role != RoleTypeId.None)
             target.SetRole(role, RoleChangeReason.RemoteAdmin, RoleSpawnFlags.None);
-        
-        target.HealthStat.CurValue = health;
-        target.HumeShieldStat.CurValue = humeShield;
+
+        target.Health = health;
+        target.HumeShield = humeShield;
         
         if (position != Vector3.zero)
             target.Position = position;

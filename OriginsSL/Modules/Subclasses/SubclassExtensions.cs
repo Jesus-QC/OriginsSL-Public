@@ -33,10 +33,12 @@ public static class SubclassExtensions
     public static void ForceSubclass(this CursedPlayer player, SubclassBase subclass)
     {
         player.SetSubclass(subclass);
+        
         if (subclass.PlayerSize != Vector3.zero)
             player.Scale = subclass.PlayerSize;
         if (subclass.FakeSize != Vector3.zero)
             player.FakeScale = subclass.FakeSize;
+        
         PlayerSpawningEventArgs spawningArgs = new (player.ReferenceHub, player.RoleBase, player.Position, player.HorizontalRotation);
         SubclassManager.OnSpawning(spawningArgs);
         player.Position = spawningArgs.SpawnPosition;
