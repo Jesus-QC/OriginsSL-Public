@@ -193,7 +193,6 @@
         <Compile Include="Modules\CustomItems\CustomItemExtensions.cs" />
         <Compile Include="Modules\CustomItems\CustomItemManager.cs" />
         <Compile Include="Modules\CustomItems\CustomItemSpawner.cs" />
-        <Compile Include="Modules\CustomItems\ICustomItem.cs" />
         <Compile Include="Modules\CustomItems\ICustomItemEventsHandler.cs" />
         <Compile Include="Modules\CustomItems\Items\Coins\SpecialCoin.cs" />
         <Compile Include="Modules\CustomItems\Items\Painkillers\SpecialPills.cs" />

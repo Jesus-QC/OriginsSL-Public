@@ -36,12 +36,12 @@ public class SetCustomItemCommand : ICommand, IUsageProvider
         }
 
         ItemType itemType = ItemType.None;
-        ICustomItem item = null;
+        CustomItemBase item = null;
         string args = arguments.At(1).ToLower();
         
-        foreach (KeyValuePair<ItemType, ICustomItem[]> customItem in CustomItemManager.NaturallySpawnedItems)
+        foreach (KeyValuePair<ItemType, CustomItemBase[]> customItem in CustomItemManager.NaturallySpawnedItems)
         {
-            foreach (ICustomItem availableCustomItem in customItem.Value)
+            foreach (CustomItemBase availableCustomItem in customItem.Value)
             {
                 if (availableCustomItem.CodeName.ToLower() != args) 
                     continue;
@@ -59,7 +59,7 @@ public class SetCustomItemCommand : ICommand, IUsageProvider
         {
             response = "CustomItem not found. Available custom items:";
             
-            foreach (KeyValuePair<ItemType, ICustomItem[]> customItems in CustomItemManager.NaturallySpawnedItems)
+            foreach (KeyValuePair<ItemType, CustomItemBase[]> customItems in CustomItemManager.NaturallySpawnedItems)
             {
                 response += $"\n{customItems.Key}:";
                 response = customItems.Value.Aggregate(response, (current, availableSubclass) => current + $"\n\t{availableSubclass.CodeName}");
@@ -71,7 +71,7 @@ public class SetCustomItemCommand : ICommand, IUsageProvider
         {
             ushort serial = player.AddItem(itemType).Serial;
             
-            CustomItemManager.ForceCustomItem(serial, Activator.CreateInstance(item.GetType()) as ICustomItem);
+            CustomItemManager.ForceCustomItem(serial, Activator.CreateInstance(item.GetType()) as CustomItemBase);
         }
 
         response = $"Done for {players.Count} players";
