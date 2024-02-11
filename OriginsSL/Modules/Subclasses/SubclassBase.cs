@@ -32,6 +32,8 @@ public abstract class SubclassBase
     
     public virtual bool IsLocked { get; set; } = false;
 
+    public virtual bool SkipSpawning { get; set; } = false;
+
     public virtual bool FilterSubclass(CursedPlayer player) => true;
 
     public virtual void OnSpawn(CursedPlayer player) { }

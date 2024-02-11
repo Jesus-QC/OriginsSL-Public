@@ -135,9 +135,12 @@ public class SubclassManager : OriginsModule
         {
             if (oldSubclass.IsLocked)
                 return;
-            
+
             if (oldSubclass.KeepAfterEscaping && args.ChangeReason is RoleChangeReason.Escaped)
+            {
+                oldSubclass.SkipSpawning = true;
                 return;
+            }
         }
         
         SubclassBase subclass = GetRandomSubclass(args.NewRole, args.Player);
@@ -167,6 +170,12 @@ public class SubclassManager : OriginsModule
     {
         if (!args.Player.TryGetSubclass(out SubclassBase subclass))
             return;
+
+        if (subclass.SkipSpawning)
+        {
+            subclass.SkipSpawning = false;
+            return;
+        }
         
         if (subclass.SpawnLocation != RoleTypeId.None)
             args.SpawnPosition = CursedRoleManager.GetRoleSpawnPosition(subclass.SpawnLocation);
@@ -202,13 +211,13 @@ public class SubclassManager : OriginsModule
             
         subclass.OnSpawn(player);
     }
+    
     private static void OnPlayerDying(ICursedPlayerEvent args)
     {
         if (!args.Player.TryGetSubclass(out SubclassBase subclass))
             return;
         
         subclass.OnDeath(args.Player);
-        args.Player.SetSubclass(null);
     }
 
     private static void OnPlayerDisconnecting(PlayerDisconnectingEventArgs args)
