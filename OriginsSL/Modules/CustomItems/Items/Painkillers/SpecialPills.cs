@@ -33,7 +33,7 @@ public class SpecialPills : CustomItemBase
             if (!CursedRound.HasStarted)
                 return;
                 
-            if (!CustomItemManager.TryGetCustomItem(args.Item.Serial, out ICustomItem item) || item is not SpecialPills)
+            if (!CustomItemManager.TryGetCustomItem(args.Item.Serial, out CustomItemBase item) || item is not SpecialPills)
                 return;
             
             switch (Random.value)

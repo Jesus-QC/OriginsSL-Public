@@ -1,12 +1,12 @@
 namespace OriginsSL.Modules.CustomItems;
 
-public abstract class CustomItemBase : ICustomItem
+public abstract class CustomItemBase
 { 
-    public virtual string CodeName => "";
+    public abstract string CodeName { get; }
     
-    public virtual string Name => "";
+    public abstract string Name { get; }
     
-    public virtual string Description => string.Empty;
+    public abstract string Description { get; }
 
     public virtual float SpawnChance => 0f;
 

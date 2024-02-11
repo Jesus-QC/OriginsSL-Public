@@ -31,7 +31,7 @@ public class SpecialCoin : CustomItemBase
         
         private static void OnPlayerFlippingCoin(PlayerFlippingCoinEventArgs args)
         {
-            if (!args.Player.TryGetCurrentCustomItem(out ICustomItem item) || item is not SpecialCoin)
+            if (!args.Player.TryGetCurrentCustomItem(out CustomItemBase item) || item is not SpecialCoin)
                 return;
 
             args.Player.RemoveItem(args.Item);
