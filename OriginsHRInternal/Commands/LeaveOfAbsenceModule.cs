@@ -29,7 +29,7 @@ public class LeaveOfAbsenceModule : InteractionModuleBase<SocketInteractionConte
             return;
         }
         
-        if (start < DateTime.Now)
+        if (start < DateTime.Today)
         {
             await RespondAsync("The start date cannot be in the past.", ephemeral: true);
             return;
