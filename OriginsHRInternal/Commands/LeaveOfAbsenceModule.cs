@@ -70,7 +70,7 @@ public class LeaveOfAbsenceModule : InteractionModuleBase<SocketInteractionConte
         await RespondAsync("You have cancelled a leave of absence.", ephemeral: true);
     }
     
-    [DefaultMemberPermissions(GuildPermission.Administrator)]
+    [RequireOwner]
     [SlashCommand("refresh", "refreshes loas.")]
     public async Task RefreshLoa()
     {
