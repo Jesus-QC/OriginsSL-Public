@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginsBot", "OriginsBot\Or
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginsHR", "OriginsHR\OriginsHR.csproj", "{3D596EC2-8A9D-4040-88A8-479C6804268F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginsHRInternal", "OriginsHRInternal\OriginsHRInternal.csproj", "{0F188D0B-23EC-409E-BA10-C10CA1B3855D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D596EC2-8A9D-4040-88A8-479C6804268F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F188D0B-23EC-409E-BA10-C10CA1B3855D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F188D0B-23EC-409E-BA10-C10CA1B3855D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F188D0B-23EC-409E-BA10-C10CA1B3855D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F188D0B-23EC-409E-BA10-C10CA1B3855D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
