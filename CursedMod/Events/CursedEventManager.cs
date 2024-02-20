@@ -125,7 +125,6 @@ public static class CursedEventManager
             {
                 CursedLogger.LogError("An error occurred while handling the event " + eventHandler.Method.Name);
                 CursedLogger.LogError(e.ToString());
-                throw;
             }
         }
     }
@@ -149,7 +148,6 @@ public static class CursedEventManager
             {
                 CursedLogger.LogError("An error occurred while handling the event " + eventHandler.Method.Name);
                 CursedLogger.LogError(e.ToString());
-                throw;
             }
         }
     }
