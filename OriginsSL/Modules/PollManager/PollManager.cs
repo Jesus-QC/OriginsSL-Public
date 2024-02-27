@@ -29,7 +29,7 @@ public static class PollManager
         return true;
     }
 
-    public static async Task RunPoll(string author, string description)
+    public static async Task<bool> RunPoll(string author, string description)
     {
         Author = author;
         Description = description;
@@ -46,9 +46,10 @@ public static class PollManager
         }
         
         if (Description != description)
-            return;
+            return false;
 
         InUse = false;
         CursedFacility.ShowBroadcast($"<size=50%>Poll Ended!</size>\n<color=#61ff69>\u2705 {AffirmativeVotes}</color> - <color=#ff61a0>{NegativeVotes} \u274c</color>", 10);
+        return AffirmativeVotes > NegativeVotes;
     }
 }

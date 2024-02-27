@@ -282,6 +282,8 @@
         <Compile Include="Modules\Subclasses\SubclassExtensions.cs" />
         <Compile Include="Modules\Subclasses\SubclassManager.cs" />
         <Compile Include="Modules\TeslaConditions\TeslaConditionsModule.cs" />
+        <Compile Include="Modules\TrustedMembers\TrustedMembersConfig.cs" />
+        <Compile Include="Modules\TrustedMembers\TrustedVoteBanCommand.cs" />
         <Compile Include="Modules\WelcomeMessage\WelcomeMessageModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

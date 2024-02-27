@@ -4,6 +4,7 @@ using HarmonyLib;
 using OriginsSL.Loader;
 using OriginsSL.Modules.LevelingSystem;
 using OriginsSL.Modules.ServerStatusMessage;
+using OriginsSL.Modules.TrustedMembers;
 using PluginAPI.Core;
 
 namespace OriginsSL;
@@ -28,6 +29,7 @@ public class EntryPoint : CursedModule
         ModuleLoader.Config = GetConfig<OriginsLoaderConfig>("loader");
         LevelingSystemModule.Config = GetConfig<LevelingConfig>("leveling");
         ServerStatusMessageModule.Config = GetConfig<ServerStatusMessageConfig>("serverstatusmessage");
+        TrustedVoteBanCommand.Config = GetConfig<TrustedMembersConfig>("trustedmembers");
         
         ModuleLoader.LoadModules();
         Log.Info("Loaded all modules");

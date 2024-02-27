@@ -18,7 +18,7 @@ public class ServerStatusMessageModule : OriginsModule
     
     private static readonly List<CancellationTokenSource> CancellationTokenSources = [];
 
-    private static DiscordRestClient _discordRestClient;
+    public static DiscordRestClient DiscordRestClient { get; private set; }
 
     public override void OnLoaded()
     {
@@ -40,12 +40,12 @@ public class ServerStatusMessageModule : OriginsModule
     
     private static async Task Timer(CancellationTokenSource cancellationTokenSource)
     {
-        _discordRestClient = new DiscordRestClient();
-        await _discordRestClient.LoginAsync(TokenType.Bot, Config.BotToken);
+        DiscordRestClient = new DiscordRestClient();
+        await DiscordRestClient.LoginAsync(TokenType.Bot, Config.BotToken);
         
-        RestGuild restGuild = await _discordRestClient.GetGuildAsync(Config.GuildId);
+        RestGuild restGuild = await DiscordRestClient.GetGuildAsync(Config.GuildId);
         RestTextChannel restTextChannel = await restGuild.GetTextChannelAsync(Config.ChannelId);
-        RestUserMessage newMessage = await GetMessageToEditAsync(_discordRestClient, restTextChannel);
+        RestUserMessage newMessage = await GetMessageToEditAsync(DiscordRestClient, restTextChannel);
         
         while (!cancellationTokenSource.IsCancellationRequested)
         {
