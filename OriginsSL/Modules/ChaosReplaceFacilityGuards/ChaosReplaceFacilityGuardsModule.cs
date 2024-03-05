@@ -23,7 +23,7 @@ public class ChaosReplaceFacilityGuardsModule : OriginsModule
     
     private static void OnChangingRole(PlayerChangingRoleEventArgs args)
     {
-        if (!_chaosSpawn || args.ChangeReason != RoleChangeReason.RoundStart)
+        if (!_chaosSpawn || args.ChangeReason is not (RoleChangeReason.RoundStart or RoleChangeReason.LateJoin))
             return;
         
         if (args.NewRole != RoleTypeId.FacilityGuard)
