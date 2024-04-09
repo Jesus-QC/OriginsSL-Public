@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CursedMod.Features.Wrappers.Player;
+using NorthwoodLib.Pools;
 using PlayerRoles;
 
 namespace OriginsSL.Features.Commands;
@@ -23,7 +24,7 @@ public static class CursedCommandUtils
                 return CursedPlayer.Collection.Where(player => player.IsDead).ToList();
         }
 
-        List<CursedPlayer> ret = new();
+        List<CursedPlayer> ret = ListPool<CursedPlayer>.Shared.Rent();
 
         foreach (string id in players.Split(' '))
         {
