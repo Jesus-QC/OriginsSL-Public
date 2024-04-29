@@ -181,6 +181,7 @@
         <Compile Include="Modules\AudioPlayer\AudioPlayerUtils.cs" />
         <Compile Include="Modules\AutoRestartTool\AutoRestartToolModule.cs" />
         <Compile Include="Modules\BetterEscapes\BetterEscapesPatch.cs" />
+        <Compile Include="Modules\BetterOneHit\BetterOneHitModule.cs" />
         <Compile Include="Modules\BetterSinkholes\BetterSinkholesModule.cs" />
         <Compile Include="Modules\BetterStartingInventories\BetterStartingInventoriesModule.cs" />
         <Compile Include="Modules\BetterVoiceChat\ScpProximityChatController.cs" />
@@ -231,6 +232,7 @@
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Database.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemEventsHandler.Player.cs" />
         <Compile Include="Modules\LevelingSystem\LevelingSystemModule.cs" />
+        <Compile Include="Modules\MovementFix\MovementFix.cs" />
         <Compile Include="Modules\PeanutExplode\PeanutExplodeModule.cs" />
         <Compile Include="Modules\PinkCandy\PinkCandyPatch.cs" />
         <Compile Include="Modules\PocketSucker\PocketSuckerModule.cs" />
