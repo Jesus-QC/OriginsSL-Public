@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using OriginsSL.Modules.GameModes.Misc.GameModeComponents;
-using PluginAPI.Core;
 
 namespace OriginsSL.Modules.GameModes;
 
