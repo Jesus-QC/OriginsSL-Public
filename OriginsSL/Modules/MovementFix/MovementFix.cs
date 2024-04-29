@@ -20,7 +20,7 @@ internal class MovementFix
         {
             new CodeInstruction(OpCodes.Ldarg_0),
             new CodeInstruction(OpCodes.Ldloc_3),
-            new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(FpcMotor), nameof(FpcMotor.Position))),
+            new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertySetter(typeof(FpcMotor), nameof(FpcMotor.Position))),
         });
 
         foreach (CodeInstruction instruction in newInstructions)
