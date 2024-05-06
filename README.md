@@ -2,4 +2,4 @@
 Offical Origins Development Project
 
 > [!IMPORTANT]  
-> In Development - Any unauthorized use of this code will be severely punished.
+> In Development - Any unauthorized use of this code will be punished.
